@@ -1,0 +1,8 @@
+name = "nexaweb-frontend"
+compatibility_date = "2026-02-18"
+
+[site]
+bucket = "./"
+
+[[routes]]
+pattern = "*"
