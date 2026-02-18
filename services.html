@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services – NexaWeb Agency</title>
+  <meta name="description" content="Découvrez toutes nos offres : site vitrine, boutique en ligne, site sur mesure, maintenance et optimisation SEO." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue:       #1A4A8C;
+      --blue-light: #2D6BC4;
+      --blue-pale:  #E8F0FB;
+      --green:      #2BA84A;
+      --green-light:#E6F7EB;
+      --orange:     #F47C30;
+      --orange-light:#FEF0E7;
+      --white:      #FFFFFF;
+      --off-white:  #F7F9FC;
+      --dark:       #0D1B2A;
+      --gray:       #6B7A8D;
+      --gray-light: #D1D9E6;
+      --radius:     14px;
+      --shadow:     0 4px 24px rgba(26,74,140,0.10);
+      --shadow-lg:  0 12px 48px rgba(26,74,140,0.16);
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--dark); line-height: 1.7; overflow-x: hidden; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── LANG TOGGLE ── */
+    .lang-toggle { display: flex; gap: 4px; align-items: center; }
+    .lang-toggle button {
+      background: none; border: 1.5px solid var(--gray-light);
+      border-radius: 6px; padding: 3px 10px; font-size: .78rem;
+      font-family: 'DM Sans', sans-serif; cursor: pointer;
+      color: var(--gray); transition: var(--transition);
+    }
+    .lang-toggle button.active { background: var(--blue); border-color: var(--blue); color: var(--white); font-weight: 600; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-light); transition: box-shadow var(--transition);
+    }
+    header.scrolled { box-shadow: var(--shadow); }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 68px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--blue); }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--green) 60%, var(--orange) 100%);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 22px; height: 22px; fill: white; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: .92rem; font-weight: 500; color: var(--dark); position: relative; padding-bottom: 2px; transition: color var(--transition); }
+    nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--green); transition: width var(--transition); }
+    nav a:hover { color: var(--blue); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    nav a.active { color: var(--blue); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: .9rem; cursor: pointer; border: none;
+      background: var(--blue); color: var(--white);
+      box-shadow: 0 2px 12px rgba(26,74,140,0.25); transition: var(--transition);
+    }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; transition: var(--transition); }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; background: white; z-index: 200;
+      flex-direction: column; padding: 80px 32px 40px; gap: 28px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.4rem; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--dark); transition: color var(--transition); }
+    .mobile-nav a:hover { color: var(--blue); }
+    .mobile-close { position: absolute; top: 18px; right: 24px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--dark); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding-top: 68px;
+      background: linear-gradient(135deg, #F7F9FC 0%, var(--blue-pale) 60%, var(--green-light) 100%);
+      position: relative; overflow: hidden;
+    }
+    .page-hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 80px 24px 64px; text-align: center;
+    }
+    .page-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); color: var(--green);
+      border: 1px solid rgba(43,168,74,0.25);
+      padding: 6px 16px; border-radius: 100px;
+      font-size: .82rem; font-weight: 600; margin-bottom: 20px;
+    }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); color: var(--dark); margin-bottom: 16px; }
+    .page-hero p  { font-size: 1.05rem; color: var(--gray); max-width: 580px; margin: 0 auto; line-height: 1.8; }
+
+    /* BG shapes */
+    .hero-bg-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .shape { position: absolute; border-radius: 50%; opacity: 0.12; animation: float 8s ease-in-out infinite; }
+    .shape-1 { width: 320px; height: 320px; background: var(--blue);  top: -80px; right: -60px; }
+    .shape-2 { width: 180px; height: 180px; background: var(--green); bottom: -40px; left: 5%; animation-delay: 3s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+      padding: 48px 24px 0;
+    }
+    .filter-btn {
+      padding: 8px 22px; border-radius: 100px; border: 2px solid var(--gray-light);
+      background: var(--white); font-family: 'DM Sans', sans-serif; font-size: .88rem;
+      font-weight: 600; color: var(--gray); cursor: pointer; transition: var(--transition);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--blue); border-color: var(--blue); color: var(--white);
+    }
+
+    /* ── SERVICES SECTION ── */
+    .services-section { padding: 64px 24px 96px; }
+    .services-inner { max-width: 1200px; margin: 0 auto; }
+
+    /* ── SERVICE BLOCK ── */
+    .service-block {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+      padding: 72px 0; border-bottom: 1px solid var(--gray-light);
+      opacity: 0; transform: translateY(32px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .service-block.visible { opacity: 1; transform: translateY(0); }
+    .service-block:last-child { border-bottom: none; }
+    .service-block.reverse { direction: rtl; }
+    .service-block.reverse > * { direction: ltr; }
+
+    .service-visual {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: var(--shadow-lg); position: relative; min-height: 340px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sv-bg { position: absolute; inset: 0; }
+    .sv-vitrine  { background: linear-gradient(135deg, #1A4A8C 0%, #2D6BC4 100%); }
+    .sv-ecommerce{ background: linear-gradient(135deg, #2BA84A 0%, #1A7C36 100%); }
+    .sv-mesure   { background: linear-gradient(135deg, #F47C30 0%, #C45B10 100%); }
+    .sv-maintenance { background: linear-gradient(135deg, #1A4A8C 0%, #2BA84A 100%); }
+    .sv-seo      { background: linear-gradient(135deg, #2BA84A 0%, #F47C30 100%); }
+
+    .sv-deco {
+      position: absolute; top: -40px; right: -40px;
+      width: 180px; height: 180px; background: rgba(255,255,255,0.08); border-radius: 50%;
+    }
+    .sv-deco2 {
+      position: absolute; bottom: -30px; left: -30px;
+      width: 120px; height: 120px; background: rgba(255,255,255,0.06); border-radius: 50%;
+    }
+
+    .sv-content { position: relative; z-index: 1; text-align: center; color: white; padding: 40px; }
+    .sv-emoji { font-size: 4rem; margin-bottom: 16px; display: block; }
+    .sv-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+    .sv-sub   { font-size: .88rem; opacity: .8; }
+
+    /* Mock cards inside visuals */
+    .sv-mockup {
+      position: relative; z-index: 1; padding: 32px; width: 100%;
+    }
+    .mock-card {
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+      padding: 16px 20px; margin-bottom: 12px; color: white;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .mock-card-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .mock-card-text { font-size: .85rem; opacity: .9; }
+    .mock-card-tag  {
+      margin-left: auto; flex-shrink: 0;
+      background: rgba(255,255,255,0.2); border-radius: 100px;
+      padding: 3px 10px; font-size: .72rem; font-weight: 700;
+    }
+
+    /* Content side */
+    .service-content {}
+    .service-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem; font-weight: 700; line-height: 1;
+      color: var(--gray-light); margin-bottom: -8px;
+    }
+    .service-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 8px;
+    }
+    .service-label::before { content:''; display:block; width:20px; height:2px; background:var(--blue); border-radius:2px; }
+    .service-content h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); color: var(--dark); margin-bottom: 14px; }
+    .service-content p  { font-size: .95rem; color: var(--gray); line-height: 1.85; margin-bottom: 28px; }
+
+    /* Features list */
+    .features-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 16px; border-radius: 10px; background: var(--off-white);
+      border: 1.5px solid var(--gray-light); transition: var(--transition);
+    }
+    .feature-item:hover { border-color: var(--blue); background: var(--blue-pale); }
+    .feature-check {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; color: white; font-weight: 700;
+    }
+    .check-blue   { background: var(--blue); }
+    .check-green  { background: var(--green); }
+    .check-orange { background: var(--orange); }
+    .feature-text { font-size: .9rem; font-weight: 500; }
+    .feature-sub  { font-size: .8rem; color: var(--gray); }
+
+    /* CTA button */
+    .service-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .95rem;
+      cursor: pointer; border: none; transition: var(--transition);
+    }
+    .cta-blue   { background: var(--blue);  color: white; box-shadow: 0 4px 16px rgba(26,74,140,0.25); }
+    .cta-green  { background: var(--green); color: white; box-shadow: 0 4px 16px rgba(43,168,74,0.25); }
+    .cta-orange { background: var(--orange);color: white; box-shadow: 0 4px 16px rgba(244,124,48,0.25); }
+    .service-cta:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+    /* ── PROCESS SECTION ── */
+    #process { background: var(--off-white); padding: 96px 24px; }
+    .process-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+    .section-tag::before { content:''; display:block; width:24px; height:2px; background:var(--blue); border-radius:2px; }
+    .section-title { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; color: var(--dark); margin-bottom: 16px; }
+    .section-sub   { font-size: 1rem; color: var(--gray); max-width: 520px; line-height: 1.8; margin-bottom: 56px; }
+
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+    .process-steps::before {
+      content: ''; position: absolute; top: 36px; left: 10%; right: 10%;
+      height: 2px; background: linear-gradient(90deg, var(--blue), var(--green));
+      z-index: 0;
+    }
+    .process-step { text-align: center; position: relative; z-index: 1; }
+    .step-circle {
+      width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; border: 3px solid white; box-shadow: var(--shadow);
+    }
+    .sc-1 { background: var(--blue); }
+    .sc-2 { background: var(--blue-light); }
+    .sc-3 { background: var(--green); }
+    .sc-4 { background: var(--orange); }
+    .step-num { position: absolute; top: -4px; right: calc(50% - 44px); width: 20px; height: 20px; background: white; border: 2px solid var(--blue); border-radius: 50%; font-size: .68rem; font-weight: 800; color: var(--blue); display: flex; align-items: center; justify-content: center; }
+    .process-step h4 { font-size: .95rem; font-weight: 700; margin-bottom: 6px; }
+    .process-step p  { font-size: .82rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── PRICING BANNER ── */
+    #pricing { padding: 96px 24px; background: var(--white); }
+    .pricing-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .pricing-banner {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 50%, var(--green) 100%);
+      border-radius: 24px; padding: 56px 48px; color: white; position: relative; overflow: hidden;
+    }
+    .pricing-banner::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; background:rgba(255,255,255,0.07); border-radius:50%; }
+    .pricing-banner h2 { font-size: clamp(1.5rem, 2.5vw, 2.2rem); margin-bottom: 12px; }
+    .pricing-banner p  { opacity: .85; margin-bottom: 32px; font-size: .95rem; line-height: 1.8; }
+    .pricing-actions   { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: white; color: var(--blue); font-weight: 700; padding: 14px 32px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: .95rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+    .btn-wa { background: #25D366; color: white; font-weight: 700; padding: 14px 32px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: .95rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand p { font-size: .88rem; line-height: 1.8; margin-top: 14px; max-width: 280px; }
+    .footer-logo { color: white; display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+    .footer-col h4 { color: white; font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: .88rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: .95rem; transition: var(--transition); cursor: pointer; }
+    .social-icon:hover { background: var(--green); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; font-size: .82rem; flex-wrap: wrap; gap: 12px; }
+
+    /* ── WA FLOAT ── */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.45); cursor: pointer; transition: var(--transition); }
+    .wa-float:hover { transform: scale(1.12); }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .service-block { grid-template-columns: 1fr; gap: 32px; }
+      .service-block.reverse { direction: ltr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .process-steps { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .pricing-banner { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/261327743094" target="_blank" class="wa-float" title="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.37 0 0 5.373 0 11.998c0 2.117.554 4.1 1.523 5.817L.057 23.998l6.348-1.427A11.948 11.948 0 0011.99 24c6.623 0 12-5.373 12-11.998C23.99 5.373 18.613 0 11.99 0zm0 21.818a9.826 9.826 0 01-5.011-1.37l-.36-.214-3.73.838.869-3.638-.234-.374A9.808 9.808 0 012.18 12c0-5.414 4.404-9.818 9.81-9.818 5.408 0 9.813 4.404 9.813 9.818s-4.405 9.818-9.813 9.818z"/></svg>
+</a>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()" data-fr="Accueil" data-en="Home">Accueil</a>
+  <a href="services.html" onclick="closeMobileNav()" data-fr="Services" data-en="Services">Services</a>
+  <a href="portfolio.html" onclick="closeMobileNav()" data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html" onclick="closeMobileNav()" data-fr="À propos" data-en="About">À propos</a>
+  <a href="blog.html" onclick="closeMobileNav()" data-fr="Blog" data-en="Blog">Blog</a>
+  <a href="contact.html" onclick="closeMobileNav()" data-fr="Contact" data-en="Contact">Contact</a>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg>
+      </div>
+      NexaWeb
+    </a>
+   <nav>
+  <a href="index.html" class="active" data-fr="Accueil" data-en="Home">Accueil</a>
+  <a href="services.html" data-fr="Services" data-en="Services">Services</a>
+  <a href="portfolio.html" data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html" data-fr="À propos" data-en="About">À propos</a>
+  <a href="blog.html" data-fr="Blog" data-en="Blog">Blog</a>
+</nav>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="active" onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('en')">EN</button>
+      </div>
+      <a href="contact.html" class="btn-primary" data-fr="Devis gratuit" data-en="Free quote">Devis gratuit</a>
+      <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+  </div>
+  <div class="page-hero-inner">
+    <div class="page-tag">🛠️ <span data-fr="Nos offres" data-en="Our offers">Nos offres</span></div>
+    <h1 data-fr="Des solutions web pour chaque projet" data-en="Web solutions for every project">Des solutions web pour chaque projet</h1>
+    <p data-fr="Transparence totale sur les services inclus, expertise locale, accompagnement de A à Z. Choisissez l'offre qui correspond à vos besoins." data-en="Total transparency on included services, local expertise, end-to-end support. Choose the offer that fits your needs.">Transparence totale sur les services inclus, expertise locale, accompagnement de A à Z. Choisissez l'offre qui correspond à vos besoins.</p>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" onclick="filterService('all', this)" data-fr="Tous les services" data-en="All services">Tous les services</button>
+  <button class="filter-btn" onclick="filterService('vitrine', this)"     data-fr="Site vitrine"      data-en="Showcase site">Site vitrine</button>
+  <button class="filter-btn" onclick="filterService('ecommerce', this)"   data-fr="E-commerce"        data-en="E-commerce">E-commerce</button>
+  <button class="filter-btn" onclick="filterService('mesure', this)"      data-fr="Sur mesure"        data-en="Custom">Sur mesure</button>
+  <button class="filter-btn" onclick="filterService('maintenance', this)" data-fr="Maintenance"       data-en="Maintenance">Maintenance</button>
+  <button class="filter-btn" onclick="filterService('seo', this)"         data-fr="SEO"               data-en="SEO">SEO</button>
+</div>
+
+<!-- SERVICES BLOCKS -->
+<div class="services-section">
+  <div class="services-inner">
+
+    <!-- 1. VITRINE -->
+    <div class="service-block" data-category="vitrine" id="s-vitrine">
+      <div class="service-visual">
+        <div class="sv-bg sv-vitrine"></div>
+        <div class="sv-deco"></div><div class="sv-deco2"></div>
+        <div class="sv-mockup">
+          <div class="mock-card">
+            <div class="mock-card-icon">🎨</div>
+            <div class="mock-card-text" data-fr="Design personnalisé & responsive" data-en="Custom & responsive design">Design personnalisé & responsive</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">📱</div>
+            <div class="mock-card-text" data-fr="Compatible mobile & tablette" data-en="Mobile & tablet compatible">Compatible mobile & tablette</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">🔍</div>
+            <div class="mock-card-text" data-fr="Optimisation SEO incluse" data-en="SEO optimization included">Optimisation SEO incluse</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">🌐</div>
+            <div class="mock-card-text" data-fr="Hébergement offert 1ère année" data-en="Free hosting 1st year">Hébergement offert 1ère année</div>
+            <div class="mock-card-tag">⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-content">
+        <div class="service-number">01</div>
+        <div class="service-label" data-fr="Site vitrine" data-en="Showcase site">Site vitrine</div>
+        <h2 data-fr="Site vitrine professionnel" data-en="Professional showcase website">Site vitrine professionnel</h2>
+        <p data-fr="Présentez votre activité avec élégance et professionnalisme. Un site vitrine bien conçu inspire confiance, attire des clients et reflète l'image de marque que vous souhaitez projeter." data-en="Present your business with elegance and professionalism. A well-designed showcase site inspires trust, attracts clients and reflects the brand image you want to project.">Présentez votre activité avec élégance et professionnalisme. Un site vitrine bien conçu inspire confiance, attire des clients et reflète l'image de marque que vous souhaitez projeter.</p>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-check check-blue">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Design personnalisé & responsive" data-en="Custom & responsive design">Design personnalisé & responsive</div>
+              <div class="feature-sub" data-fr="Adapté à tous les écrans : mobile, tablette, ordinateur" data-en="Adapted to all screens: mobile, tablet, computer">Adapté à tous les écrans : mobile, tablette, ordinateur</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-blue">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Pages principales complètes" data-en="Complete main pages">Pages principales complètes</div>
+              <div class="feature-sub" data-fr="Accueil, À propos, Services, Contact" data-en="Home, About, Services, Contact">Accueil, À propos, Services, Contact</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-blue">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Formulaire de contact & réseaux sociaux" data-en="Contact form & social networks">Formulaire de contact & réseaux sociaux</div>
+              <div class="feature-sub" data-fr="Intégration Facebook, WhatsApp, Instagram..." data-en="Facebook, WhatsApp, Instagram integration...">Intégration Facebook, WhatsApp, Instagram...</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Hébergement & nom de domaine offerts" data-en="Hosting & domain name included">Hébergement & nom de domaine offerts</div>
+              <div class="feature-sub" data-fr="Offerts la première année (en option)" data-en="Free for the first year (optional)">Offerts la première année (en option)</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Optimisation SEO basique" data-en="Basic SEO optimization">Optimisation SEO basique</div>
+              <div class="feature-sub" data-fr="Pour être visible sur Google dès le lancement" data-en="To be visible on Google from launch">Pour être visible sur Google dès le lancement</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="contact.html" class="service-cta cta-blue" data-fr="Demander un devis gratuit →" data-en="Request a free quote →">Demander un devis gratuit →</a>
+      </div>
+    </div>
+
+    <!-- 2. E-COMMERCE -->
+    <div class="service-block reverse" data-category="ecommerce" id="s-ecommerce">
+      <div class="service-visual">
+        <div class="sv-bg sv-ecommerce"></div>
+        <div class="sv-deco"></div><div class="sv-deco2"></div>
+        <div class="sv-mockup">
+          <div class="mock-card">
+            <div class="mock-card-icon">🛒</div>
+            <div class="mock-card-text" data-fr="Catalogue produits illimité" data-en="Unlimited product catalog">Catalogue produits illimité</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">💳</div>
+            <div class="mock-card-text" data-fr="Paiement sécurisé intégré" data-en="Integrated secure payment">Paiement sécurisé intégré</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">📦</div>
+            <div class="mock-card-text" data-fr="Gestion des stocks & livraisons" data-en="Stock & delivery management">Gestion des stocks & livraisons</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">🎓</div>
+            <div class="mock-card-text" data-fr="Formation & accompagnement" data-en="Training & support">Formation & accompagnement</div>
+            <div class="mock-card-tag">⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-content">
+        <div class="service-number">02</div>
+        <div class="service-label" data-fr="E-commerce" data-en="E-commerce">E-commerce</div>
+        <h2 data-fr="Boutique en ligne complète" data-en="Complete online store">Boutique en ligne complète</h2>
+        <p data-fr="Lancez votre boutique en ligne et vendez vos produits 24h/24, 7j/7. Nous créons une expérience d'achat intuitive, sécurisée et optimisée pour maximiser vos ventes." data-en="Launch your online store and sell your products 24/7. We create an intuitive, secure and optimized shopping experience to maximize your sales.">Lancez votre boutique en ligne et vendez vos produits 24h/24, 7j/7. Nous créons une expérience d'achat intuitive, sécurisée et optimisée pour maximiser vos ventes.</p>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Catalogue produits illimité" data-en="Unlimited product catalog">Catalogue produits illimité</div>
+              <div class="feature-sub" data-fr="Ajoutez autant de produits que vous voulez" data-en="Add as many products as you want">Ajoutez autant de produits que vous voulez</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Modules de paiement sécurisés" data-en="Secure payment modules">Modules de paiement sécurisés</div>
+              <div class="feature-sub" data-fr="Mobile Money, carte bancaire, virement..." data-en="Mobile Money, credit card, transfer...">Mobile Money, carte bancaire, virement...</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Gestion des stocks & commandes" data-en="Stock & order management">Gestion des stocks & commandes</div>
+              <div class="feature-sub" data-fr="Interface d'administration simple et puissante" data-en="Simple and powerful admin interface">Interface d'administration simple et puissante</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Options de livraison personnalisées" data-en="Customized shipping options">Options de livraison personnalisées</div>
+              <div class="feature-sub" data-fr="Configurez vos zones et tarifs de livraison" data-en="Configure your shipping zones and rates">Configurez vos zones et tarifs de livraison</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-orange">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Formation complète & accompagnement" data-en="Full training & support">Formation complète & accompagnement</div>
+              <div class="feature-sub" data-fr="Nous vous apprenons à gérer votre boutique en autonomie" data-en="We teach you to manage your store independently">Nous vous apprenons à gérer votre boutique en autonomie</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="contact.html" class="service-cta cta-green" data-fr="Démarrer ma boutique →" data-en="Start my store →">Démarrer ma boutique →</a>
+      </div>
+    </div>
+
+    <!-- 3. SUR MESURE -->
+    <div class="service-block" data-category="mesure" id="s-mesure">
+      <div class="service-visual">
+        <div class="sv-bg sv-mesure"></div>
+        <div class="sv-deco"></div><div class="sv-deco2"></div>
+        <div class="sv-mockup">
+          <div class="mock-card">
+            <div class="mock-card-icon">🎯</div>
+            <div class="mock-card-text" data-fr="Design UX/UI sur mesure" data-en="Custom UX/UI design">Design UX/UI sur mesure</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">📅</div>
+            <div class="mock-card-text" data-fr="Réservation en ligne" data-en="Online booking">Réservation en ligne</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">🔐</div>
+            <div class="mock-card-text" data-fr="Sécurité renforcée" data-en="Enhanced security">Sécurité renforcée</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">⚡</div>
+            <div class="mock-card-text" data-fr="Performance multi-supports" data-en="Multi-device performance">Performance multi-supports</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-content">
+        <div class="service-number">03</div>
+        <div class="service-label" data-fr="Sur mesure" data-en="Custom">Sur mesure</div>
+        <h2 data-fr="Site web sur mesure & fonctionnalités avancées" data-en="Custom website & advanced features">Site web sur mesure & fonctionnalités avancées</h2>
+        <p data-fr="Votre projet est unique ? Nous le créons de A à Z selon vos besoins spécifiques. Que vous ayez besoin d'un système de réservation, d'un espace membre ou d'un portail complexe, nous avons l'expertise." data-en="Is your project unique? We create it from A to Z according to your specific needs. Whether you need a booking system, member area or complex portal, we have the expertise.">Votre projet est unique ? Nous le créons de A à Z selon vos besoins spécifiques.</p>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-check check-orange">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Design UX/UI selon votre charte graphique" data-en="UX/UI design based on your brand identity">Design UX/UI selon votre charte graphique</div>
+              <div class="feature-sub" data-fr="Interface unique, pensée pour vos utilisateurs" data-en="Unique interface, designed for your users">Interface unique, pensée pour vos utilisateurs</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-orange">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Fonctionnalités avancées intégrées" data-en="Integrated advanced features">Fonctionnalités avancées intégrées</div>
+              <div class="feature-sub" data-fr="Blog, forum, réservation, espace membre, etc." data-en="Blog, forum, booking, member area, etc.">Blog, forum, réservation, espace membre, etc.</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-orange">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Sécurité renforcée & SEO avancé" data-en="Enhanced security & advanced SEO">Sécurité renforcée & SEO avancé</div>
+              <div class="feature-sub" data-fr="Protection des données et optimisation maximale" data-en="Data protection and maximum optimization">Protection des données et optimisation maximale</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-blue">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Support technique personnalisé" data-en="Personalized technical support">Support technique personnalisé</div>
+              <div class="feature-sub" data-fr="Un interlocuteur dédié pour votre projet" data-en="A dedicated contact for your project">Un interlocuteur dédié pour votre projet</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="contact.html" class="service-cta cta-orange" data-fr="Discuter de mon projet →" data-en="Discuss my project →">Discuter de mon projet →</a>
+      </div>
+    </div>
+
+    <!-- 4. MAINTENANCE -->
+    <div class="service-block reverse" data-category="maintenance" id="s-maintenance">
+      <div class="service-visual">
+        <div class="sv-bg sv-maintenance"></div>
+        <div class="sv-deco"></div><div class="sv-deco2"></div>
+        <div class="sv-mockup">
+          <div class="mock-card">
+            <div class="mock-card-icon">🔄</div>
+            <div class="mock-card-text" data-fr="Mises à jour régulières" data-en="Regular updates">Mises à jour régulières</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">💾</div>
+            <div class="mock-card-text" data-fr="Sauvegardes automatiques" data-en="Automatic backups">Sauvegardes automatiques</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">🛡️</div>
+            <div class="mock-card-text" data-fr="Surveillance sécurité 24/7" data-en="24/7 security monitoring">Surveillance sécurité 24/7</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">⚡</div>
+            <div class="mock-card-text" data-fr="Optimisation performances" data-en="Performance optimization">Optimisation performances</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-content">
+        <div class="service-number">04</div>
+        <div class="service-label" data-fr="Maintenance" data-en="Maintenance">Maintenance</div>
+        <h2 data-fr="Maintenance & mises à jour continues" data-en="Continuous maintenance & updates">Maintenance & mises à jour continues</h2>
+        <p data-fr="Un site web nécessite un entretien régulier pour rester sécurisé, rapide et performant. Notre forfait maintenance vous libère de toutes ces contraintes techniques." data-en="A website requires regular maintenance to stay secure, fast and high-performing. Our maintenance plan frees you from all these technical constraints.">Un site web nécessite un entretien régulier pour rester sécurisé, rapide et performant. Notre forfait maintenance vous libère de toutes ces contraintes techniques.</p>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-check check-blue">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Mises à jour régulières" data-en="Regular updates">Mises à jour régulières</div>
+              <div class="feature-sub" data-fr="CMS, plugins, thèmes toujours à jour" data-en="CMS, plugins, themes always up to date">CMS, plugins, thèmes toujours à jour</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-blue">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Sauvegardes automatiques" data-en="Automatic backups">Sauvegardes automatiques</div>
+              <div class="feature-sub" data-fr="Vos données protégées et récupérables à tout moment" data-en="Your data protected and recoverable at any time">Vos données protégées et récupérables à tout moment</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Support technique réactif" data-en="Responsive technical support">Support technique réactif</div>
+              <div class="feature-sub" data-fr="Réponse garantie sous 24h ouvrées" data-en="Response guaranteed within 24 business hours">Réponse garantie sous 24h ouvrées</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Optimisation des performances" data-en="Performance optimization">Optimisation des performances</div>
+              <div class="feature-sub" data-fr="Temps de chargement optimisé, correction de bugs" data-en="Optimized load times, bug fixes">Temps de chargement optimisé, correction de bugs</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="contact.html" class="service-cta cta-blue" data-fr="Souscrire à la maintenance →" data-en="Subscribe to maintenance →">Souscrire à la maintenance →</a>
+      </div>
+    </div>
+
+    <!-- 5. SEO -->
+    <div class="service-block" data-category="seo" id="s-seo">
+      <div class="service-visual">
+        <div class="sv-bg sv-seo"></div>
+        <div class="sv-deco"></div><div class="sv-deco2"></div>
+        <div class="sv-mockup">
+          <div class="mock-card">
+            <div class="mock-card-icon">🔍</div>
+            <div class="mock-card-text" data-fr="Audit SEO complet" data-en="Full SEO audit">Audit SEO complet</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">📊</div>
+            <div class="mock-card-text" data-fr="Google Analytics & rapports" data-en="Google Analytics & reports">Google Analytics & rapports</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">📝</div>
+            <div class="mock-card-text" data-fr="Optimisation contenu & mots-clés" data-en="Content & keyword optimization">Optimisation contenu & mots-clés</div>
+            <div class="mock-card-tag">✓</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-icon">📈</div>
+            <div class="mock-card-text" data-fr="Suivi & conseils stratégiques" data-en="Tracking & strategic advice">Suivi & conseils stratégiques</div>
+            <div class="mock-card-tag">⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-content">
+        <div class="service-number">05</div>
+        <div class="service-label" data-fr="Référencement naturel" data-en="Natural referencing">Référencement naturel</div>
+        <h2 data-fr="Optimisation SEO professionnelle" data-en="Professional SEO optimization">Optimisation SEO professionnelle</h2>
+        <p data-fr="Être sur Google, c'est bien. Être en première page, c'est mieux. Notre service SEO vous aide à atteindre et maintenir une visibilité maximale sur les moteurs de recherche." data-en="Being on Google is good. Being on the first page is better. Our SEO service helps you achieve and maintain maximum visibility on search engines.">Être sur Google, c'est bien. Être en première page, c'est mieux. Notre service SEO vous aide à atteindre et maintenir une visibilité maximale sur les moteurs de recherche.</p>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Audit complet de votre site" data-en="Complete audit of your site">Audit complet de votre site</div>
+              <div class="feature-sub" data-fr="Analyse technique, contenu et concurrence" data-en="Technical, content and competitor analysis">Analyse technique, contenu et concurrence</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Optimisation technique & contenu" data-en="Technical & content optimization">Optimisation technique & contenu</div>
+              <div class="feature-sub" data-fr="Balises, vitesse, structure, mots-clés ciblés" data-en="Tags, speed, structure, targeted keywords">Balises, vitesse, structure, mots-clés ciblés</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-green">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Suivi Google Analytics" data-en="Google Analytics tracking">Suivi Google Analytics</div>
+              <div class="feature-sub" data-fr="Tableau de bord et rapports mensuels personnalisés" data-en="Dashboard and personalized monthly reports">Tableau de bord et rapports mensuels personnalisés</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check check-orange">✓</div>
+            <div>
+              <div class="feature-text" data-fr="Conseils stratégiques continus" data-en="Ongoing strategic advice">Conseils stratégiques continus</div>
+              <div class="feature-sub" data-fr="Pour booster votre référencement sur le long terme" data-en="To boost your rankings in the long term">Pour booster votre référencement sur le long terme</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="contact.html" class="service-cta cta-green" data-fr="Booster mon SEO →" data-en="Boost my SEO →">Booster mon SEO →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-inner">
+    <div class="section-tag" data-fr="Notre méthode" data-en="Our method">Notre méthode</div>
+    <h2 class="section-title" data-fr="Comment ça se passe ?" data-en="How does it work?">Comment ça se passe ?</h2>
+    <p class="section-sub" data-fr="Un processus clair et transparent, de votre idée à la mise en ligne." data-en="A clear and transparent process, from your idea to going live.">Un processus clair et transparent, de votre idée à la mise en ligne.</p>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-circle sc-1">
+          <div class="step-num">1</div>
+          💬
+        </div>
+        <h4 data-fr="Consultation gratuite" data-en="Free consultation">Consultation gratuite</h4>
+        <p data-fr="Nous discutons de votre projet, vos besoins et vos objectifs pour établir un devis précis." data-en="We discuss your project, needs and goals to establish an accurate quote.">Nous discutons de votre projet, vos besoins et vos objectifs pour établir un devis précis.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle sc-2">
+          <div class="step-num">2</div>
+          🎨
+        </div>
+        <h4 data-fr="Design & validation" data-en="Design & validation">Design & validation</h4>
+        <p data-fr="Nous créons une maquette que vous validez avant que nous passions au développement." data-en="We create a mockup that you approve before we move to development.">Nous créons une maquette que vous validez avant que nous passions au développement.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle sc-3">
+          <div class="step-num">3</div>
+          ⚙️
+        </div>
+        <h4 data-fr="Développement" data-en="Development">Développement</h4>
+        <p data-fr="Nous développons votre site selon le planning défini, avec des points réguliers d'avancement." data-en="We develop your site according to the defined schedule, with regular progress updates.">Nous développons votre site selon le planning défini, avec des points réguliers d'avancement.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle sc-4">
+          <div class="step-num">4</div>
+          🚀
+        </div>
+        <h4 data-fr="Mise en ligne & suivi" data-en="Launch & follow-up">Mise en ligne & suivi</h4>
+        <p data-fr="Votre site est lancé ! Nous assurons le suivi et restons disponibles pour tout besoin." data-en="Your site is launched! We monitor and remain available for any need.">Votre site est lancé ! Nous assurons le suivi et restons disponibles pour tout besoin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING BANNER -->
+<section id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-banner">
+      <h2 data-fr="Prêt à démarrer votre projet ?" data-en="Ready to start your project?">Prêt à démarrer votre projet ?</h2>
+      <p data-fr="Contactez-nous pour un devis personnalisé et gratuit. Nous répondons sous 24h et vous proposons la solution la plus adaptée à votre budget et vos besoins." data-en="Contact us for a free, personalized quote. We respond within 24h and offer you the most suitable solution for your budget and needs.">Contactez-nous pour un devis personnalisé et gratuit. Nous répondons sous 24h et vous proposons la solution la plus adaptée à votre budget et vos besoins.</p>
+      <div class="pricing-actions">
+        <a href="contact.html" class="btn-white">✉️ <span data-fr="Envoyer un email" data-en="Send an email">Envoyer un email</span></a>
+        <a href="https://wa.me/261327743094" target="_blank" class="btn-wa">💬 <span data-fr="WhatsApp" data-en="WhatsApp">WhatsApp</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+          NexaWeb Agency
+        </div>
+        <p data-fr="Votre partenaire pour une présence en ligne professionnelle, élégante et performante à Madagascar." data-en="Your partner for a professional, elegant and high-performance online presence in Madagascar.">Votre partenaire pour une présence en ligne professionnelle, élégante et performante à Madagascar.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61579980088577" class="social-icon">📘</a>
+          <a href="https://wa.me/261327743094" class="social-icon">💬</a>
+          <a href="contact.html" class="social-icon" title="Email">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Services" data-en="Services">Services</h4>
+        <ul>
+          <li><a href="#s-vitrine"     data-fr="Site vitrine"     data-en="Showcase site">Site vitrine</a></li>
+          <li><a href="#s-ecommerce"   data-fr="Boutique en ligne" data-en="Online store">Boutique en ligne</a></li>
+          <li><a href="#s-mesure"      data-fr="Sur mesure"       data-en="Custom site">Sur mesure</a></li>
+          <li><a href="#s-maintenance" data-fr="Maintenance"      data-en="Maintenance">Maintenance</a></li>
+          <li><a href="#s-seo"         data-fr="SEO"              data-en="SEO">SEO</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Navigation" data-en="Navigation">Navigation</h4>
+        <ul>
+          <li><a href="index.html"    data-fr="Accueil"   data-en="Home">Accueil</a></li>
+          <li><a href="#services" data-fr="Services" data-en="Services">Services</a></li>
+          <li><a href="portfolio.html" data-fr="Portfolio" data-en="Portfolio">Portfolio</a></li>
+          <li><a href="apropos.html" data-fr="À propos" data-en="About">À propos</a></li>
+          <li><a href="blog.html" data-fr="Blog" data-en="Blog">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+        <ul>
+          <li><a href="tel:+261327743094">+261 32 77 430 94</a></li>
+          <li><a href="contact.html">agencynexaweb@gmail.com</a></li>
+          <li><a href="https://wa.me/261327743094" data-fr="WhatsApp" data-en="WhatsApp">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-fr="© 2025 NexaWeb Agency. Tous droits réservés." data-en="© 2025 NexaWeb Agency. All rights reserved.">© 2025 NexaWeb Agency. Tous droits réservés.</span>
+      <span data-fr="Fait avec ❤️ à Madagascar" data-en="Made with ❤️ in Madagascar">Fait avec ❤️ à Madagascar</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── LANG ──
+  function setLang(lang) {
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
+    });
+    document.querySelectorAll('.lang-toggle button').forEach((btn, i) => {
+      btn.classList.toggle('active', (i === 0 && lang === 'fr') || (i === 1 && lang === 'en'));
+    });
+  }
+
+  // ── HEADER SCROLL ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── MOBILE NAV ──
+  function openMobileNav()  { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // ── FILTER ──
+  function filterService(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.service-block').forEach(block => {
+      if (cat === 'all' || block.dataset.category === cat) {
+        block.style.display = 'grid';
+      } else {
+        block.style.display = 'none';
+      }
+    });
+    // scroll to first visible
+    const first = document.querySelector('.service-block[style="display: grid;"], .service-block:not([style*="none"])');
+    if (cat !== 'all' && first) {
+      setTimeout(() => first.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+  }
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-block').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

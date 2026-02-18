@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexaWeb Agency – Votre présence en ligne professionnelle</title>
+  <meta name="description" content="NexaWeb Agency, votre partenaire digital à Madagascar. Sites vitrines, e-commerce, SEO et maintenance web." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue:     #1A4A8C;
+      --blue-light: #2D6BC4;
+      --blue-pale: #E8F0FB;
+      --green:    #2BA84A;
+      --green-light: #E6F7EB;
+      --orange:   #F47C30;
+      --white:    #FFFFFF;
+      --off-white:#F7F9FC;
+      --dark:     #0D1B2A;
+      --gray:     #6B7A8D;
+      --gray-light:#D1D9E6;
+      --radius:   12px;
+      --shadow:   0 4px 24px rgba(26,74,140,0.10);
+      --shadow-lg:0 12px 48px rgba(26,74,140,0.16);
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+
+    a { text-decoration: none; color: inherit; }
+
+    img { display: block; max-width: 100%; }
+
+    /* ── LANG TOGGLE ── */
+    .lang-toggle {
+      display: flex; gap: 4px; align-items: center;
+    }
+    .lang-toggle button {
+      background: none; border: 1.5px solid var(--gray-light);
+      border-radius: 6px; padding: 3px 10px; font-size: .78rem;
+      font-family: 'DM Sans', sans-serif; cursor: pointer;
+      color: var(--gray); transition: var(--transition);
+    }
+    .lang-toggle button.active {
+      background: var(--blue); border-color: var(--blue);
+      color: var(--white); font-weight: 600;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-light);
+      transition: box-shadow var(--transition);
+    }
+    header.scrolled { box-shadow: var(--shadow); }
+
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 68px;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem; font-weight: 700; color: var(--blue);
+    }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--green) 60%, var(--orange) 100%);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 22px; height: 22px; fill: white; }
+
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a {
+      font-size: .92rem; font-weight: 500; color: var(--dark);
+      position: relative; padding-bottom: 2px; transition: color var(--transition);
+    }
+    nav a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--green);
+      transition: width var(--transition);
+    }
+    nav a:hover { color: var(--blue); }
+    nav a:hover::after { width: 100%; }
+
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .9rem;
+      cursor: pointer; border: none; transition: var(--transition);
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: .9rem; cursor: pointer; border: none;
+      background: var(--blue); color: var(--white);
+      box-shadow: 0 2px 12px rgba(26,74,140,0.25); transition: var(--transition);
+    }
+    .btn-primary:hover {
+      background: var(--blue-light);
+      box-shadow: 0 4px 20px rgba(26,74,140,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: transparent; color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+    .btn-outline:hover {
+      background: var(--blue); color: var(--white);
+      transform: translateY(-1px);
+    }
+    .btn-green {
+      background: var(--green); color: var(--white);
+      box-shadow: 0 2px 12px rgba(43,168,74,0.25);
+    }
+    .btn-green:hover {
+      background: #249040;
+      box-shadow: 0 4px 20px rgba(43,168,74,0.35);
+      transform: translateY(-1px);
+    }
+
+    /* ── HAMBURGER ── */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; transition: var(--transition); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 68px;
+      background: linear-gradient(135deg, #F7F9FC 0%, #E8F0FB 50%, #E6F7EB 100%);
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg-shapes {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+    }
+    .hero-bg-shapes .shape {
+      position: absolute; border-radius: 50%; opacity: 0.18;
+      animation: float 8s ease-in-out infinite;
+    }
+    .shape-1 { width: 420px; height: 420px; background: var(--blue); top: -80px; right: -100px; animation-delay: 0s; }
+    .shape-2 { width: 240px; height: 240px; background: var(--green); bottom: 60px; left: 5%; animation-delay: 2s; }
+    .shape-3 { width: 160px; height: 160px; background: var(--orange); top: 30%; right: 20%; animation-delay: 4s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-24px) scale(1.04); }
+    }
+
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; padding: 80px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); color: var(--green);
+      border: 1px solid rgba(43,168,74,0.25);
+      padding: 6px 16px; border-radius: 100px;
+      font-size: .82rem; font-weight: 600; margin-bottom: 20px;
+      animation: fadeUp .6s ease both;
+    }
+    .hero-badge .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 700; color: var(--dark); margin-bottom: 20px;
+      animation: fadeUp .7s .1s ease both;
+    }
+    .hero-title .accent { color: var(--blue); }
+    .hero-title .accent-green { color: var(--green); }
+
+    .hero-sub {
+      font-size: 1.08rem; color: var(--gray); max-width: 460px;
+      margin-bottom: 36px; line-height: 1.8;
+      animation: fadeUp .7s .2s ease both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fadeUp .7s .3s ease both;
+    }
+
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 44px;
+      animation: fadeUp .7s .4s ease both;
+    }
+    .stat { }
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--blue); }
+    .stat-label { font-size: .8rem; color: var(--gray); font-weight: 500; }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative; animation: fadeIn .9s .3s ease both;
+    }
+    .hero-card-main {
+      background: var(--white); border-radius: 20px;
+      box-shadow: var(--shadow-lg); padding: 28px;
+      position: relative; z-index: 2;
+    }
+    .hero-card-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .dot-red   { width:10px;height:10px;border-radius:50%;background:#FF5F57; }
+    .dot-yellow{ width:10px;height:10px;border-radius:50%;background:#FEBC2E; }
+    .dot-green { width:10px;height:10px;border-radius:50%;background:#28C840; }
+    .hero-card-url {
+      flex: 1; background: var(--off-white); border-radius: 6px;
+      padding: 4px 12px; font-size: .78rem; color: var(--gray);
+      font-family: monospace;
+    }
+    .hero-card-img {
+      width: 100%; height: 180px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue-pale), var(--green-light));
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; overflow: hidden; position: relative;
+    }
+    .hero-card-img svg { width: 64px; height: 64px; opacity: .4; }
+    .hero-card-lines { display: flex; flex-direction: column; gap: 8px; }
+    .hcl { height: 10px; background: var(--gray-light); border-radius: 4px; }
+    .hcl-70 { width: 70%; }
+    .hcl-50 { width: 50%; }
+    .hcl-85 { width: 85%; }
+
+    .hero-floating-1 {
+      position: absolute; top: -18px; right: -20px;
+      background: var(--white); border-radius: 14px; box-shadow: var(--shadow-lg);
+      padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+      font-size: .82rem; font-weight: 600; color: var(--green); z-index: 3;
+    }
+    .hero-floating-2 {
+      position: absolute; bottom: -16px; left: -20px;
+      background: var(--white); border-radius: 14px; box-shadow: var(--shadow-lg);
+      padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+      font-size: .82rem; font-weight: 600; color: var(--orange); z-index: 3;
+    }
+
+    @keyframes fadeUp  { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn  { from { opacity:0; transform:scale(.96); }       to { opacity:1; transform:scale(1); } }
+
+    /* ── SECTION BASE ── */
+    section { padding: 96px 24px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 12px;
+    }
+    .section-tag::before { content:''; display:block; width:24px;height:2px;background:var(--blue);border-radius:2px; }
+    .section-title { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; color: var(--dark); margin-bottom: 16px; }
+    .section-sub { font-size: 1rem; color: var(--gray); max-width: 540px; line-height: 1.8; margin-bottom: 56px; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--off-white); }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px;
+    }
+
+    .service-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 32px; border: 1.5px solid var(--gray-light);
+      transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; background: linear-gradient(90deg, var(--blue), var(--green));
+      transform: scaleX(0); transform-origin: left; transition: var(--transition);
+    }
+    .service-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-6px); border-color: transparent; }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 12px; display: flex;
+      align-items: center; justify-content: center; margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    .icon-blue   { background: var(--blue-pale); }
+    .icon-green  { background: var(--green-light); }
+    .icon-orange { background: #FEF0E7; }
+
+    .service-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+    .service-card p  { font-size: .9rem; color: var(--gray); line-height: 1.7; margin-bottom: 18px; }
+
+    .service-features { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+    .service-features li {
+      font-size: .85rem; color: var(--gray); display: flex; align-items: flex-start; gap: 8px;
+    }
+    .service-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+    .service-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .88rem; font-weight: 600; color: var(--blue);
+      transition: gap var(--transition);
+    }
+    .service-link:hover { gap: 12px; }
+
+    /* ── WHY US ── */
+    #why { background: var(--white); }
+
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+
+    .why-visual {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 50%, var(--green) 100%);
+      border-radius: 20px; padding: 48px 40px; color: white; position: relative; overflow: hidden;
+    }
+    .why-visual::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+    .why-visual::after {
+      content: ''; position: absolute; bottom: -40px; left: -40px;
+      width: 140px; height: 140px; background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+
+    .why-visual-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    .why-visual-sub   { font-size: .9rem; opacity: .8; margin-bottom: 32px; }
+
+    .why-metric { margin-bottom: 20px; }
+    .why-metric-label { font-size: .8rem; opacity: .75; margin-bottom: 6px; font-weight: 500; }
+    .why-metric-bar { height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; }
+    .why-metric-fill { height: 100%; background: white; border-radius: 3px; transition: width 1.5s ease; }
+
+    .why-items { display: flex; flex-direction: column; gap: 28px; }
+    .why-item  { display: flex; gap: 18px; }
+    .why-item-icon {
+      width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    }
+    .why-item-icon.blue   { background: var(--blue-pale); }
+    .why-item-icon.green  { background: var(--green-light); }
+    .why-item-icon.orange { background: #FEF0E7; }
+    .why-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .why-item p  { font-size: .88rem; color: var(--gray); line-height: 1.7; }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: var(--off-white); }
+
+    .portfolio-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+
+    .portfolio-card {
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: var(--transition);
+      background: var(--white);
+    }
+    .portfolio-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .portfolio-thumb {
+      height: 200px; position: relative; overflow: hidden;
+    }
+    .portfolio-thumb .grad {
+      position: absolute; inset: 0;
+    }
+    .g1 { background: linear-gradient(135deg, #1A4A8C, #2D6BC4); }
+    .g2 { background: linear-gradient(135deg, #2BA84A, #1A7C36); }
+    .g3 { background: linear-gradient(135deg, #F47C30, #C45B10); }
+    .portfolio-thumb-icon {
+      position: absolute; inset: 0; display: flex; align-items: center;
+      justify-content: center; font-size: 3rem; opacity: .7;
+    }
+    .portfolio-tag {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(255,255,255,0.18); backdrop-filter: blur(8px);
+      color: white; font-size: .72rem; font-weight: 700; padding: 4px 12px;
+      border-radius: 100px; border: 1px solid rgba(255,255,255,0.3);
+    }
+    .portfolio-info { padding: 20px; }
+    .portfolio-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .portfolio-info p  { font-size: .85rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--white); }
+
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--off-white); border-radius: var(--radius);
+      padding: 28px; border: 1.5px solid var(--gray-light);
+      transition: var(--transition);
+    }
+    .testimonial-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); border-color: var(--blue-pale); }
+
+    .testimonial-stars { color: #F4B942; font-size: 1rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .testimonial-text { font-size: .92rem; color: var(--gray); line-height: 1.8; margin-bottom: 20px; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .av-blue   { background: linear-gradient(135deg, var(--blue), var(--blue-light)); }
+    .av-green  { background: linear-gradient(135deg, var(--green), #1A7C36); }
+    .av-orange { background: linear-gradient(135deg, var(--orange), #C45B10); }
+    .testimonial-name  { font-size: .9rem; font-weight: 700; }
+    .testimonial-role  { font-size: .78rem; color: var(--gray); }
+
+    /* ── FAQ ── */
+    #faq { background: var(--off-white); }
+    .faq-inner { max-width: 780px; margin: 0 auto; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .faq-item {
+      background: var(--white); border-radius: var(--radius);
+      border: 1.5px solid var(--gray-light); overflow: hidden;
+      transition: var(--transition);
+    }
+    .faq-item.open { border-color: var(--blue); }
+
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; cursor: pointer; gap: 16px;
+    }
+    .faq-q span { font-size: .95rem; font-weight: 600; }
+    .faq-chevron {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--blue-pale); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; transition: var(--transition);
+    }
+    .faq-chevron svg { width: 14px; height: 14px; stroke: var(--blue); }
+    .faq-item.open .faq-chevron { background: var(--blue); transform: rotate(180deg); }
+    .faq-item.open .faq-chevron svg { stroke: white; }
+
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s;
+      padding: 0 24px; font-size: .9rem; color: var(--gray); line-height: 1.8;
+    }
+    .faq-a.open { max-height: 300px; padding-bottom: 20px; }
+
+    /* ── CTA ── */
+    #cta {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 50%, #1A7C36 100%);
+      padding: 96px 24px; text-align: center; position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: ''; position: absolute; top: -80px; left: -80px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    #cta::after {
+      content: ''; position: absolute; bottom: -60px; right: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .cta-inner { max-width: 620px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-inner h2 { color: white; font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 16px; }
+    .cta-inner p  { color: rgba(255,255,255,0.82); margin-bottom: 36px; font-size: 1rem; line-height: 1.8; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: white; color: var(--blue); font-weight: 700;
+      padding: 14px 32px; border-radius: 8px; border: none;
+      font-family: 'DM Sans', sans-serif; font-size: .95rem; cursor: pointer;
+      transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+    .btn-wa {
+      background: #25D366; color: white; font-weight: 700;
+      padding: 14px 32px; border-radius: 8px; border: none;
+      font-family: 'DM Sans', sans-serif; font-size: .95rem; cursor: pointer;
+      transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.35); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,0.7);
+      padding: 64px 24px 32px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand p { font-size: .88rem; line-height: 1.8; margin-top: 14px; max-width: 280px; }
+    .footer-logo { color: white; display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+
+    .footer-col h4 { color: white; font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: .88rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--green); }
+
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-icon {
+      width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center; font-size: .95rem;
+      transition: var(--transition); cursor: pointer;
+    }
+    .social-icon:hover { background: var(--green); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px; display: flex; align-items: center;
+      justify-content: space-between; font-size: .82rem; flex-wrap: wrap; gap: 12px;
+    }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45); cursor: pointer;
+      transition: var(--transition); animation: pop .6s 1s ease both;
+    }
+    .wa-float:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+    @keyframes pop { from{opacity:0;transform:scale(0)} to{opacity:1;transform:scale(1)} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-visual { display: none; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; background: white; z-index: 200;
+      flex-direction: column; padding: 80px 32px 40px; gap: 28px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.4rem; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--dark); transition: color var(--transition); }
+    .mobile-nav a:hover { color: var(--blue); }
+    .mobile-close {
+      position: absolute; top: 18px; right: 24px;
+      background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--dark);
+    }
+  </style>
+</head>
+<body>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/261327743094" target="_blank" class="wa-float" title="Contactez-nous sur WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.37 0 0 5.373 0 11.998c0 2.117.554 4.1 1.523 5.817L.057 23.998l6.348-1.427A11.948 11.948 0 0011.99 24c6.623 0 12-5.373 12-11.998C23.99 5.373 18.613 0 11.99 0zm0 21.818a9.826 9.826 0 01-5.011-1.37l-.36-.214-3.73.838.869-3.638-.234-.374A9.808 9.808 0 012.18 12c0-5.414 4.404-9.818 9.81-9.818 5.408 0 9.813 4.404 9.813 9.818s-4.405 9.818-9.813 9.818z"/></svg>
+</a>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()" data-fr="Accueil" data-en="Home">Accueil</a>
+  <a href="services.html" onclick="closeMobileNav()" data-fr="Services" data-en="Services">Services</a>
+  <a href="portfolio.html" onclick="closeMobileNav()" data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html" onclick="closeMobileNav()" data-fr="À propos" data-en="About">À propos</a>
+  <a href="blog.html" onclick="closeMobileNav()" data-fr="Blog" data-en="Blog">Blog</a>
+  <a href="contact.html" onclick="closeMobileNav()" data-fr="Contact" data-en="Contact">Contact</a>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="#accueil" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg>
+      </div>
+      NexaWeb
+    </a>
+
+   <nav>
+  <a href="index.html" class="active" data-fr="Accueil" data-en="Home">Accueil</a>
+  <a href="services.html" data-fr="Services" data-en="Services">Services</a>
+  <a href="portfolio.html" data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html" data-fr="À propos" data-en="About">À propos</a>
+  <a href="blog.html" data-fr="Blog" data-en="Blog">Blog</a>
+</nav>
+
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="active" onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('en')">EN</button>
+      </div>
+      <a href="contact.html" class="btn-primary" data-fr="Devis gratuit" data-en="Free quote">Devis gratuit</a>
+      <div class="hamburger" onclick="openMobileNav()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="accueil">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        <span data-fr="Agence web professionnelle à Madagascar" data-en="Professional web agency in Madagascar">Agence web professionnelle à Madagascar</span>
+      </div>
+      <h1 class="hero-title">
+        <span data-fr="Votre présence en ligne," data-en="Your online presence,">Votre présence en ligne,</span><br/>
+        <span class="accent" data-fr="professionnelle" data-en="professional">professionnelle</span>
+        <span data-fr=" & " data-en=" & "> & </span>
+        <span class="accent-green" data-fr="sur mesure" data-en="tailored">sur mesure</span>
+      </h1>
+      <p class="hero-sub" data-fr="NexaWeb Agency conçoit des sites web élégants, performants et optimisés pour Google. De la création à la maintenance, nous vous accompagnons à chaque étape." data-en="NexaWeb Agency designs elegant, high-performance websites optimized for Google. From creation to maintenance, we guide you every step of the way.">NexaWeb Agency conçoit des sites web élégants, performants et optimisés pour Google. De la création à la maintenance, nous vous accompagnons à chaque étape.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn btn-primary" data-fr="Voir nos services" data-en="Our services">Voir nos services</a>
+        <a href="#cta" class="btn btn-outline" data-fr="Nous contacter" data-en="Contact us">Nous contacter</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">50+</div>
+          <div class="stat-label" data-fr="Projets réalisés" data-en="Projects completed">Projets réalisés</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label" data-fr="Clients satisfaits" data-en="Satisfied clients">Clients satisfaits</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">5★</div>
+          <div class="stat-label" data-fr="Note moyenne" data-en="Average rating">Note moyenne</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-floating-1">✅ <span data-fr="Site mis en ligne !" data-en="Website live!">Site mis en ligne !</span></div>
+      <div class="hero-card-main">
+        <div class="hero-card-bar">
+          <div class="dot-red"></div>
+          <div class="dot-yellow"></div>
+          <div class="dot-green"></div>
+          <div class="hero-card-url">www.votremarque.com</div>
+        </div>
+        <div class="hero-card-img">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="8" width="56" height="40" rx="4"/>
+            <line x1="4" y1="20" x2="60" y2="20"/>
+            <circle cx="12" cy="14" r="2" fill="currentColor"/>
+            <circle cx="20" cy="14" r="2" fill="currentColor"/>
+            <circle cx="28" cy="14" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="hero-card-lines">
+          <div class="hcl hcl-70"></div>
+          <div class="hcl hcl-50"></div>
+          <div class="hcl hcl-85"></div>
+        </div>
+      </div>
+      <div class="hero-floating-2">🚀 <span data-fr="SEO optimisé" data-en="SEO optimized">SEO optimisé</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag" data-fr="Nos offres" data-en="Our offers">Nos offres</div>
+    <h2 class="section-title" data-fr="Des solutions pour chaque besoin" data-en="Solutions for every need">Des solutions pour chaque besoin</h2>
+    <p class="section-sub" data-fr="Transparence totale, expertise locale, accompagnement de A à Z." data-en="Total transparency, local expertise, end-to-end support.">Transparence totale, expertise locale, accompagnement de A à Z.</p>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon icon-blue">🌐</div>
+        <h3 data-fr="Site vitrine professionnel" data-en="Professional showcase website">Site vitrine professionnel</h3>
+        <p data-fr="Présentez votre activité avec élégance et professionnalisme." data-en="Present your business with elegance and professionalism.">Présentez votre activité avec élégance et professionnalisme.</p>
+        <ul class="service-features">
+          <li data-fr="Design responsive (mobile & tablette)" data-en="Responsive design (mobile & tablet)">Design responsive (mobile & tablette)</li>
+          <li data-fr="Pages : Accueil, À propos, Services, Contact" data-en="Pages: Home, About, Services, Contact">Pages : Accueil, À propos, Services, Contact</li>
+          <li data-fr="Formulaire de contact & réseaux sociaux" data-en="Contact form & social networks">Formulaire de contact & réseaux sociaux</li>
+          <li data-fr="Optimisation SEO basique" data-en="Basic SEO optimization">Optimisation SEO basique</li>
+        </ul>
+        <a href="#cta" class="service-link" data-fr="Demander un devis →" data-en="Request a quote →">Demander un devis →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon icon-green">🛒</div>
+        <h3 data-fr="Boutique en ligne complète" data-en="Complete online store">Boutique en ligne complète</h3>
+        <p data-fr="Vendez vos produits facilement avec une boutique intuitive." data-en="Sell your products easily with an intuitive store.">Vendez vos produits facilement avec une boutique intuitive.</p>
+        <ul class="service-features">
+          <li data-fr="Catalogue produits illimité & gestion des stocks" data-en="Unlimited product catalog & stock management">Catalogue produits illimité & gestion des stocks</li>
+          <li data-fr="Modules de paiement sécurisés" data-en="Secure payment modules">Modules de paiement sécurisés</li>
+          <li data-fr="Options de livraison personnalisées" data-en="Customized shipping options">Options de livraison personnalisées</li>
+          <li data-fr="Formation & accompagnement inclus" data-en="Training & support included">Formation & accompagnement inclus</li>
+        </ul>
+        <a href="#cta" class="service-link" data-fr="Demander un devis →" data-en="Request a quote →">Demander un devis →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon icon-orange">⚙️</div>
+        <h3 data-fr="Site sur mesure" data-en="Custom website">Site sur mesure</h3>
+        <p data-fr="Un site unique, conçu selon vos besoins spécifiques." data-en="A unique site, designed for your specific needs.">Un site unique, conçu selon vos besoins spécifiques.</p>
+        <ul class="service-features">
+          <li data-fr="Design UX/UI selon votre charte graphique" data-en="UX/UI design based on your brand identity">Design UX/UI selon votre charte graphique</li>
+          <li data-fr="Blog, forum, réservation en ligne, etc." data-en="Blog, forum, online booking, etc.">Blog, forum, réservation en ligne, etc.</li>
+          <li data-fr="Sécurité renforcée & SEO avancé" data-en="Enhanced security & advanced SEO">Sécurité renforcée & SEO avancé</li>
+          <li data-fr="Support technique personnalisé" data-en="Personalized technical support">Support technique personnalisé</li>
+        </ul>
+        <a href="#cta" class="service-link" data-fr="Demander un devis →" data-en="Request a quote →">Demander un devis →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon icon-blue">🔧</div>
+        <h3 data-fr="Maintenance & mises à jour" data-en="Maintenance & updates">Maintenance & mises à jour</h3>
+        <p data-fr="Gardez votre site toujours opérationnel et sécurisé." data-en="Keep your website always operational and secure.">Gardez votre site toujours opérationnel et sécurisé.</p>
+        <ul class="service-features">
+          <li data-fr="Mises à jour régulières" data-en="Regular updates">Mises à jour régulières</li>
+          <li data-fr="Sauvegardes automatiques" data-en="Automatic backups">Sauvegardes automatiques</li>
+          <li data-fr="Support technique réactif" data-en="Responsive technical support">Support technique réactif</li>
+          <li data-fr="Optimisation des temps de chargement" data-en="Loading speed optimization">Optimisation des temps de chargement</li>
+        </ul>
+        <a href="#cta" class="service-link" data-fr="Demander un devis →" data-en="Request a quote →">Demander un devis →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon icon-green">📈</div>
+        <h3 data-fr="Optimisation SEO professionnelle" data-en="Professional SEO optimization">Optimisation SEO professionnelle</h3>
+        <p data-fr="Augmentez votre visibilité et attirez plus de visiteurs." data-en="Increase your visibility and attract more visitors.">Augmentez votre visibilité et attirez plus de visiteurs.</p>
+        <ul class="service-features">
+          <li data-fr="Audit complet de votre site" data-en="Complete site audit">Audit complet de votre site</li>
+          <li data-fr="Optimisation technique & contenu SEO" data-en="Technical & content SEO optimization">Optimisation technique & contenu SEO</li>
+          <li data-fr="Suivi Google Analytics" data-en="Google Analytics tracking">Suivi Google Analytics</li>
+          <li data-fr="Rapports personnalisés & conseils stratégiques" data-en="Custom reports & strategic advice">Rapports personnalisés & conseils stratégiques</li>
+        </ul>
+        <a href="#cta" class="service-link" data-fr="Demander un devis →" data-en="Request a quote →">Demander un devis →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-inner">
+    <div class="why-grid">
+      <div class="why-visual">
+        <div class="why-visual-title" data-fr="Votre succès en ligne" data-en="Your online success">Votre succès en ligne</div>
+        <div class="why-visual-sub" data-fr="commence ici." data-en="starts here.">commence ici.</div>
+        <div class="why-metric">
+          <div class="why-metric-label" data-fr="Satisfaction client" data-en="Client satisfaction">Satisfaction client</div>
+          <div class="why-metric-bar"><div class="why-metric-fill" style="width:98%"></div></div>
+        </div>
+        <div class="why-metric">
+          <div class="why-metric-label" data-fr="Délais respectés" data-en="On-time delivery">Délais respectés</div>
+          <div class="why-metric-bar"><div class="why-metric-fill" style="width:95%"></div></div>
+        </div>
+        <div class="why-metric">
+          <div class="why-metric-label" data-fr="Performance SEO" data-en="SEO performance">Performance SEO</div>
+          <div class="why-metric-bar"><div class="why-metric-fill" style="width:88%"></div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-tag" data-fr="Pourquoi nous choisir" data-en="Why choose us">Pourquoi nous choisir</div>
+        <h2 class="section-title" data-fr="Qualité & transparence au service de votre visibilité" data-en="Quality & transparency serving your visibility">Qualité & transparence au service de votre visibilité</h2>
+        <p class="section-sub" data-fr="Nous mettons notre expertise à votre service pour des solutions sur mesure, professionnelles et claires." data-en="We put our expertise at your service for tailored, professional, and clear solutions.">Nous mettons notre expertise à votre service pour des solutions sur mesure, professionnelles et claires.</p>
+
+        <div class="why-items">
+          <div class="why-item">
+            <div class="why-item-icon blue">🔍</div>
+            <div>
+              <h4 data-fr="Transparence totale" data-en="Total transparency">Transparence totale</h4>
+              <p data-fr="Zéro surprise sur les tarifs et les services inclus. Vous savez exactement ce que vous obtenez avant de commencer." data-en="Zero surprises on pricing and included services. You know exactly what you get before starting.">Zéro surprise sur les tarifs et les services inclus. Vous savez exactement ce que vous obtenez avant de commencer.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon green">🌍</div>
+            <div>
+              <h4 data-fr="Expertise locale" data-en="Local expertise">Expertise locale</h4>
+              <p data-fr="Une vision professionnelle avec une compréhension du marché local malgache et de ses particularités." data-en="A professional vision with an understanding of the local Malagasy market and its specifics.">Une vision professionnelle avec une compréhension du marché local malgache et de ses particularités.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon orange">🤝</div>
+            <div>
+              <h4 data-fr="Accompagnement de A à Z" data-en="End-to-end support">Accompagnement de A à Z</h4>
+              <p data-fr="De la conception à la mise en ligne et au-delà, nous restons à vos côtés à chaque étape de votre projet." data-en="From design to launch and beyond, we stay by your side at every step of your project.">De la conception à la mise en ligne et au-delà, nous restons à vos côtés à chaque étape de votre projet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <div class="section-tag" data-fr="Nos réalisations" data-en="Our work">Nos réalisations</div>
+    <h2 class="section-title" data-fr="Projets récents" data-en="Recent projects">Projets récents</h2>
+    <p class="section-sub" data-fr="Découvrez quelques-uns de nos projets réalisés avec passion et expertise." data-en="Discover some of our projects created with passion and expertise.">Découvrez quelques-uns de nos projets réalisés avec passion et expertise.</p>
+
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          <div class="grad g1"></div>
+          <div class="portfolio-thumb-icon">🏪</div>
+          <span class="portfolio-tag" data-fr="Site vitrine" data-en="Showcase site">Site vitrine</span>
+        </div>
+        <div class="portfolio-info">
+          <h3 data-fr="Boutique Artisanale Tana" data-en="Tana Artisan Shop">Boutique Artisanale Tana</h3>
+          <p data-fr="Site vitrine élégant pour une boutique artisanale à Antananarivo, avec galerie produits et formulaire de commande." data-en="Elegant showcase site for an artisan shop in Antananarivo, with product gallery and order form.">Site vitrine élégant pour une boutique artisanale à Antananarivo, avec galerie produits et formulaire de commande.</p>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          <div class="grad g2"></div>
+          <div class="portfolio-thumb-icon">🛍️</div>
+          <span class="portfolio-tag" data-fr="E-commerce" data-en="E-commerce">E-commerce</span>
+        </div>
+        <div class="portfolio-info">
+          <h3 data-fr="Madagascar Style Shop" data-en="Madagascar Style Shop">Madagascar Style Shop</h3>
+          <p data-fr="Boutique en ligne complète avec catalogue illimité, paiement sécurisé et gestion des stocks intégrée." data-en="Complete online store with unlimited catalog, secure payment and integrated stock management.">Boutique en ligne complète avec catalogue illimité, paiement sécurisé et gestion des stocks intégrée.</p>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          <div class="grad g3"></div>
+          <div class="portfolio-thumb-icon">🏨</div>
+          <span class="portfolio-tag" data-fr="Sur mesure" data-en="Custom">Sur mesure</span>
+        </div>
+        <div class="portfolio-info">
+          <h3 data-fr="Hôtel Baobab Resort" data-en="Baobab Resort Hotel">Hôtel Baobab Resort</h3>
+          <p data-fr="Site sur mesure avec réservation en ligne, galerie immersive et optimisation SEO avancée." data-en="Custom site with online booking, immersive gallery and advanced SEO optimization.">Site sur mesure avec réservation en ligne, galerie immersive et optimisation SEO avancée.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-inner">
+    <div class="section-tag" data-fr="Ils nous font confiance" data-en="They trust us">Ils nous font confiance</div>
+    <h2 class="section-title" data-fr="Ce que disent nos clients" data-en="What our clients say">Ce que disent nos clients</h2>
+    <p class="section-sub" data-fr="La satisfaction de nos clients est notre meilleure récompense." data-en="Our clients' satisfaction is our best reward.">La satisfaction de nos clients est notre meilleure récompense.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text" data-fr="&laquo;&nbsp;NexaWeb Agency a transformé notre présence en ligne. Le site est magnifique, rapide et nos clients adorent la navigation. Je recommande vivement !&nbsp;&raquo;" data-en="&laquo;&nbsp;NexaWeb Agency transformed our online presence. The site is beautiful, fast and our customers love the navigation. Highly recommended!&nbsp;&raquo;">&laquo;&nbsp;NexaWeb Agency a transformé notre présence en ligne. Le site est magnifique, rapide et nos clients adorent la navigation. Je recommande vivement !&nbsp;&raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar av-blue">R</div>
+          <div>
+            <div class="testimonial-name">Ravo Andriamaro</div>
+            <div class="testimonial-role" data-fr="Propriétaire, Boutique Artisanale Tana" data-en="Owner, Tana Artisan Shop">Propriétaire, Boutique Artisanale Tana</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text" data-fr="&laquo;&nbsp;Équipe très professionnelle, à l'écoute et réactive. Ils ont livré notre boutique en ligne dans les délais, avec une formation complète. Excellent travail !&nbsp;&raquo;" data-en="&laquo;&nbsp;Very professional, attentive and responsive team. They delivered our online store on time, with complete training. Excellent work!&nbsp;&raquo;">&laquo;&nbsp;Équipe très professionnelle, à l'écoute et réactive. Ils ont livré notre boutique en ligne dans les délais, avec une formation complète. Excellent travail !&nbsp;&raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar av-green">H</div>
+          <div>
+            <div class="testimonial-name">Hanta Rakoto</div>
+            <div class="testimonial-role" data-fr="Directrice, Madagascar Style Shop" data-en="Director, Madagascar Style Shop">Directrice, Madagascar Style Shop</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text" data-fr="&laquo;&nbsp;Notre trafic Google a doublé en 3 mois grâce au SEO de NexaWeb. Le suivi est régulier et les rapports très clairs. Un vrai partenaire de confiance.&nbsp;&raquo;" data-en="&laquo;&nbsp;Our Google traffic doubled in 3 months thanks to NexaWeb's SEO. Follow-up is regular and reports very clear. A truly trusted partner.&nbsp;&raquo;">&laquo;&nbsp;Notre trafic Google a doublé en 3 mois grâce au SEO de NexaWeb. Le suivi est régulier et les rapports très clairs. Un vrai partenaire de confiance.&nbsp;&raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar av-orange">T</div>
+          <div>
+            <div class="testimonial-name">Tsiry Rasolofo</div>
+            <div class="testimonial-role" data-fr="Gérant, Hôtel Baobab Resort" data-en="Manager, Baobab Resort Hotel">Gérant, Hôtel Baobab Resort</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="faq-inner">
+      <div class="section-tag" data-fr="Questions fréquentes" data-en="Frequently asked questions">Questions fréquentes</div>
+      <h2 class="section-title" data-fr="Vous avez des questions ?" data-en="Do you have questions?">Vous avez des questions ?</h2>
+      <p class="section-sub" data-fr="Retrouvez les réponses aux interrogations les plus courantes sur nos services." data-en="Find answers to the most common questions about our services.">Retrouvez les réponses aux interrogations les plus courantes sur nos services.</p>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span data-fr="Quels sont vos délais de livraison ?" data-en="What are your delivery times?">Quels sont vos délais de livraison ?</span>
+            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="faq-a"><span data-fr="Un site vitrine est généralement livré en 7 à 14 jours. Un e-commerce ou un site sur mesure prend entre 3 et 6 semaines selon la complexité du projet. Nous vous donnons toujours un calendrier précis avant de commencer." data-en="A showcase site is typically delivered in 7 to 14 days. An e-commerce or custom site takes between 3 and 6 weeks depending on the project's complexity. We always provide a precise timeline before starting.">Un site vitrine est généralement livré en 7 à 14 jours. Un e-commerce ou un site sur mesure prend entre 3 et 6 semaines selon la complexité du projet. Nous vous donnons toujours un calendrier précis avant de commencer.</span></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span data-fr="Est-ce que l'hébergement est inclus ?" data-en="Is hosting included?">Est-ce que l'hébergement est inclus ?</span>
+            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="faq-a"><span data-fr="L'hébergement et le nom de domaine sont offerts la première année en option sur notre offre site vitrine. Pour les autres offres, nous pouvons vous conseiller les meilleures solutions d'hébergement adaptées à votre budget." data-en="Hosting and domain name are offered free for the first year as an option on our showcase site offer. For other offers, we can advise you on the best hosting solutions suited to your budget.">L'hébergement et le nom de domaine sont offerts la première année en option sur notre offre site vitrine. Pour les autres offres, nous pouvons vous conseiller les meilleures solutions d'hébergement adaptées à votre budget.</span></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span data-fr="Mon site sera-t-il visible sur mobile ?" data-en="Will my site be visible on mobile?">Mon site sera-t-il visible sur mobile ?</span>
+            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="faq-a"><span data-fr="Absolument ! Tous nos sites sont 100% responsive, c'est-à-dire qu'ils s'adaptent parfaitement à tous les écrans : ordinateurs, tablettes et smartphones. C'est une priorité pour nous." data-en="Absolutely! All our sites are 100% responsive, meaning they adapt perfectly to all screens: computers, tablets and smartphones. This is a priority for us.">Absolument ! Tous nos sites sont 100% responsive, c'est-à-dire qu'ils s'adaptent parfaitement à tous les écrans : ordinateurs, tablettes et smartphones. C'est une priorité pour nous.</span></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span data-fr="Comment se passe le paiement ?" data-en="How does payment work?">Comment se passe le paiement ?</span>
+            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="faq-a"><span data-fr="Nous travaillons avec un acompte de 50% au démarrage du projet et le solde de 50% à la livraison. Vous pouvez payer par Mobile Money, virement bancaire ou espèces. Nous fournissons toujours une facture officielle." data-en="We work with a 50% deposit at project start and the remaining 50% on delivery. You can pay by Mobile Money, bank transfer or cash. We always provide an official invoice.">Nous travaillons avec un acompte de 50% au démarrage du projet et le solde de 50% à la livraison. Vous pouvez payer par Mobile Money, virement bancaire ou espèces. Nous fournissons toujours une facture officielle.</span></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span data-fr="Proposez-vous un service après-vente ?" data-en="Do you offer after-sales service?">Proposez-vous un service après-vente ?</span>
+            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+          <div class="faq-a"><span data-fr="Oui ! Nous offrons une période de support gratuit après livraison. Au-delà, nos forfaits de maintenance garantissent que votre site reste toujours opérationnel, sécurisé et à jour." data-en="Yes! We offer a free support period after delivery. Beyond that, our maintenance packages ensure your site always remains operational, secure and up to date.">Oui ! Nous offrons une période de support gratuit après livraison. Au-delà, nos forfaits de maintenance garantissent que votre site reste toujours opérationnel, sécurisé et à jour.</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-inner">
+    <h2 data-fr="Prêt à lancer votre projet digital ?" data-en="Ready to launch your digital project?">Prêt à lancer votre projet digital ?</h2>
+    <p data-fr="Contactez-nous dès aujourd'hui pour un devis personnalisé et gratuit. Votre succès en ligne commence ici." data-en="Contact us today for a personalized, free quote. Your online success starts here.">Contactez-nous dès aujourd'hui pour un devis personnalisé et gratuit. Votre succès en ligne commence ici.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn-white">✉️ <span data-fr="Envoyer un email" data-en="Send an email">Envoyer un email</span></a>
+      <a href="https://wa.me/261327743094" target="_blank" class="btn-wa">
+        💬 <span data-fr="WhatsApp" data-en="WhatsApp">WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg>
+          </div>
+          NexaWeb Agency
+        </div>
+        <p data-fr="Votre partenaire pour une présence en ligne professionnelle, élégante et performante à Madagascar." data-en="Your partner for a professional, elegant and high-performance online presence in Madagascar.">Votre partenaire pour une présence en ligne professionnelle, élégante et performante à Madagascar.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61579980088577" class="social-icon" title="Facebook">📘</a>
+          <a href="https://wa.me/261327743094" class="social-icon" title="WhatsApp">💬</a>
+          <a href="contact.html" class="social-icon" title="Email">✉️</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-fr="Services" data-en="Services">Services</h4>
+        <ul>
+          <li><a href="#services" data-fr="Site vitrine"          data-en="Showcase site">Site vitrine</a></li>
+          <li><a href="#services" data-fr="Boutique en ligne"     data-en="Online store">Boutique en ligne</a></li>
+          <li><a href="#services" data-fr="Site sur mesure"       data-en="Custom site">Site sur mesure</a></li>
+          <li><a href="#services" data-fr="Maintenance"           data-en="Maintenance">Maintenance</a></li>
+          <li><a href="#services" data-fr="Optimisation SEO"      data-en="SEO optimization">Optimisation SEO</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-fr="Navigation" data-en="Navigation">Navigation</h4>
+        <ul>
+          <li><a href="#accueil"      data-fr="Accueil"       data-en="Home">Accueil</a></li>
+          <li><a href="services.html" data-fr="Services" data-en="Services">Services</a></li>
+          <li><a href="portfolio.html" data-fr="Portfolio" data-en="Portfolio">Portfolio</a></li>
+          <li><a href="apropos.html" data-fr="À propos" data-en="About">À propos</a></li>
+          <li><a href="blog.html" data-fr="Blog" data-en="Blog">Blog</a></li>
+          <li><a href="#testimonials" data-fr="Avis clients"  data-en="Reviews">Avis clients</a></li>
+          <li><a href="#faq"          data-fr="FAQ"           data-en="FAQ">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+        <ul>
+          <li><a href="tel:+261327743094">+261 32 77 430 94</a></li>
+          <li><a href="contact.html">agencynexaweb@gmail.com</a></li>
+          <li><a href="https://wa.me/261327743094" data-fr="WhatsApp disponible" data-en="WhatsApp available">WhatsApp disponible</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span data-fr="© 2025 NexaWeb Agency. Tous droits réservés." data-en="© 2025 NexaWeb Agency. All rights reserved.">© 2025 NexaWeb Agency. Tous droits réservés.</span>
+      <span data-fr="Fait avec ❤️ à Madagascar" data-en="Made with ❤️ in Madagascar">Fait avec ❤️ à Madagascar</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── LANG SWITCH ──
+  let currentLang = 'fr';
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
+    });
+    document.querySelectorAll('.lang-toggle button').forEach((btn, i) => {
+      btn.classList.toggle('active', (i === 0 && lang === 'fr') || (i === 1 && lang === 'en'));
+    });
+  }
+
+  // ── HEADER SCROLL ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── MOBILE NAV ──
+  function openMobileNav()  { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // ── FAQ TOGGLE ──
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const ans  = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').classList.remove('open');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      ans.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>

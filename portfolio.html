@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio – NexaWeb Agency</title>
+  <meta name="description" content="Découvrez les réalisations de NexaWeb Agency : sites vitrines, boutiques en ligne, sites sur mesure et optimisations SEO." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue:        #1A4A8C;
+      --blue-light:  #2D6BC4;
+      --blue-pale:   #E8F0FB;
+      --green:       #2BA84A;
+      --green-light: #E6F7EB;
+      --orange:      #F47C30;
+      --orange-light:#FEF0E7;
+      --white:       #FFFFFF;
+      --off-white:   #F7F9FC;
+      --dark:        #0D1B2A;
+      --gray:        #6B7A8D;
+      --gray-light:  #D1D9E6;
+      --radius:      14px;
+      --shadow:      0 4px 24px rgba(26,74,140,0.10);
+      --shadow-lg:   0 12px 48px rgba(26,74,140,0.18);
+      --transition:  0.3s cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--dark); line-height: 1.7; overflow-x: hidden; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── LANG ── */
+    .lang-toggle { display: flex; gap: 4px; align-items: center; }
+    .lang-toggle button { background: none; border: 1.5px solid var(--gray-light); border-radius: 6px; padding: 3px 10px; font-size: .78rem; font-family: 'DM Sans', sans-serif; cursor: pointer; color: var(--gray); transition: var(--transition); }
+    .lang-toggle button.active { background: var(--blue); border-color: var(--blue); color: var(--white); font-weight: 600; }
+
+    /* ── HEADER ── */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--gray-light); transition: box-shadow var(--transition); }
+    header.scrolled { box-shadow: var(--shadow); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--blue); }
+    .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--blue) 0%, var(--green) 60%, var(--orange) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .logo-icon svg { width: 22px; height: 22px; fill: white; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: .92rem; font-weight: 500; color: var(--dark); position: relative; padding-bottom: 2px; transition: color var(--transition); }
+    nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--green); transition: width var(--transition); }
+    nav a:hover { color: var(--blue); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    nav a.active { color: var(--blue); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .9rem; cursor: pointer; border: none; background: var(--blue); color: var(--white); box-shadow: 0 2px 12px rgba(26,74,140,0.25); transition: var(--transition); }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav { display: none; position: fixed; inset: 0; background: white; z-index: 200; flex-direction: column; padding: 80px 32px 40px; gap: 28px; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.4rem; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--dark); }
+    .mobile-close { position: absolute; top: 18px; right: 24px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--dark); }
+
+    /* ── PAGE HERO ── */
+    .page-hero { padding-top: 68px; background: linear-gradient(135deg, #F7F9FC 0%, var(--blue-pale) 60%, var(--green-light) 100%); position: relative; overflow: hidden; }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; padding: 80px 24px 64px; text-align: center; }
+    .page-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--green-light); color: var(--green); border: 1px solid rgba(43,168,74,0.25); padding: 6px 16px; border-radius: 100px; font-size: .82rem; font-weight: 600; margin-bottom: 20px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); color: var(--dark); margin-bottom: 16px; }
+    .page-hero p { font-size: 1.05rem; color: var(--gray); max-width: 580px; margin: 0 auto; line-height: 1.8; }
+    .hero-bg-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .shape { position: absolute; border-radius: 50%; opacity: 0.12; animation: float 8s ease-in-out infinite; }
+    .shape-1 { width: 320px; height: 320px; background: var(--blue); top: -80px; right: -60px; }
+    .shape-2 { width: 180px; height: 180px; background: var(--orange); bottom: -40px; left: 5%; animation-delay: 3s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+
+    /* ── STATS BAR ── */
+    .stats-bar { background: var(--white); border-bottom: 1px solid var(--gray-light); }
+    .stats-bar-inner { max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--blue); }
+    .stat-lbl { font-size: .8rem; color: var(--gray); font-weight: 500; margin-top: 2px; }
+
+    /* ── FILTER ── */
+    .filter-section { padding: 40px 24px 0; }
+    .filter-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .filter-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-btn { padding: 8px 20px; border-radius: 100px; border: 2px solid var(--gray-light); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: .86rem; font-weight: 600; color: var(--gray); cursor: pointer; transition: var(--transition); }
+    .filter-btn:hover, .filter-btn.active { background: var(--blue); border-color: var(--blue); color: var(--white); }
+    .filter-btn.green.active  { background: var(--green);  border-color: var(--green); }
+    .filter-btn.orange.active { background: var(--orange); border-color: var(--orange); }
+    .results-count { font-size: .88rem; color: var(--gray); font-weight: 500; white-space: nowrap; }
+
+    /* ── GRID ── */
+    .portfolio-section { padding: 40px 24px 96px; }
+    .portfolio-inner { max-width: 1200px; margin: 0 auto; }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+    /* ── CARD ── */
+    .pcard {
+      border-radius: var(--radius); overflow: hidden; background: var(--white);
+      box-shadow: var(--shadow); transition: var(--transition);
+      opacity: 0; transform: translateY(24px);
+      animation: cardIn .5s ease forwards;
+    }
+    .pcard.hidden { display: none; }
+    .pcard:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    @keyframes cardIn { to { opacity:1; transform:translateY(0); } }
+
+    .pcard-thumb { position: relative; height: 220px; overflow: hidden; }
+    .pcard-thumb .bg { position: absolute; inset: 0; transition: transform .5s ease; }
+    .pcard:hover .pcard-thumb .bg { transform: scale(1.06); }
+
+    /* Gradient themes */
+    .g-blue   { background: linear-gradient(135deg, #1A4A8C 0%, #2D6BC4 100%); }
+    .g-green  { background: linear-gradient(135deg, #2BA84A 0%, #1A7C36 100%); }
+    .g-orange { background: linear-gradient(135deg, #F47C30 0%, #C45B10 100%); }
+    .g-teal   { background: linear-gradient(135deg, #0D8C8C 0%, #2BA84A 100%); }
+    .g-purple { background: linear-gradient(135deg, #5B2C8C 0%, #1A4A8C 100%); }
+    .g-coral  { background: linear-gradient(135deg, #E84040 0%, #F47C30 100%); }
+
+    .pcard-thumb-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .pcard-emoji { font-size: 3.2rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
+    .pcard-mockbar { display: flex; gap: 5px; }
+    .mockbar-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+
+    /* Overlay on hover */
+    .pcard-overlay {
+      position: absolute; inset: 0; background: rgba(13,27,42,0.82);
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .pcard:hover .pcard-overlay { opacity: 1; }
+    .overlay-btn {
+      padding: 10px 20px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-size: .85rem; font-weight: 700; cursor: pointer; border: none; transition: var(--transition);
+    }
+    .ob-white  { background: white; color: var(--dark); }
+    .ob-green  { background: var(--green); color: white; }
+    .ob-white:hover  { background: var(--off-white); }
+    .ob-green:hover  { background: #249040; }
+
+    /* Category badge */
+    .pcard-cat {
+      position: absolute; top: 12px; left: 12px;
+      padding: 4px 12px; border-radius: 100px;
+      font-size: .72rem; font-weight: 700;
+      backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25);
+    }
+    .cat-vitrine     { background: rgba(26,74,140,0.75);  color: white; }
+    .cat-ecommerce   { background: rgba(43,168,74,0.75);  color: white; }
+    .cat-mesure      { background: rgba(244,124,48,0.75); color: white; }
+    .cat-seo         { background: rgba(13,140,140,0.75); color: white; }
+
+    /* Year badge */
+    .pcard-year { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 3px 10px; font-size: .72rem; color: white; font-weight: 600; }
+
+    /* Card body */
+    .pcard-body { padding: 22px 24px; }
+    .pcard-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .pcard-body p  { font-size: .85rem; color: var(--gray); line-height: 1.65; margin-bottom: 16px; }
+
+    .pcard-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .pcard-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .pcard-tag { padding: 3px 10px; border-radius: 6px; font-size: .72rem; font-weight: 600; background: var(--off-white); color: var(--gray); border: 1px solid var(--gray-light); }
+    .pcard-result { font-size: .78rem; font-weight: 700; color: var(--green); white-space: nowrap; }
+
+    /* ── FEATURED CARD (spans 2 cols) ── */
+    .pcard.featured { grid-column: span 2; }
+    .pcard.featured .pcard-thumb { height: 280px; }
+
+    /* ── TESTIMONIAL INLINE ── */
+    .pcard-quote { margin-top: 12px; padding: 12px 14px; background: var(--off-white); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; font-size: .82rem; color: var(--gray); font-style: italic; line-height: 1.6; }
+    .pcard-quote strong { color: var(--dark); font-style: normal; }
+
+    /* ── MODAL ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(13,27,42,0.7); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity var(--transition); backdrop-filter: blur(4px); }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: white; border-radius: 20px; width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(13,27,42,0.3); transform: scale(.95); transition: transform var(--transition); }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal-header { position: relative; height: 280px; border-radius: 20px 20px 0 0; overflow: hidden; }
+    .modal-header .bg { position: absolute; inset: 0; }
+    .modal-header-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; padding: 32px; }
+    .modal-emoji { font-size: 4rem; margin-bottom: 12px; }
+    .modal-header h2 { font-size: 1.8rem; }
+    .modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; color: white; transition: var(--transition); }
+    .modal-close:hover { background: rgba(255,255,255,0.3); }
+    .modal-body { padding: 32px; }
+    .modal-cat-badge { display: inline-block; padding: 4px 14px; border-radius: 100px; font-size: .78rem; font-weight: 700; margin-bottom: 16px; }
+    .modal-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+    .modal-body p  { font-size: .9rem; color: var(--gray); line-height: 1.8; margin-bottom: 20px; }
+    .modal-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0 28px; }
+    .modal-result { background: var(--off-white); border-radius: 10px; padding: 16px; text-align: center; }
+    .mr-value { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--blue); }
+    .mr-label { font-size: .75rem; color: var(--gray); margin-top: 2px; }
+    .modal-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+    .stack-item { padding: 5px 14px; border-radius: 8px; background: var(--blue-pale); color: var(--blue); font-size: .8rem; font-weight: 600; }
+    .modal-cta { display: flex; gap: 12px; }
+    .mcta-main { flex: 1; padding: 13px 24px; background: var(--blue); color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .9rem; cursor: pointer; transition: var(--transition); }
+    .mcta-main:hover { background: var(--blue-light); }
+    .mcta-sec  { padding: 13px 24px; background: var(--off-white); color: var(--dark); border: 1.5px solid var(--gray-light); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .9rem; cursor: pointer; transition: var(--transition); }
+    .mcta-sec:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* ── CTA SECTION ── */
+    .cta-section { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 50%, var(--green) 100%); padding: 96px 24px; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content:''; position:absolute; top:-80px; left:-80px; width:300px; height:300px; border-radius:50%; background:rgba(255,255,255,0.05); }
+    .cta-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-inner h2 { color: white; font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 14px; }
+    .cta-inner p  { color: rgba(255,255,255,0.82); margin-bottom: 32px; font-size: .95rem; line-height: 1.8; }
+    .cta-actions  { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: white; color: var(--blue); font-weight: 700; padding: 13px 28px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: .9rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+    .btn-wa { background: #25D366; color: white; font-weight: 700; padding: 13px 28px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: .9rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand p { font-size: .88rem; line-height: 1.8; margin-top: 14px; max-width: 280px; }
+    .footer-logo { color: white; display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+    .footer-col h4 { color: white; font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: .88rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: .95rem; transition: var(--transition); cursor: pointer; }
+    .social-icon:hover { background: var(--green); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; font-size: .82rem; flex-wrap: wrap; gap: 12px; }
+
+    /* ── WA FLOAT ── */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.45); cursor: pointer; transition: var(--transition); }
+    .wa-float:hover { transform: scale(1.12); }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } .pcard.featured { grid-column: span 2; } }
+    @media (max-width: 768px) { nav { display: none; } .hamburger { display: flex; } .portfolio-grid { grid-template-columns: 1fr; } .pcard.featured { grid-column: span 1; } .stats-bar-inner { gap: 32px; } .modal-results { grid-template-columns: repeat(3,1fr); } .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; } }
+    @media (max-width: 480px) { .footer-top { grid-template-columns: 1fr; } .modal-results { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/261327743094" target="_blank" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.37 0 0 5.373 0 11.998c0 2.117.554 4.1 1.523 5.817L.057 23.998l6.348-1.427A11.948 11.948 0 0011.99 24c6.623 0 12-5.373 12-11.998C23.99 5.373 18.613 0 11.99 0zm0 21.818a9.826 9.826 0 01-5.011-1.37l-.36-.214-3.73.838.869-3.638-.234-.374A9.808 9.808 0 012.18 12c0-5.414 4.404-9.818 9.81-9.818 5.408 0 9.813 4.404 9.813 9.818s-4.405 9.818-9.813 9.818z"/></svg>
+</a>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html" onclick="closeMobileNav()" data-fr="Accueil" data-en="Home">Accueil</a>
+  <a href="services.html" onclick="closeMobileNav()" data-fr="Services" data-en="Services">Services</a>
+  <a href="portfolio.html" onclick="closeMobileNav()" data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html" onclick="closeMobileNav()" data-fr="À propos" data-en="About">À propos</a>
+  <a href="blog.html" onclick="closeMobileNav()" data-fr="Blog" data-en="Blog">Blog</a>
+  <a href="contact.html" onclick="closeMobileNav()" data-fr="Contact" data-en="Contact">Contact</a>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+      NexaWeb
+    </a>
+     <nav>
+  <a href="index.html" class="active" data-fr="Accueil" data-en="Home">Accueil</a>
+  <a href="services.html" data-fr="Services" data-en="Services">Services</a>
+  <a href="portfolio.html" data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html" data-fr="À propos" data-en="About">À propos</a>
+  <a href="blog.html" data-fr="Blog" data-en="Blog">Blog</a>
+</nav>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="active" onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('en')">EN</button>
+      </div>
+      <a href="contact.html" class="btn-primary" data-fr="Devis gratuit" data-en="Free quote">Devis gratuit</a>
+      <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+  </div>
+  <div class="page-hero-inner">
+    <div class="page-tag">🏆 <span data-fr="Nos réalisations" data-en="Our work">Nos réalisations</span></div>
+    <h1 data-fr="Projets réalisés avec passion" data-en="Projects crafted with passion">Projets réalisés avec passion</h1>
+    <p data-fr="Chaque projet est unique. Découvrez comment nous avons aidé nos clients à établir une présence en ligne professionnelle et performante." data-en="Every project is unique. See how we've helped our clients establish a professional and high-performing online presence.">Chaque projet est unique. Découvrez comment nous avons aidé nos clients à établir une présence en ligne professionnelle et performante.</p>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">50+</div>
+      <div class="stat-lbl" data-fr="Projets livrés" data-en="Projects delivered">Projets livrés</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">98%</div>
+      <div class="stat-lbl" data-fr="Clients satisfaits" data-en="Satisfied clients">Clients satisfaits</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">+120%</div>
+      <div class="stat-lbl" data-fr="Trafic moyen gagné" data-en="Average traffic gained">Trafic moyen gagné</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">14j</div>
+      <div class="stat-lbl" data-fr="Délai moyen site vitrine" data-en="Average showcase site timeline">Délai moyen site vitrine</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-section">
+  <div class="filter-inner">
+    <div class="filter-tabs">
+      <button class="filter-btn active" onclick="filterCards('all', this)"         data-fr="Tous"         data-en="All">Tous</button>
+      <button class="filter-btn" onclick="filterCards('vitrine', this)"            data-fr="Site vitrine"  data-en="Showcase">Site vitrine</button>
+      <button class="filter-btn green"  onclick="filterCards('ecommerce', this)"   data-fr="E-commerce"   data-en="E-commerce">E-commerce</button>
+      <button class="filter-btn orange" onclick="filterCards('mesure', this)"      data-fr="Sur mesure"   data-en="Custom">Sur mesure</button>
+      <button class="filter-btn" onclick="filterCards('seo', this)"                data-fr="SEO"          data-en="SEO">SEO</button>
+    </div>
+    <div class="results-count" id="resultsCount" data-fr-tpl="{n} projets affichés" data-en-tpl="{n} projects shown">6 projets affichés</div>
+  </div>
+</div>
+
+<!-- PORTFOLIO GRID -->
+<div class="portfolio-section">
+  <div class="portfolio-inner">
+    <div class="portfolio-grid" id="portfolioGrid">
+
+      <!-- CARD 1 — FEATURED -->
+      <div class="pcard featured" data-cat="vitrine" style="animation-delay:.05s"
+           data-title-fr="Boutique Artisanale Tana" data-title-en="Tana Artisan Shop"
+           data-desc-fr="Site vitrine élégant pour une boutique artisanale basée à Antananarivo. Design sur mesure, galerie produits et formulaire de commande intégré. Résultat : +85% de demandes de contact en 2 mois."
+           data-desc-en="Elegant showcase site for an artisan shop based in Antananarivo. Custom design, product gallery and integrated order form. Result: +85% contact requests in 2 months."
+           data-r1="85%" data-r1l-fr="Demandes en +" data-r1l-en="More requests"
+           data-r2="14j" data-r2l-fr="Délai livraison" data-r2l-en="Delivery time"
+           data-r3="5★" data-r3l-fr="Note client" data-r3l-en="Client rating"
+           data-stack="HTML/CSS,JavaScript,WordPress,SEO"
+           data-quote-fr="&laquo; NexaWeb a sublimé notre boutique. Les clients adorent le site ! &raquo; — Ravo A."
+           data-quote-en="&laquo; NexaWeb transformed our shop. Clients love the site! &raquo; — Ravo A."
+           data-year="2024" data-grad="g-blue" data-emoji="🏪">
+        <div class="pcard-thumb">
+          <div class="bg g-blue"></div>
+          <div class="pcard-thumb-inner">
+            <div class="pcard-emoji">🏪</div>
+            <div class="pcard-mockbar"><div class="mockbar-dot"></div><div class="mockbar-dot"></div><div class="mockbar-dot"></div></div>
+          </div>
+          <div class="pcard-overlay">
+            <button class="overlay-btn ob-white" onclick="openModal(this.closest('.pcard'))" data-fr="Voir le projet" data-en="View project">Voir le projet</button>
+            <button class="overlay-btn ob-green"  onclick="window.location='contact.html'" data-fr="Projet similaire" data-en="Similar project">Projet similaire</button>
+          </div>
+          <span class="pcard-cat cat-vitrine" data-fr="Site vitrine" data-en="Showcase">Site vitrine</span>
+          <span class="pcard-year">2024</span>
+        </div>
+        <div class="pcard-body">
+          <h3 data-fr="Boutique Artisanale Tana" data-en="Tana Artisan Shop">Boutique Artisanale Tana</h3>
+          <p data-fr="Site vitrine élégant avec galerie produits et formulaire de commande. Design personnalisé aux couleurs de la marque." data-en="Elegant showcase site with product gallery and order form. Custom design matching the brand's colors.">Site vitrine élégant avec galerie produits et formulaire de commande. Design personnalisé aux couleurs de la marque.</p>
+          <div class="pcard-meta">
+            <div class="pcard-tags">
+              <span class="pcard-tag">WordPress</span>
+              <span class="pcard-tag">SEO</span>
+              <span class="pcard-tag">Design</span>
+            </div>
+            <span class="pcard-result">+85% contacts</span>
+          </div>
+          <div class="pcard-quote" data-fr="&laquo; NexaWeb a sublimé notre boutique. Les clients adorent le site ! &raquo; — Ravo A." data-en="&laquo; NexaWeb transformed our shop. Clients love the site! &raquo; — Ravo A.">&laquo; NexaWeb a sublimé notre boutique. Les clients adorent le site ! &raquo; — <strong>Ravo A.</strong></div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="pcard" data-cat="ecommerce" style="animation-delay:.1s"
+           data-title-fr="Madagascar Style Shop" data-title-en="Madagascar Style Shop"
+           data-desc-fr="Boutique e-commerce complète pour une marque de vêtements malgache. Catalogue illimité, paiement Mobile Money, gestion des commandes et interface admin intuitive."
+           data-desc-en="Complete e-commerce store for a Malagasy clothing brand. Unlimited catalog, Mobile Money payment, order management and intuitive admin interface."
+           data-r1="3×" data-r1l-fr="Ventes multipliées" data-r1l-en="Sales multiplied"
+           data-r2="200+" data-r2l-fr="Produits en ligne" data-r2l-en="Products online"
+           data-r3="21j" data-r3l-fr="Délai livraison" data-r3l-en="Delivery time"
+           data-stack="WooCommerce,WordPress,Mobile Money,Design"
+           data-quote-fr="&laquo; Notre chiffre d'affaires a triplé depuis le lancement de la boutique ! &raquo; — Hanta R."
+           data-quote-en="&laquo; Our revenue tripled since the store launched! &raquo; — Hanta R."
+           data-year="2024" data-grad="g-green" data-emoji="🛍️">
+        <div class="pcard-thumb">
+          <div class="bg g-green"></div>
+          <div class="pcard-thumb-inner">
+            <div class="pcard-emoji">🛍️</div>
+            <div class="pcard-mockbar"><div class="mockbar-dot"></div><div class="mockbar-dot"></div><div class="mockbar-dot"></div></div>
+          </div>
+          <div class="pcard-overlay">
+            <button class="overlay-btn ob-white" onclick="openModal(this.closest('.pcard'))" data-fr="Voir le projet" data-en="View project">Voir le projet</button>
+            <button class="overlay-btn ob-green"  onclick="window.location='contact.html'" data-fr="Projet similaire" data-en="Similar project">Projet similaire</button>
+          </div>
+          <span class="pcard-cat cat-ecommerce" data-fr="E-commerce" data-en="E-commerce">E-commerce</span>
+          <span class="pcard-year">2024</span>
+        </div>
+        <div class="pcard-body">
+          <h3 data-fr="Madagascar Style Shop" data-en="Madagascar Style Shop">Madagascar Style Shop</h3>
+          <p data-fr="Boutique en ligne avec catalogue illimité et paiement Mobile Money sécurisé." data-en="Online store with unlimited catalog and secure Mobile Money payment.">Boutique en ligne avec catalogue illimité et paiement Mobile Money sécurisé.</p>
+          <div class="pcard-meta">
+            <div class="pcard-tags"><span class="pcard-tag">WooCommerce</span><span class="pcard-tag">Mobile Money</span></div>
+            <span class="pcard-result">Ventes ×3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="pcard" data-cat="mesure" style="animation-delay:.15s"
+           data-title-fr="Hôtel Baobab Resort" data-title-en="Baobab Resort Hotel"
+           data-desc-fr="Site sur mesure pour un hôtel de luxe à Madagascar. Système de réservation en ligne, galerie immersive 360°, optimisation SEO avancée et interface multilingue FR/EN."
+           data-desc-en="Custom site for a luxury hotel in Madagascar. Online booking system, immersive 360° gallery, advanced SEO optimization and FR/EN multilingual interface."
+           data-r1="+140%" data-r1l-fr="Réservations" data-r1l-en="Bookings"
+           data-r2="2 langues" data-r2l-fr="FR & EN" data-r2l-en="FR & EN"
+           data-r3="4.9★" data-r3l-fr="Note Google" data-r3l-en="Google rating"
+           data-stack="WordPress,PHP,SEO avancé,Multilingue,Réservation"
+           data-quote-fr="&laquo; Notre taux de réservation en ligne a explosé. Un site magnifique ! &raquo; — Tsiry R."
+           data-quote-en="&laquo; Our online booking rate skyrocketed. A magnificent site! &raquo; — Tsiry R."
+           data-year="2023" data-grad="g-orange" data-emoji="🏨">
+        <div class="pcard-thumb">
+          <div class="bg g-orange"></div>
+          <div class="pcard-thumb-inner">
+            <div class="pcard-emoji">🏨</div>
+            <div class="pcard-mockbar"><div class="mockbar-dot"></div><div class="mockbar-dot"></div><div class="mockbar-dot"></div></div>
+          </div>
+          <div class="pcard-overlay">
+            <button class="overlay-btn ob-white" onclick="openModal(this.closest('.pcard'))" data-fr="Voir le projet" data-en="View project">Voir le projet</button>
+            <button class="overlay-btn ob-green"  onclick="window.location='contact.html'" data-fr="Projet similaire" data-en="Similar project">Projet similaire</button>
+          </div>
+          <span class="pcard-cat cat-mesure" data-fr="Sur mesure" data-en="Custom">Sur mesure</span>
+          <span class="pcard-year">2023</span>
+        </div>
+        <div class="pcard-body">
+          <h3 data-fr="Hôtel Baobab Resort" data-en="Baobab Resort Hotel">Hôtel Baobab Resort</h3>
+          <p data-fr="Réservation en ligne, galerie immersive et SEO avancé pour un hôtel de luxe." data-en="Online booking, immersive gallery and advanced SEO for a luxury hotel.">Réservation en ligne, galerie immersive et SEO avancé pour un hôtel de luxe.</p>
+          <div class="pcard-meta">
+            <div class="pcard-tags"><span class="pcard-tag">Sur mesure</span><span class="pcard-tag">Réservation</span></div>
+            <span class="pcard-result">+140% réservations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="pcard" data-cat="seo" style="animation-delay:.2s"
+           data-title-fr="Cabinet Médical Analakely" data-title-en="Analakely Medical Practice"
+           data-desc-fr="Audit SEO complet et refonte du site d'un cabinet médical. Optimisation des mots-clés locaux, amélioration de la vitesse de chargement et mise en place de Google My Business."
+           data-desc-en="Complete SEO audit and website redesign for a medical practice. Local keyword optimization, loading speed improvement and Google My Business setup."
+           data-r1="1ère" data-r1l-fr="Page Google" data-r1l-en="Google page"
+           data-r2="+200%" data-r2l-fr="Trafic organique" data-r2l-en="Organic traffic"
+           data-r3="3 mois" data-r3l-fr="Pour atteindre P1" data-r3l-en="To reach P1"
+           data-stack="SEO,Google Analytics,Google My Business,Vitesse"
+           data-quote-fr="&laquo; On est maintenant premier sur Google pour 'médecin Antananarivo'. Incroyable ! &raquo; — Dr. Miora"
+           data-quote-en="&laquo; We're now first on Google for 'doctor Antananarivo'. Incredible! &raquo; — Dr. Miora"
+           data-year="2024" data-grad="g-teal" data-emoji="🏥">
+        <div class="pcard-thumb">
+          <div class="bg g-teal"></div>
+          <div class="pcard-thumb-inner">
+            <div class="pcard-emoji">🏥</div>
+            <div class="pcard-mockbar"><div class="mockbar-dot"></div><div class="mockbar-dot"></div><div class="mockbar-dot"></div></div>
+          </div>
+          <div class="pcard-overlay">
+            <button class="overlay-btn ob-white" onclick="openModal(this.closest('.pcard'))" data-fr="Voir le projet" data-en="View project">Voir le projet</button>
+            <button class="overlay-btn ob-green"  onclick="window.location='contact.html'" data-fr="Projet similaire" data-en="Similar project">Projet similaire</button>
+          </div>
+          <span class="pcard-cat cat-seo" data-fr="SEO" data-en="SEO">SEO</span>
+          <span class="pcard-year">2024</span>
+        </div>
+        <div class="pcard-body">
+          <h3 data-fr="Cabinet Médical Analakely" data-en="Analakely Medical Practice">Cabinet Médical Analakely</h3>
+          <p data-fr="Audit SEO et optimisation locale pour une visibilité maximale sur Google." data-en="SEO audit and local optimization for maximum visibility on Google.">Audit SEO et optimisation locale pour une visibilité maximale sur Google.</p>
+          <div class="pcard-meta">
+            <div class="pcard-tags"><span class="pcard-tag">SEO local</span><span class="pcard-tag">Google</span></div>
+            <span class="pcard-result">+200% trafic</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="pcard" data-cat="vitrine" style="animation-delay:.25s"
+           data-title-fr="Restaurant Zara Cuisine" data-title-en="Zara Cuisine Restaurant"
+           data-desc-fr="Site vitrine moderne pour un restaurant gastronomique. Carte interactive, galerie photos appétissante, réservation de table en ligne et intégration des réseaux sociaux."
+           data-desc-en="Modern showcase site for a gourmet restaurant. Interactive menu, appetizing photo gallery, online table booking and social media integration."
+           data-r1="+90%" data-r1l-fr="Réservations" data-r1l-en="Reservations"
+           data-r2="7j" data-r2l-fr="Délai livraison" data-r2l-en="Delivery time"
+           data-r3="4.8★" data-r3l-fr="Note Google" data-r3l-en="Google rating"
+           data-stack="WordPress,Design,SEO,Réservation"
+           data-quote-fr="&laquo; Notre restaurant affiche complet chaque week-end depuis le lancement ! &raquo; — Chef Lova"
+           data-quote-en="&laquo; Our restaurant is fully booked every weekend since launch! &raquo; — Chef Lova"
+           data-year="2023" data-grad="g-purple" data-emoji="🍽️">
+        <div class="pcard-thumb">
+          <div class="bg g-purple"></div>
+          <div class="pcard-thumb-inner">
+            <div class="pcard-emoji">🍽️</div>
+            <div class="pcard-mockbar"><div class="mockbar-dot"></div><div class="mockbar-dot"></div><div class="mockbar-dot"></div></div>
+          </div>
+          <div class="pcard-overlay">
+            <button class="overlay-btn ob-white" onclick="openModal(this.closest('.pcard'))" data-fr="Voir le projet" data-en="View project">Voir le projet</button>
+            <button class="overlay-btn ob-green"  onclick="window.location='contact.html'" data-fr="Projet similaire" data-en="Similar project">Projet similaire</button>
+          </div>
+          <span class="pcard-cat cat-vitrine" data-fr="Site vitrine" data-en="Showcase">Site vitrine</span>
+          <span class="pcard-year">2023</span>
+        </div>
+        <div class="pcard-body">
+          <h3 data-fr="Restaurant Zara Cuisine" data-en="Zara Cuisine Restaurant">Restaurant Zara Cuisine</h3>
+          <p data-fr="Carte interactive, galerie photos et réservation de table en ligne." data-en="Interactive menu, photo gallery and online table booking.">Carte interactive, galerie photos et réservation de table en ligne.</p>
+          <div class="pcard-meta">
+            <div class="pcard-tags"><span class="pcard-tag">Vitrine</span><span class="pcard-tag">Réservation</span></div>
+            <span class="pcard-result">+90% réservations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="pcard" data-cat="ecommerce" style="animation-delay:.3s"
+           data-title-fr="Épicerie Bio Natura" data-title-en="Natura Organic Grocery"
+           data-desc-fr="Boutique e-commerce pour une épicerie bio locale. Gestion des stocks en temps réel, livraison à domicile configurable, abonnement panier hebdomadaire et paiement sécurisé."
+           data-desc-en="E-commerce store for a local organic grocery. Real-time inventory management, configurable home delivery, weekly basket subscription and secure payment."
+           data-r1="500+" data-r1l-fr="Commandes/mois" data-r1l-en="Orders/month"
+           data-r2="28j" data-r2l-fr="Délai livraison" data-r2l-en="Delivery time"
+           data-r3="+160%" data-r3l-fr="CA en 6 mois" data-r3l-en="Revenue in 6 months"
+           data-stack="WooCommerce,Mobile Money,Livraison,Abonnement"
+           data-quote-fr="&laquo; L'abonnement panier hebdomadaire a révolutionné notre modèle. Merci NexaWeb ! &raquo; — Sarah M."
+           data-quote-en="&laquo; The weekly basket subscription revolutionized our model. Thank you NexaWeb! &raquo; — Sarah M."
+           data-year="2024" data-grad="g-coral" data-emoji="🥦">
+        <div class="pcard-thumb">
+          <div class="bg g-coral"></div>
+          <div class="pcard-thumb-inner">
+            <div class="pcard-emoji">🥦</div>
+            <div class="pcard-mockbar"><div class="mockbar-dot"></div><div class="mockbar-dot"></div><div class="mockbar-dot"></div></div>
+          </div>
+          <div class="pcard-overlay">
+            <button class="overlay-btn ob-white" onclick="openModal(this.closest('.pcard'))" data-fr="Voir le projet" data-en="View project">Voir le projet</button>
+            <button class="overlay-btn ob-green"  onclick="window.location='contact.html'" data-fr="Projet similaire" data-en="Similar project">Projet similaire</button>
+          </div>
+          <span class="pcard-cat cat-ecommerce" data-fr="E-commerce" data-en="E-commerce">E-commerce</span>
+          <span class="pcard-year">2024</span>
+        </div>
+        <div class="pcard-body">
+          <h3 data-fr="Épicerie Bio Natura" data-en="Natura Organic Grocery">Épicerie Bio Natura</h3>
+          <p data-fr="Stocks en temps réel, livraison à domicile et abonnement panier hebdomadaire." data-en="Real-time stock, home delivery and weekly basket subscription.">Stocks en temps réel, livraison à domicile et abonnement panier hebdomadaire.</p>
+          <div class="pcard-meta">
+            <div class="pcard-tags"><span class="pcard-tag">E-commerce</span><span class="pcard-tag">Abonnement</span></div>
+            <span class="pcard-result">500+ cmd/mois</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="bg" id="modalBg"></div>
+      <div class="modal-header-content">
+        <div class="modal-emoji" id="modalEmoji"></div>
+        <h2 id="modalTitle"></h2>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <span class="modal-cat-badge" id="modalCat"></span>
+      <h3 data-fr="À propos du projet" data-en="About the project">À propos du projet</h3>
+      <p id="modalDesc"></p>
+      <h3 data-fr="Résultats obtenus" data-en="Results achieved">Résultats obtenus</h3>
+      <div class="modal-results" id="modalResults"></div>
+      <h3 data-fr="Technologies utilisées" data-en="Technologies used">Technologies utilisées</h3>
+      <div class="modal-stack" id="modalStack"></div>
+      <div class="modal-cta">
+        <button class="mcta-main" onclick="window.location='contact.html'" data-fr="Démarrer un projet similaire" data-en="Start a similar project">Démarrer un projet similaire</button>
+        <button class="mcta-sec"  onclick="closeModal()" data-fr="Fermer" data-en="Close">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2 data-fr="Votre projet sera le prochain !" data-en="Your project will be next!">Votre projet sera le prochain !</h2>
+    <p data-fr="Rejoignez nos clients satisfaits et donnez vie à votre présence en ligne avec NexaWeb Agency." data-en="Join our satisfied clients and bring your online presence to life with NexaWeb Agency.">Rejoignez nos clients satisfaits et donnez vie à votre présence en ligne avec NexaWeb Agency.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn-white">✉️ <span data-fr="Envoyer un email" data-en="Send an email">Envoyer un email</span></a>
+      <a href="https://wa.me/261327743094" target="_blank" class="btn-wa">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+          NexaWeb Agency
+        </div>
+        <p data-fr="Votre partenaire pour une présence en ligne professionnelle à Madagascar." data-en="Your partner for a professional online presence in Madagascar.">Votre partenaire pour une présence en ligne professionnelle à Madagascar.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61579980088577" class="social-icon">📘</a>
+          <a href="https://wa.me/261327743094" class="social-icon">💬</a>
+          <a href="contact.html" class="social-icon" title="Email">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Services" data-en="Services">Services</h4>
+        <ul>
+          <li><a href="services.html" data-fr="Site vitrine"    data-en="Showcase site">Site vitrine</a></li>
+          <li><a href="services.html" data-fr="E-commerce"      data-en="E-commerce">E-commerce</a></li>
+          <li><a href="services.html" data-fr="Sur mesure"      data-en="Custom site">Sur mesure</a></li>
+          <li><a href="services.html" data-fr="Maintenance"     data-en="Maintenance">Maintenance</a></li>
+          <li><a href="services.html" data-fr="SEO"             data-en="SEO">SEO</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Navigation" data-en="Navigation">Navigation</h4>
+        <ul>
+          <li><a href="index.html"    data-fr="Accueil"    data-en="Home">Accueil</a></li>
+          <li><a href="services.html" data-fr="Services" data-en="Services">Services</a></li>
+          <li><a href="#portfolio" data-fr="Portfolio" data-en="Portfolio">Portfolio</a></li>
+          <li><a href="apropos.html" data-fr="À propos" data-en="About">À propos</a></li>
+          <li><a href="blog.html" data-fr="Blog" data-en="Blog">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+        <ul>
+          <li><a href="tel:+261327743094">+261 32 77 430 94</a></li>
+          <li><a href="contact.html">agencynexaweb@gmail.com</a></li>
+          <li><a href="https://wa.me/261327743094">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-fr="© 2025 NexaWeb Agency. Tous droits réservés." data-en="© 2025 NexaWeb Agency. All rights reserved.">© 2025 NexaWeb Agency. Tous droits réservés.</span>
+      <span data-fr="Fait avec ❤️ à Madagascar" data-en="Made with ❤️ in Madagascar">Fait avec ❤️ à Madagascar</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  let currentLang = 'fr';
+
+  // ── LANG ──
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
+    });
+    document.querySelectorAll('.lang-toggle button').forEach((btn, i) => {
+      btn.classList.toggle('active', (i === 0 && lang === 'fr') || (i === 1 && lang === 'en'));
+    });
+    updateResultsCount();
+  }
+
+  // ── HEADER ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── MOBILE NAV ──
+  function openMobileNav()  { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // ── FILTER ──
+  let currentCat = 'all';
+  function filterCards(cat, btn) {
+    currentCat = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.pcard');
+    let visible = 0;
+    cards.forEach((c, i) => {
+      const show = cat === 'all' || c.dataset.cat === cat;
+      if (show) {
+        c.classList.remove('hidden');
+        c.style.animationDelay = (i * 0.05) + 's';
+        c.style.animation = 'none';
+        setTimeout(() => { c.style.animation = `cardIn .5s ease ${i * 0.05}s forwards`; }, 10);
+        visible++;
+      } else {
+        c.classList.add('hidden');
+      }
+    });
+    updateResultsCount(visible);
+  }
+
+  function updateResultsCount(n) {
+    const el = document.getElementById('resultsCount');
+    const total = n !== undefined ? n : document.querySelectorAll('.pcard:not(.hidden)').length;
+    const tpl = currentLang === 'fr' ? el.dataset.frTpl : el.dataset.enTpl;
+    el.textContent = tpl.replace('{n}', total);
+  }
+
+  // ── MODAL ──
+  const catColors = {
+    vitrine:     { bg: 'g-blue',   cls: 'cat-vitrine',   label_fr: 'Site vitrine', label_en: 'Showcase site' },
+    ecommerce:   { bg: 'g-green',  cls: 'cat-ecommerce', label_fr: 'E-commerce',   label_en: 'E-commerce' },
+    mesure:      { bg: 'g-orange', cls: 'cat-mesure',     label_fr: 'Sur mesure',   label_en: 'Custom site' },
+    seo:         { bg: 'g-teal',   cls: 'cat-seo',       label_fr: 'SEO',          label_en: 'SEO' },
+  };
+
+  function openModal(card) {
+    const d = card.dataset;
+    const lang = currentLang;
+    const cat  = card.dataset.cat;
+    const cc   = catColors[cat];
+
+    document.getElementById('modalBg').className    = 'bg ' + (d.grad || cc.bg);
+    document.getElementById('modalEmoji').textContent = d.emoji || '🌐';
+    document.getElementById('modalTitle').textContent = lang === 'fr' ? d.titleFr : d.titleEn;
+    document.getElementById('modalDesc').textContent  = lang === 'fr' ? d.descFr  : d.descEn;
+
+    const catEl = document.getElementById('modalCat');
+    catEl.textContent = lang === 'fr' ? cc.label_fr : cc.label_en;
+    catEl.className = 'modal-cat-badge ' + cc.cls;
+    catEl.style.cssText = 'padding:4px 14px;border-radius:100px;font-size:.78rem;font-weight:700;display:inline-block;margin-bottom:16px;color:white;';
+
+    // Results
+    const results = document.getElementById('modalResults');
+    results.innerHTML = `
+      <div class="modal-result"><div class="mr-value">${d.r1}</div><div class="mr-label">${lang==='fr'?d.r1lFr:d.r1lEn}</div></div>
+      <div class="modal-result"><div class="mr-value">${d.r2}</div><div class="mr-label">${lang==='fr'?d.r2lFr:d.r2lEn}</div></div>
+      <div class="modal-result"><div class="mr-value">${d.r3}</div><div class="mr-label">${lang==='fr'?d.r3lFr:d.r3lEn}</div></div>
+    `;
+
+    // Stack
+    const stack = document.getElementById('modalStack');
+    stack.innerHTML = d.stack.split(',').map(s => `<span class="stack-item">${s.trim()}</span>`).join('');
+
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnBg(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Init count
+  updateResultsCount(6);
+</script>
+</body>
+</html>

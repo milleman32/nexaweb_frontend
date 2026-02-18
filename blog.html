@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog – NexaWeb Agency</title>
+  <meta name="description" content="Conseils web, SEO, design et tendances digitales par NexaWeb Agency. Restez informé pour booster votre présence en ligne." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue:        #1A4A8C;
+      --blue-light:  #2D6BC4;
+      --blue-pale:   #E8F0FB;
+      --green:       #2BA84A;
+      --green-light: #E6F7EB;
+      --orange:      #F47C30;
+      --orange-light:#FEF0E7;
+      --white:       #FFFFFF;
+      --off-white:   #F7F9FC;
+      --dark:        #0D1B2A;
+      --gray:        #6B7A8D;
+      --gray-light:  #D1D9E6;
+      --radius:      14px;
+      --shadow:      0 4px 24px rgba(26,74,140,0.10);
+      --shadow-lg:   0 12px 48px rgba(26,74,140,0.16);
+      --transition:  0.3s cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--dark); line-height: 1.7; overflow-x: hidden; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── LANG ── */
+    .lang-toggle { display: flex; gap: 4px; align-items: center; }
+    .lang-toggle button { background: none; border: 1.5px solid var(--gray-light); border-radius: 6px; padding: 3px 10px; font-size: .78rem; font-family: 'DM Sans', sans-serif; cursor: pointer; color: var(--gray); transition: var(--transition); }
+    .lang-toggle button.active { background: var(--blue); border-color: var(--blue); color: var(--white); font-weight: 600; }
+
+    /* ── HEADER ── */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--gray-light); transition: box-shadow var(--transition); }
+    header.scrolled { box-shadow: var(--shadow); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--blue); }
+    .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--blue) 0%, var(--green) 60%, var(--orange) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .logo-icon svg { width: 22px; height: 22px; fill: white; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: .92rem; font-weight: 500; color: var(--dark); position: relative; padding-bottom: 2px; transition: color var(--transition); }
+    nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--green); transition: width var(--transition); }
+    nav a:hover { color: var(--blue); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    nav a.active { color: var(--blue); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .9rem; cursor: pointer; border: none; background: var(--blue); color: var(--white); box-shadow: 0 2px 12px rgba(26,74,140,0.25); transition: var(--transition); }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav { display: none; position: fixed; inset: 0; background: white; z-index: 200; flex-direction: column; padding: 80px 32px 40px; gap: 28px; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.4rem; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--dark); }
+    .mobile-close { position: absolute; top: 18px; right: 24px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--dark); }
+
+    /* ── PAGE HERO ── */
+    .page-hero { padding-top: 68px; background: linear-gradient(135deg, #F7F9FC 0%, var(--blue-pale) 60%, var(--green-light) 100%); position: relative; overflow: hidden; }
+    .hero-bg-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .shape { position: absolute; border-radius: 50%; opacity: 0.12; animation: float 8s ease-in-out infinite; }
+    .shape-1 { width: 320px; height: 320px; background: var(--blue); top: -80px; right: -60px; }
+    .shape-2 { width: 180px; height: 180px; background: var(--green); bottom: -40px; left: 5%; animation-delay: 3s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; padding: 80px 24px 64px; text-align: center; position: relative; z-index: 1; }
+    .page-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--green-light); color: var(--green); border: 1px solid rgba(43,168,74,0.25); padding: 6px 16px; border-radius: 100px; font-size: .82rem; font-weight: 600; margin-bottom: 20px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); color: var(--dark); margin-bottom: 16px; }
+    .page-hero p { font-size: 1.05rem; color: var(--gray); max-width: 560px; margin: 0 auto 32px; line-height: 1.8; }
+
+    /* ── SEARCH BAR ── */
+    .search-bar { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .search-input-wrap { position: relative; flex: 1; max-width: 400px; }
+    .search-input { width: 100%; padding: 12px 16px 12px 44px; border: 2px solid var(--gray-light); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: .92rem; color: var(--dark); background: white; transition: var(--transition); outline: none; }
+    .search-input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(26,74,140,0.08); }
+    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--gray); pointer-events: none; }
+    .search-btn { padding: 12px 24px; background: var(--blue); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .9rem; cursor: pointer; transition: var(--transition); }
+    .search-btn:hover { background: var(--blue-light); }
+
+    /* ── MAIN LAYOUT ── */
+    .blog-layout { max-width: 1200px; margin: 0 auto; padding: 64px 24px 96px; display: grid; grid-template-columns: 1fr 340px; gap: 56px; align-items: start; }
+
+    /* ── FILTER TABS ── */
+    .filter-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; align-items: center; justify-content: space-between; }
+    .filter-left { display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-btn { padding: 7px 18px; border-radius: 100px; border: 2px solid var(--gray-light); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 600; color: var(--gray); cursor: pointer; transition: var(--transition); }
+    .filter-btn:hover, .filter-btn.active { background: var(--blue); border-color: var(--blue); color: var(--white); }
+    .articles-count { font-size: .85rem; color: var(--gray); font-weight: 500; white-space: nowrap; }
+
+    /* ── FEATURED ARTICLE ── */
+    .featured-article {
+      border-radius: 20px; overflow: hidden; background: var(--white);
+      box-shadow: var(--shadow-lg); margin-bottom: 36px;
+      display: grid; grid-template-columns: 1fr 1fr; transition: var(--transition);
+    }
+    .featured-article:hover { transform: translateY(-4px); box-shadow: 0 16px 56px rgba(26,74,140,0.2); }
+    .fa-thumb { position: relative; min-height: 280px; }
+    .fa-bg { position: absolute; inset: 0; }
+    .fa-bg-1 { background: linear-gradient(135deg, #1A4A8C 0%, #2D6BC4 60%, #2BA84A 100%); }
+    .fa-thumb-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .fa-emoji { font-size: 4rem; }
+    .fa-badge { background: rgba(255,255,255,0.18); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); border-radius: 100px; padding: 5px 14px; font-size: .75rem; font-weight: 700; color: white; }
+    .fa-body { padding: 36px 32px; display: flex; flex-direction: column; justify-content: center; }
+    .fa-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .fa-cat { padding: 4px 12px; border-radius: 100px; font-size: .72rem; font-weight: 700; }
+    .cat-seo     { background: var(--green-light); color: var(--green); }
+    .cat-design  { background: var(--blue-pale);   color: var(--blue); }
+    .cat-web     { background: var(--orange-light); color: var(--orange); }
+    .cat-digital { background: #F0E8FB; color: #5B2C8C; }
+    .fa-date { font-size: .78rem; color: var(--gray); }
+    .fa-read { font-size: .78rem; color: var(--gray); }
+    .fa-body h2 { font-size: 1.5rem; margin-bottom: 12px; transition: color var(--transition); }
+    .featured-article:hover .fa-body h2 { color: var(--blue); }
+    .fa-body p { font-size: .9rem; color: var(--gray); line-height: 1.8; margin-bottom: 20px; }
+    .fa-author { display: flex; align-items: center; gap: 10px; }
+    .fa-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .9rem; font-weight: 700; color: white; flex-shrink: 0; }
+    .av-blue { background: linear-gradient(135deg, var(--blue), var(--blue-light)); }
+    .av-green { background: linear-gradient(135deg, var(--green), #1A7C36); }
+    .av-orange { background: linear-gradient(135deg, var(--orange), #C45B10); }
+    .fa-author-name { font-size: .85rem; font-weight: 600; }
+    .fa-author-role { font-size: .75rem; color: var(--gray); }
+    .read-more { display: inline-flex; align-items: center; gap: 6px; font-size: .88rem; font-weight: 700; color: var(--blue); margin-top: 16px; transition: gap var(--transition); }
+    .read-more:hover { gap: 12px; }
+
+    /* ── ARTICLE GRID ── */
+    .articles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+    .article-card {
+      border-radius: var(--radius); overflow: hidden; background: var(--white);
+      box-shadow: var(--shadow); transition: var(--transition);
+      border: 1.5px solid var(--gray-light);
+    }
+    .article-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+    .article-card.hidden { display: none; }
+
+    .ac-thumb { position: relative; height: 160px; overflow: hidden; }
+    .ac-thumb .bg { position: absolute; inset: 0; transition: transform .5s ease; }
+    .article-card:hover .ac-thumb .bg { transform: scale(1.06); }
+    .g-blue   { background: linear-gradient(135deg, #1A4A8C, #2D6BC4); }
+    .g-green  { background: linear-gradient(135deg, #2BA84A, #1A7C36); }
+    .g-orange { background: linear-gradient(135deg, #F47C30, #C45B10); }
+    .g-teal   { background: linear-gradient(135deg, #0D8C8C, #2BA84A); }
+    .g-purple { background: linear-gradient(135deg, #5B2C8C, #1A4A8C); }
+    .ac-emoji { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
+    .ac-tag { position: absolute; top: 10px; left: 10px; padding: 3px 10px; border-radius: 100px; font-size: .7rem; font-weight: 700; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); }
+
+    .ac-body { padding: 20px; }
+    .ac-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .ac-date { font-size: .75rem; color: var(--gray); }
+    .ac-dot  { width: 3px; height: 3px; background: var(--gray-light); border-radius: 50%; }
+    .ac-read { font-size: .75rem; color: var(--gray); }
+    .ac-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; line-height: 1.35; transition: color var(--transition); }
+    .article-card:hover h3 { color: var(--blue); }
+    .ac-body p { font-size: .84rem; color: var(--gray); line-height: 1.65; margin-bottom: 14px; }
+    .ac-footer { display: flex; align-items: center; justify-content: space-between; }
+    .ac-author { display: flex; align-items: center; gap: 8px; }
+    .ac-avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 700; color: white; flex-shrink: 0; }
+    .ac-author-name { font-size: .78rem; font-weight: 600; color: var(--dark); }
+    .ac-link { font-size: .78rem; font-weight: 700; color: var(--blue); display: flex; align-items: center; gap: 4px; transition: gap var(--transition); }
+    .ac-link:hover { gap: 8px; }
+
+    /* ── LOAD MORE ── */
+    .load-more-wrap { text-align: center; margin-top: 36px; }
+    .load-more-btn { padding: 12px 32px; border: 2px solid var(--blue); background: transparent; color: var(--blue); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .9rem; cursor: pointer; transition: var(--transition); }
+    .load-more-btn:hover { background: var(--blue); color: white; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 88px; display: flex; flex-direction: column; gap: 28px; }
+
+    .sidebar-card { background: var(--off-white); border-radius: var(--radius); padding: 24px; border: 1.5px solid var(--gray-light); }
+    .sidebar-card h4 { font-size: .95rem; font-weight: 700; margin-bottom: 16px; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+
+    /* Categories */
+    .cat-list { display: flex; flex-direction: column; gap: 8px; }
+    .cat-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: var(--transition); border: 1.5px solid transparent; }
+    .cat-item:hover { background: white; border-color: var(--gray-light); }
+    .cat-item.active { background: white; border-color: var(--blue); }
+    .cat-item-left { display: flex; align-items: center; gap: 10px; font-size: .88rem; font-weight: 500; }
+    .cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .cd-blue   { background: var(--blue); }
+    .cd-green  { background: var(--green); }
+    .cd-orange { background: var(--orange); }
+    .cd-purple { background: #5B2C8C; }
+    .cat-count { font-size: .75rem; color: var(--gray); background: var(--gray-light); padding: 2px 8px; border-radius: 100px; }
+
+    /* Popular articles */
+    .popular-list { display: flex; flex-direction: column; gap: 14px; }
+    .popular-item { display: flex; gap: 12px; cursor: pointer; transition: var(--transition); padding: 6px; border-radius: 8px; }
+    .popular-item:hover { background: white; }
+    .popular-thumb { width: 52px; height: 52px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .pt-blue   { background: var(--blue-pale); }
+    .pt-green  { background: var(--green-light); }
+    .pt-orange { background: var(--orange-light); }
+    .popular-info { flex: 1; }
+    .popular-title { font-size: .85rem; font-weight: 600; line-height: 1.35; margin-bottom: 4px; color: var(--dark); }
+    .popular-meta  { font-size: .75rem; color: var(--gray); }
+
+    /* Newsletter */
+    .newsletter-card { background: linear-gradient(135deg, var(--blue), var(--green)); border-radius: var(--radius); padding: 28px; color: white; text-align: center; }
+    .newsletter-card h4 { font-size: 1.1rem; margin-bottom: 8px; }
+    .newsletter-card p  { font-size: .85rem; opacity: .85; margin-bottom: 20px; line-height: 1.6; }
+    .nl-input { width: 100%; padding: 10px 14px; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .88rem; margin-bottom: 10px; outline: none; }
+    .nl-btn { width: 100%; padding: 11px; background: white; color: var(--blue); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .88rem; cursor: pointer; transition: var(--transition); }
+    .nl-btn:hover { background: var(--off-white); }
+    .nl-privacy { font-size: .72rem; opacity: .65; margin-top: 10px; }
+
+    /* Tags cloud */
+    .tags-cloud { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag-item { padding: 5px 12px; border-radius: 100px; background: white; border: 1.5px solid var(--gray-light); font-size: .78rem; font-weight: 600; color: var(--gray); cursor: pointer; transition: var(--transition); }
+    .tag-item:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-pale); }
+
+    /* ── CTA ── */
+    .cta-section { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 50%, var(--green) 100%); padding: 80px 24px; text-align: center; }
+    .cta-inner { max-width: 600px; margin: 0 auto; }
+    .cta-inner h2 { color: white; font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 12px; }
+    .cta-inner p  { color: rgba(255,255,255,0.82); margin-bottom: 28px; font-size: .95rem; line-height: 1.8; }
+    .cta-actions  { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: white; color: var(--blue); font-weight: 700; padding: 12px 28px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: .9rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+    .btn-wa { background: #25D366; color: white; font-weight: 700; padding: 12px 28px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: .9rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand p { font-size: .88rem; line-height: 1.8; margin-top: 14px; max-width: 280px; }
+    .footer-logo { color: white; display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+    .footer-col h4 { color: white; font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: .88rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: .95rem; transition: var(--transition); cursor: pointer; }
+    .social-icon:hover { background: var(--green); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; font-size: .82rem; flex-wrap: wrap; gap: 12px; }
+
+    /* ── WA FLOAT ── */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.45); cursor: pointer; transition: var(--transition); }
+    .wa-float:hover { transform: scale(1.12); }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) { .blog-layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
+    @media (max-width: 768px) { nav { display: none; } .hamburger { display: flex; } .featured-article { grid-template-columns: 1fr; } .fa-thumb { min-height: 200px; } .articles-grid { grid-template-columns: 1fr; } .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; } }
+    @media (max-width: 480px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/261327743094" target="_blank" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.37 0 0 5.373 0 11.998c0 2.117.554 4.1 1.523 5.817L.057 23.998l6.348-1.427A11.948 11.948 0 0011.99 24c6.623 0 12-5.373 12-11.998C23.99 5.373 18.613 0 11.99 0zm0 21.818a9.826 9.826 0 01-5.011-1.37l-.36-.214-3.73.838.869-3.638-.234-.374A9.808 9.808 0 012.18 12c0-5.414 4.404-9.818 9.81-9.818 5.408 0 9.813 4.404 9.813 9.818s-4.405 9.818-9.813 9.818z"/></svg>
+</a>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html"     onclick="closeMobileNav()" data-fr="Accueil"    data-en="Home">Accueil</a>
+  <a href="services.html"  onclick="closeMobileNav()" data-fr="Services"   data-en="Services">Services</a>
+  <a href="portfolio.html" onclick="closeMobileNav()" data-fr="Portfolio"  data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html"   onclick="closeMobileNav()" data-fr="À propos"   data-en="About">À propos</a>
+  <a href="blog.html"      onclick="closeMobileNav()" data-fr="Blog"       data-en="Blog">Blog</a>
+  <a href="contact.html"   onclick="closeMobileNav()" data-fr="Contact"    data-en="Contact">Contact</a>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+      NexaWeb
+    </a>
+    <nav>
+      <a href="index.html"    data-fr="Accueil"   data-en="Home">Accueil</a>
+      <a href="services.html" data-fr="Services"  data-en="Services">Services</a>
+      <a href="portfolio.html"data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+      <a href="apropos.html"  data-fr="À propos"  data-en="About">À propos</a>
+      <a href="blog.html" class="active" data-fr="Blog" data-en="Blog">Blog</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="active" onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('en')">EN</button>
+      </div>
+      <a href="contact.html" class="btn-primary" data-fr="Devis gratuit" data-en="Free quote">Devis gratuit</a>
+      <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+  </div>
+  <div class="page-hero-inner">
+    <div class="page-tag">✍️ <span data-fr="Conseils & Actualités" data-en="Tips & News">Conseils & Actualités</span></div>
+    <h1 data-fr="Le blog NexaWeb Agency" data-en="The NexaWeb Agency Blog">Le blog NexaWeb Agency</h1>
+    <p data-fr="Conseils web, tendances SEO, design et stratégies digitales pour booster votre présence en ligne à Madagascar et au-delà." data-en="Web tips, SEO trends, design and digital strategies to boost your online presence in Madagascar and beyond.">Conseils web, tendances SEO, design et stratégies digitales pour booster votre présence en ligne à Madagascar et au-delà.</p>
+    <div class="search-bar">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Rechercher un article..." oninput="searchArticles(this.value)" />
+      </div>
+      <button class="search-btn" data-fr="Rechercher" data-en="Search">Rechercher</button>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG LAYOUT -->
+<div class="blog-layout">
+
+  <!-- MAIN CONTENT -->
+  <div class="blog-main">
+
+    <!-- FEATURED -->
+    <a href="#" class="featured-article reveal">
+      <div class="fa-thumb">
+        <div class="fa-bg fa-bg-1"></div>
+        <div class="fa-thumb-content">
+          <div class="fa-emoji">🚀</div>
+          <div class="fa-badge" data-fr="Article à la une" data-en="Featured article">Article à la une</div>
+        </div>
+      </div>
+      <div class="fa-body">
+        <div class="fa-meta">
+          <span class="fa-cat cat-seo" data-fr="SEO" data-en="SEO">SEO</span>
+          <span class="fa-date" data-fr="12 février 2025" data-en="February 12, 2025">12 février 2025</span>
+          <span class="fa-dot">·</span>
+          <span class="fa-read" data-fr="8 min de lecture" data-en="8 min read">8 min de lecture</span>
+        </div>
+        <h2 data-fr="5 stratégies SEO indispensables pour les entreprises malgaches en 2025" data-en="5 Essential SEO Strategies for Malagasy Businesses in 2025">5 stratégies SEO indispensables pour les entreprises malgaches en 2025</h2>
+        <p data-fr="Le référencement naturel est devenu incontournable pour toute entreprise souhaitant être visible sur Google. Voici les 5 stratégies que nous appliquons chez NexaWeb pour propulser nos clients en première page." data-en="Natural search engine optimization has become essential for any business wanting to be visible on Google. Here are the 5 strategies we apply at NexaWeb to push our clients to the first page.">Le référencement naturel est devenu incontournable pour toute entreprise souhaitant être visible sur Google. Voici les 5 stratégies que nous appliquons chez NexaWeb pour propulser nos clients en première page.</p>
+        <div class="fa-author">
+          <div class="fa-avatar av-green">T</div>
+          <div>
+            <div class="fa-author-name">Toky Rasolofo</div>
+            <div class="fa-author-role" data-fr="Expert SEO" data-en="SEO Expert">Expert SEO</div>
+          </div>
+        </div>
+        <span class="read-more" data-fr="Lire l'article →" data-en="Read article →">Lire l'article →</span>
+      </div>
+    </a>
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs">
+      <div class="filter-left">
+        <button class="filter-btn active" onclick="filterArticles('all', this)"     data-fr="Tous"     data-en="All">Tous</button>
+        <button class="filter-btn" onclick="filterArticles('seo', this)"            data-fr="SEO"      data-en="SEO">SEO</button>
+        <button class="filter-btn" onclick="filterArticles('design', this)"         data-fr="Design"   data-en="Design">Design</button>
+        <button class="filter-btn" onclick="filterArticles('web', this)"            data-fr="Web"      data-en="Web">Web</button>
+        <button class="filter-btn" onclick="filterArticles('digital', this)"        data-fr="Digital"  data-en="Digital">Digital</button>
+      </div>
+      <span class="articles-count" id="artCount">6 articles</span>
+    </div>
+
+    <!-- ARTICLES GRID -->
+    <div class="articles-grid" id="articlesGrid">
+
+      <!-- Article 1 -->
+      <a href="#" class="article-card reveal" data-category="design" style="animation-delay:.05s">
+        <div class="ac-thumb">
+          <div class="bg g-blue"></div>
+          <div class="ac-emoji">🎨</div>
+          <span class="ac-tag cat-design" data-fr="Design" data-en="Design">Design</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="ac-date" data-fr="5 fév. 2025" data-en="Feb 5, 2025">5 fév. 2025</span>
+            <span class="ac-dot"></span>
+            <span class="ac-read" data-fr="5 min" data-en="5 min">5 min</span>
+          </div>
+          <h3 data-fr="Les tendances de design web à adopter en 2025" data-en="Web Design Trends to Adopt in 2025">Les tendances de design web à adopter en 2025</h3>
+          <p data-fr="Glassmorphisme, micro-animations, dark mode... Découvrez les tendances qui feront la différence pour votre site cette année." data-en="Glassmorphism, micro-animations, dark mode... Discover the trends that will make a difference for your site this year.">Glassmorphisme, micro-animations, dark mode... Découvrez les tendances qui feront la différence pour votre site cette année.</p>
+          <div class="ac-footer">
+            <div class="ac-author">
+              <div class="ac-avatar av-green">S</div>
+              <span class="ac-author-name">Sahondra R.</span>
+            </div>
+            <span class="ac-link" data-fr="Lire →" data-en="Read →">Lire →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 2 -->
+      <a href="#" class="article-card reveal" data-category="web" style="animation-delay:.1s">
+        <div class="ac-thumb">
+          <div class="bg g-green"></div>
+          <div class="ac-emoji">📱</div>
+          <span class="ac-tag cat-web" data-fr="Web" data-en="Web">Web</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="ac-date" data-fr="28 jan. 2025" data-en="Jan 28, 2025">28 jan. 2025</span>
+            <span class="ac-dot"></span>
+            <span class="ac-read" data-fr="6 min" data-en="6 min">6 min</span>
+          </div>
+          <h3 data-fr="Pourquoi votre site doit être mobile-first en 2025" data-en="Why Your Site Must Be Mobile-First in 2025">Pourquoi votre site doit être mobile-first en 2025</h3>
+          <p data-fr="Plus de 70% des internautes malgaches naviguent sur mobile. Votre site est-il vraiment optimisé pour eux ?" data-en="More than 70% of Malagasy internet users browse on mobile. Is your site truly optimized for them?">Plus de 70% des internautes malgaches naviguent sur mobile. Votre site est-il vraiment optimisé pour eux ?</p>
+          <div class="ac-footer">
+            <div class="ac-author">
+              <div class="ac-avatar av-blue">N</div>
+              <span class="ac-author-name">Niry A.</span>
+            </div>
+            <span class="ac-link" data-fr="Lire →" data-en="Read →">Lire →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 3 -->
+      <a href="#" class="article-card reveal" data-category="seo" style="animation-delay:.15s">
+        <div class="ac-thumb">
+          <div class="bg g-orange"></div>
+          <div class="ac-emoji">📊</div>
+          <span class="ac-tag cat-seo" data-fr="SEO" data-en="SEO">SEO</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="ac-date" data-fr="20 jan. 2025" data-en="Jan 20, 2025">20 jan. 2025</span>
+            <span class="ac-dot"></span>
+            <span class="ac-read" data-fr="7 min" data-en="7 min">7 min</span>
+          </div>
+          <h3 data-fr="Google Analytics 4 : guide complet pour débuter" data-en="Google Analytics 4: Complete Beginner's Guide">Google Analytics 4 : guide complet pour débuter</h3>
+          <p data-fr="GA4 est désormais l'outil incontournable pour mesurer les performances de votre site. On vous explique tout pas à pas." data-en="GA4 is now the essential tool for measuring your site's performance. We explain everything step by step.">GA4 est désormais l'outil incontournable pour mesurer les performances de votre site. On vous explique tout pas à pas.</p>
+          <div class="ac-footer">
+            <div class="ac-author">
+              <div class="ac-avatar av-orange">T</div>
+              <span class="ac-author-name">Toky R.</span>
+            </div>
+            <span class="ac-link" data-fr="Lire →" data-en="Read →">Lire →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 4 -->
+      <a href="#" class="article-card reveal" data-category="digital" style="animation-delay:.2s">
+        <div class="ac-thumb">
+          <div class="bg g-teal"></div>
+          <div class="ac-emoji">🛒</div>
+          <span class="ac-tag cat-digital" data-fr="Digital" data-en="Digital">Digital</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="ac-date" data-fr="10 jan. 2025" data-en="Jan 10, 2025">10 jan. 2025</span>
+            <span class="ac-dot"></span>
+            <span class="ac-read" data-fr="9 min" data-en="9 min">9 min</span>
+          </div>
+          <h3 data-fr="E-commerce à Madagascar : comment réussir sa boutique en ligne" data-en="E-commerce in Madagascar: How to Succeed with Your Online Store">E-commerce à Madagascar : comment réussir sa boutique en ligne</h3>
+          <p data-fr="Lancer une boutique en ligne à Madagascar, c'est possible ! On vous donne les clés pour démarrer sur de bonnes bases." data-en="Launching an online store in Madagascar is possible! We give you the keys to start on solid foundations.">Lancer une boutique en ligne à Madagascar, c'est possible ! On vous donne les clés pour démarrer sur de bonnes bases.</p>
+          <div class="ac-footer">
+            <div class="ac-author">
+              <div class="ac-avatar av-blue">N</div>
+              <span class="ac-author-name">Niry A.</span>
+            </div>
+            <span class="ac-link" data-fr="Lire →" data-en="Read →">Lire →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 5 -->
+      <a href="#" class="article-card reveal" data-category="web" style="animation-delay:.25s">
+        <div class="ac-thumb">
+          <div class="bg g-purple"></div>
+          <div class="ac-emoji">⚡</div>
+          <span class="ac-tag cat-web" data-fr="Web" data-en="Web">Web</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="ac-date" data-fr="2 jan. 2025" data-en="Jan 2, 2025">2 jan. 2025</span>
+            <span class="ac-dot"></span>
+            <span class="ac-read" data-fr="5 min" data-en="5 min">5 min</span>
+          </div>
+          <h3 data-fr="Vitesse de chargement : pourquoi chaque seconde compte" data-en="Page Load Speed: Why Every Second Counts">Vitesse de chargement : pourquoi chaque seconde compte</h3>
+          <p data-fr="Un site lent fait fuir les visiteurs et pénalise votre référencement. Voici comment optimiser votre temps de chargement." data-en="A slow site drives visitors away and penalizes your search ranking. Here's how to optimize your load time.">Un site lent fait fuir les visiteurs et pénalise votre référencement. Voici comment optimiser votre temps de chargement.</p>
+          <div class="ac-footer">
+            <div class="ac-author">
+              <div class="ac-avatar av-blue">N</div>
+              <span class="ac-author-name">Niry A.</span>
+            </div>
+            <span class="ac-link" data-fr="Lire →" data-en="Read →">Lire →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 6 -->
+      <a href="#" class="article-card reveal" data-category="design" style="animation-delay:.3s">
+        <div class="ac-thumb">
+          <div class="bg g-green"></div>
+          <div class="ac-emoji">🎯</div>
+          <span class="ac-tag cat-design" data-fr="Design" data-en="Design">Design</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="ac-date" data-fr="20 déc. 2024" data-en="Dec 20, 2024">20 déc. 2024</span>
+            <span class="ac-dot"></span>
+            <span class="ac-read" data-fr="6 min" data-en="6 min">6 min</span>
+          </div>
+          <h3 data-fr="UX/UI : les erreurs de design qui font fuir vos visiteurs" data-en="UX/UI: Design Mistakes That Drive Away Your Visitors">UX/UI : les erreurs de design qui font fuir vos visiteurs</h3>
+          <p data-fr="Un mauvais design peut ruiner une bonne idée. Découvrez les erreurs les plus fréquentes et comment les éviter sur votre site." data-en="Bad design can ruin a great idea. Discover the most common mistakes and how to avoid them on your site.">Un mauvais design peut ruiner une bonne idée. Découvrez les erreurs les plus fréquentes et comment les éviter sur votre site.</p>
+          <div class="ac-footer">
+            <div class="ac-author">
+              <div class="ac-avatar av-green">S</div>
+              <span class="ac-author-name">Sahondra R.</span>
+            </div>
+            <span class="ac-link" data-fr="Lire →" data-en="Read →">Lire →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="load-more-wrap">
+      <button class="load-more-btn" data-fr="Charger plus d'articles" data-en="Load more articles">Charger plus d'articles</button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- Categories -->
+    <div class="sidebar-card">
+      <h4>📂 <span data-fr="Catégories" data-en="Categories">Catégories</span></h4>
+      <div class="cat-list">
+        <div class="cat-item active" onclick="filterArticles('all', null)">
+          <div class="cat-item-left"><div class="cat-dot" style="background:var(--dark)"></div><span data-fr="Tous les articles" data-en="All articles">Tous les articles</span></div>
+          <span class="cat-count">7</span>
+        </div>
+        <div class="cat-item" onclick="filterArticles('seo', null)">
+          <div class="cat-item-left"><div class="cat-dot cd-green"></div><span>SEO</span></div>
+          <span class="cat-count">2</span>
+        </div>
+        <div class="cat-item" onclick="filterArticles('design', null)">
+          <div class="cat-item-left"><div class="cat-dot cd-blue"></div><span>Design</span></div>
+          <span class="cat-count">2</span>
+        </div>
+        <div class="cat-item" onclick="filterArticles('web', null)">
+          <div class="cat-item-left"><div class="cat-dot cd-orange"></div><span>Web</span></div>
+          <span class="cat-count">2</span>
+        </div>
+        <div class="cat-item" onclick="filterArticles('digital', null)">
+          <div class="cat-item-left"><div class="cat-dot cd-purple"></div><span>Digital</span></div>
+          <span class="cat-count">1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popular -->
+    <div class="sidebar-card">
+      <h4>🔥 <span data-fr="Articles populaires" data-en="Popular articles">Articles populaires</span></h4>
+      <div class="popular-list">
+        <div class="popular-item">
+          <div class="popular-thumb pt-green">📈</div>
+          <div class="popular-info">
+            <div class="popular-title" data-fr="5 stratégies SEO pour 2025" data-en="5 SEO Strategies for 2025">5 stratégies SEO pour 2025</div>
+            <div class="popular-meta" data-fr="1 240 lectures" data-en="1,240 reads">1 240 lectures</div>
+          </div>
+        </div>
+        <div class="popular-item">
+          <div class="popular-thumb pt-blue">📱</div>
+          <div class="popular-info">
+            <div class="popular-title" data-fr="Site mobile-first en 2025" data-en="Mobile-first site in 2025">Site mobile-first en 2025</div>
+            <div class="popular-meta" data-fr="987 lectures" data-en="987 reads">987 lectures</div>
+          </div>
+        </div>
+        <div class="popular-item">
+          <div class="popular-thumb pt-orange">🛒</div>
+          <div class="popular-info">
+            <div class="popular-title" data-fr="E-commerce à Madagascar" data-en="E-commerce in Madagascar">E-commerce à Madagascar</div>
+            <div class="popular-meta" data-fr="856 lectures" data-en="856 reads">856 lectures</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter-card">
+      <h4 data-fr="📩 Restez informé !" data-en="📩 Stay informed!">📩 Restez informé !</h4>
+      <p data-fr="Recevez nos meilleurs conseils web et SEO directement dans votre boîte mail. Chaque mois." data-en="Receive our best web and SEO tips directly in your inbox. Every month.">Recevez nos meilleurs conseils web et SEO directement dans votre boîte mail. Chaque mois.</p>
+      <input type="email" class="nl-input" placeholder="votre@email.com" />
+      <button class="nl-btn" data-fr="S'abonner gratuitement" data-en="Subscribe for free">S'abonner gratuitement</button>
+      <p class="nl-privacy" data-fr="Pas de spam. Désabonnement en 1 clic." data-en="No spam. Unsubscribe in 1 click.">Pas de spam. Désabonnement en 1 clic.</p>
+    </div>
+
+    <!-- Tags -->
+    <div class="sidebar-card">
+      <h4>🏷️ <span data-fr="Tags populaires" data-en="Popular tags">Tags populaires</span></h4>
+      <div class="tags-cloud">
+        <span class="tag-item">SEO</span>
+        <span class="tag-item">WordPress</span>
+        <span class="tag-item">E-commerce</span>
+        <span class="tag-item">Mobile</span>
+        <span class="tag-item">Google</span>
+        <span class="tag-item">Design</span>
+        <span class="tag-item">Performance</span>
+        <span class="tag-item">Madagascar</span>
+        <span class="tag-item">Analytics</span>
+        <span class="tag-item">UX/UI</span>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2 data-fr="Vous avez un projet web ?" data-en="Do you have a web project?">Vous avez un projet web ?</h2>
+    <p data-fr="Nos conseils vous inspirent ? Passez à l'action et confiez votre projet à NexaWeb Agency." data-en="Our tips inspire you? Take action and entrust your project to NexaWeb Agency.">Nos conseils vous inspirent ? Passez à l'action et confiez votre projet à NexaWeb Agency.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn-white">✉️ <span data-fr="Envoyer un email" data-en="Send an email">Envoyer un email</span></a>
+      <a href="https://wa.me/261327743094" target="_blank" class="btn-wa">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+          NexaWeb Agency
+        </div>
+        <p data-fr="Votre partenaire pour une présence en ligne professionnelle à Madagascar." data-en="Your partner for a professional online presence in Madagascar.">Votre partenaire pour une présence en ligne professionnelle à Madagascar.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61579980088577" class="social-icon">📘</a>
+          <a href="https://wa.me/261327743094" class="social-icon">💬</a>
+          <a href="contact.html" class="social-icon" title="Email">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Services" data-en="Services">Services</h4>
+        <ul>
+          <li><a href="services.html" data-fr="Site vitrine" data-en="Showcase site">Site vitrine</a></li>
+          <li><a href="services.html" data-fr="E-commerce"   data-en="E-commerce">E-commerce</a></li>
+          <li><a href="services.html" data-fr="Sur mesure"   data-en="Custom site">Sur mesure</a></li>
+          <li><a href="services.html" data-fr="Maintenance"  data-en="Maintenance">Maintenance</a></li>
+          <li><a href="services.html" data-fr="SEO"          data-en="SEO">SEO</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Navigation" data-en="Navigation">Navigation</h4>
+        <ul>
+          <li><a href="index.html"    data-fr="Accueil"   data-en="Home">Accueil</a></li>
+          <li><a href="portfolio.html"data-fr="Portfolio" data-en="Portfolio">Portfolio</a></li>
+          <li><a href="apropos.html"  data-fr="À propos"  data-en="About">À propos</a></li>
+          <li><a href="#blog"     data-fr="Blog"      data-en="Blog">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+        <ul>
+          <li><a href="tel:+261327743094">+261 32 77 430 94</a></li>
+          <li><a href="contact.html">agencynexaweb@gmail.com</a></li>
+          <li><a href="https://wa.me/261327743094">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-fr="© 2025 NexaWeb Agency. Tous droits réservés." data-en="© 2025 NexaWeb Agency. All rights reserved.">© 2025 NexaWeb Agency. Tous droits réservés.</span>
+      <span data-fr="Fait avec ❤️ à Madagascar" data-en="Made with ❤️ in Madagascar">Fait avec ❤️ à Madagascar</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── LANG ──
+  let currentLang = 'fr';
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
+    });
+    document.querySelectorAll('.lang-toggle button').forEach((btn, i) => {
+      btn.classList.toggle('active', (i===0&&lang==='fr')||(i===1&&lang==='en'));
+    });
+    document.getElementById('searchInput').placeholder = lang === 'fr' ? 'Rechercher un article...' : 'Search an article...';
+  }
+
+  // ── HEADER ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── MOBILE NAV ──
+  function openMobileNav()  { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // ── FILTER ──
+  let currentCat = 'all';
+  function filterArticles(cat, btn) {
+    currentCat = cat;
+    // update filter buttons
+    if (btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    // update sidebar categories
+    document.querySelectorAll('.cat-item').forEach((item, i) => {
+      const cats = ['all','seo','design','web','digital'];
+      item.classList.toggle('active', cats[i] === cat);
+    });
+    // filter cards
+    const cards = document.querySelectorAll('.article-card');
+    let count = 0;
+    cards.forEach(c => {
+      const show = cat === 'all' || c.dataset.category === cat;
+      c.classList.toggle('hidden', !show);
+      if (show) count++;
+    });
+    document.getElementById('artCount').textContent = count + (currentLang === 'fr' ? ' articles' : ' articles');
+  }
+
+  // ── SEARCH ──
+  function searchArticles(query) {
+    const q = query.toLowerCase();
+    const cards = document.querySelectorAll('.article-card');
+    let count = 0;
+    cards.forEach(c => {
+      const text = c.textContent.toLowerCase();
+      const show = text.includes(q);
+      c.classList.toggle('hidden', !show);
+      if (show) count++;
+    });
+    document.getElementById('artCount').textContent = count + (currentLang === 'fr' ? ' articles' : ' articles');
+  }
+
+  // ── REVEAL ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

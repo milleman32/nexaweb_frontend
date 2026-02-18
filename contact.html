@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact – NexaWeb Agency</title>
+  <meta name="description" content="Contactez NexaWeb Agency pour un devis gratuit. WhatsApp, email ou formulaire — nous répondons sous 24h." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue:        #1A4A8C;
+      --blue-light:  #2D6BC4;
+      --blue-pale:   #E8F0FB;
+      --green:       #2BA84A;
+      --green-light: #E6F7EB;
+      --orange:      #F47C30;
+      --orange-light:#FEF0E7;
+      --white:       #FFFFFF;
+      --off-white:   #F7F9FC;
+      --dark:        #0D1B2A;
+      --gray:        #6B7A8D;
+      --gray-light:  #D1D9E6;
+      --radius:      14px;
+      --shadow:      0 4px 24px rgba(26,74,140,0.10);
+      --shadow-lg:   0 12px 48px rgba(26,74,140,0.18);
+      --transition:  0.3s cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--dark); line-height: 1.7; overflow-x: hidden; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── LANG ── */
+    .lang-toggle { display: flex; gap: 4px; align-items: center; }
+    .lang-toggle button { background: none; border: 1.5px solid var(--gray-light); border-radius: 6px; padding: 3px 10px; font-size: .78rem; font-family: 'DM Sans', sans-serif; cursor: pointer; color: var(--gray); transition: var(--transition); }
+    .lang-toggle button.active { background: var(--blue); border-color: var(--blue); color: var(--white); font-weight: 600; }
+
+    /* ── HEADER ── */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--gray-light); transition: box-shadow var(--transition); }
+    header.scrolled { box-shadow: var(--shadow); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--blue); }
+    .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--blue) 0%, var(--green) 60%, var(--orange) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .logo-icon svg { width: 22px; height: 22px; fill: white; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: .92rem; font-weight: 500; color: var(--dark); position: relative; padding-bottom: 2px; transition: color var(--transition); }
+    nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--green); transition: width var(--transition); }
+    nav a:hover { color: var(--blue); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    nav a.active { color: var(--blue); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .9rem; cursor: pointer; border: none; background: var(--blue); color: var(--white); box-shadow: 0 2px 12px rgba(26,74,140,0.25); transition: var(--transition); }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav { display: none; position: fixed; inset: 0; background: white; z-index: 200; flex-direction: column; padding: 80px 32px 40px; gap: 28px; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.4rem; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--dark); }
+    .mobile-close { position: absolute; top: 18px; right: 24px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--dark); }
+
+    /* ── PAGE HERO ── */
+    .page-hero { padding-top: 68px; background: linear-gradient(135deg, #F7F9FC 0%, var(--blue-pale) 60%, var(--green-light) 100%); position: relative; overflow: hidden; }
+    .hero-bg-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .shape { position: absolute; border-radius: 50%; opacity: 0.12; animation: float 8s ease-in-out infinite; }
+    .shape-1 { width: 320px; height: 320px; background: var(--blue); top: -80px; right: -60px; }
+    .shape-2 { width: 180px; height: 180px; background: var(--green); bottom: -40px; left: 5%; animation-delay: 3s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; padding: 72px 24px 56px; text-align: center; position: relative; z-index: 1; }
+    .page-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--green-light); color: var(--green); border: 1px solid rgba(43,168,74,0.25); padding: 6px 16px; border-radius: 100px; font-size: .82rem; font-weight: 600; margin-bottom: 20px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); color: var(--dark); margin-bottom: 16px; }
+    .page-hero p { font-size: 1.05rem; color: var(--gray); max-width: 520px; margin: 0 auto; line-height: 1.8; }
+
+    /* ── QUICK CONTACT CARDS ── */
+    .quick-contact { background: var(--white); padding: 0 24px; }
+    .quick-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; transform: translateY(-40px); }
+
+    .qcard {
+      background: var(--white); border-radius: var(--radius); padding: 28px 24px;
+      box-shadow: var(--shadow-lg); border: 1.5px solid var(--gray-light);
+      text-align: center; transition: var(--transition); cursor: pointer;
+      text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .qcard:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(26,74,140,0.18); border-color: transparent; }
+    .qcard-icon { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+    .qi-wa     { background: linear-gradient(135deg, #25D366, #1ebe5c); }
+    .qi-email  { background: linear-gradient(135deg, var(--blue), var(--blue-light)); }
+    .qi-phone  { background: linear-gradient(135deg, var(--orange), #C45B10); }
+    .qcard h3  { font-size: 1rem; font-weight: 700; }
+    .qcard p   { font-size: .85rem; color: var(--gray); line-height: 1.6; }
+    .qcard-link { font-size: .88rem; font-weight: 700; margin-top: 4px; }
+    .qcard-link.green  { color: #25D366; }
+    .qcard-link.blue   { color: var(--blue); }
+    .qcard-link.orange { color: var(--orange); }
+    .qcard-badge { font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin-top: 4px; }
+    .badge-green  { background: var(--green-light);   color: var(--green); }
+    .badge-blue   { background: var(--blue-pale);     color: var(--blue); }
+    .badge-orange { background: var(--orange-light);  color: var(--orange); }
+
+    /* ── MAIN CONTACT SECTION ── */
+    .contact-section { padding: 24px 24px 96px; }
+    .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+
+    /* ── FORM ── */
+    .form-card { background: var(--white); border-radius: 20px; padding: 48px 40px; box-shadow: var(--shadow-lg); border: 1.5px solid var(--gray-light); }
+    .form-header { margin-bottom: 32px; }
+    .form-tag { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .form-tag::before { content:''; display:block; width:20px; height:2px; background:var(--blue); border-radius:2px; }
+    .form-header h2 { font-size: 1.8rem; color: var(--dark); margin-bottom: 8px; }
+    .form-header p  { font-size: .9rem; color: var(--gray); line-height: 1.7; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label { font-size: .82rem; font-weight: 700; color: var(--dark); }
+    .form-group label span { color: var(--orange); margin-left: 2px; }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 12px 16px; border: 2px solid var(--gray-light);
+      border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: .9rem;
+      color: var(--dark); background: var(--white); transition: var(--transition); outline: none;
+      appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--blue); box-shadow: 0 0 0 4px rgba(26,74,140,0.08);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--gray-light); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7A8D' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 18px; padding-right: 40px; cursor: pointer; }
+
+    /* Budget radio */
+    .budget-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .budget-option { position: relative; }
+    .budget-option input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .budget-label {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      border: 2px solid var(--gray-light); border-radius: 10px; cursor: pointer;
+      transition: var(--transition); font-size: .85rem; font-weight: 500;
+    }
+    .budget-label:hover { border-color: var(--blue-pale); background: var(--blue-pale); }
+    .budget-option input:checked + .budget-label { border-color: var(--blue); background: var(--blue-pale); color: var(--blue); font-weight: 700; }
+    .budget-dot { width: 16px; height: 16px; border: 2px solid var(--gray-light); border-radius: 50%; flex-shrink: 0; transition: var(--transition); }
+    .budget-option input:checked + .budget-label .budget-dot { border-color: var(--blue); background: var(--blue); }
+
+    /* Checkboxes */
+    .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .checkbox-item { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .checkbox-item input { width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; }
+    .checkbox-item span { font-size: .85rem; color: var(--dark); }
+
+    .form-submit { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--blue), var(--blue-light)); color: white; border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: var(--transition); margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,74,140,0.35); }
+    .form-submit:active { transform: translateY(0); }
+
+    /* Success message */
+    .success-msg { display: none; text-align: center; padding: 32px; }
+    .success-msg.show { display: block; animation: fadeUp .5s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .success-icon { font-size: 4rem; margin-bottom: 16px; }
+    .success-msg h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--green); }
+    .success-msg p  { font-size: .9rem; color: var(--gray); }
+
+    /* ── INFO SIDE ── */
+    .info-side { display: flex; flex-direction: column; gap: 28px; position: sticky; top: 88px; }
+
+    .info-card { background: var(--off-white); border-radius: var(--radius); padding: 28px; border: 1.5px solid var(--gray-light); }
+    .info-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+
+    /* Contact details */
+    .contact-details { display: flex; flex-direction: column; gap: 14px; }
+    .cd-item { display: flex; align-items: flex-start; gap: 14px; }
+    .cd-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .cdi-blue   { background: var(--blue-pale); }
+    .cdi-green  { background: var(--green-light); }
+    .cdi-orange { background: var(--orange-light); }
+    .cd-text { flex: 1; }
+    .cd-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--gray); margin-bottom: 2px; }
+    .cd-value { font-size: .9rem; font-weight: 600; color: var(--dark); }
+    .cd-sub   { font-size: .78rem; color: var(--gray); }
+
+    /* Hours */
+    .hours-list { display: flex; flex-direction: column; gap: 10px; }
+    .hour-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--gray-light); }
+    .hour-item:last-child { border-bottom: none; }
+    .hour-day   { font-size: .88rem; font-weight: 500; color: var(--dark); }
+    .hour-time  { font-size: .85rem; color: var(--gray); }
+    .hour-badge { font-size: .72rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+    .hb-open   { background: var(--green-light); color: var(--green); }
+    .hb-closed { background: var(--gray-light);  color: var(--gray); }
+
+    /* Response guarantee */
+    .guarantee-card {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      border-radius: var(--radius); padding: 28px; color: white; text-align: center;
+    }
+    .gc-icon { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+    .guarantee-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .guarantee-card p  { font-size: .85rem; opacity: .85; line-height: 1.7; }
+    .gc-time { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin: 12px 0 4px; }
+    .gc-label { font-size: .78rem; opacity: .75; }
+
+    /* Social links */
+    .social-links { display: flex; flex-direction: column; gap: 12px; }
+    .social-link { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 10px; background: var(--white); border: 1.5px solid var(--gray-light); transition: var(--transition); cursor: pointer; }
+    .social-link:hover { border-color: var(--blue); transform: translateX(4px); }
+    .sl-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .sl-fb  { background: #E7F0FF; }
+    .sl-wa  { background: #E6F7EE; }
+    .sl-em  { background: var(--blue-pale); }
+    .sl-text { flex: 1; }
+    .sl-name { font-size: .88rem; font-weight: 700; color: var(--dark); }
+    .sl-handle { font-size: .75rem; color: var(--gray); }
+    .sl-arrow { font-size: .85rem; color: var(--gray); }
+
+    /* ── FAQ MINI ── */
+    #faq-mini { padding: 80px 24px; background: var(--off-white); }
+    .faq-mini-inner { max-width: 800px; margin: 0 auto; }
+    .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+    .section-tag::before { content:''; display:block; width:24px; height:2px; background:var(--blue); border-radius:2px; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--dark); margin-bottom: 12px; }
+    .section-sub { font-size: .95rem; color: var(--gray); margin-bottom: 36px; line-height: 1.8; }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--gray-light); overflow: hidden; transition: var(--transition); }
+    .faq-item.open { border-color: var(--blue); }
+    .faq-q { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; cursor: pointer; gap: 16px; }
+    .faq-q span { font-size: .93rem; font-weight: 600; }
+    .faq-chevron { width: 28px; height: 28px; border-radius: 50%; background: var(--blue-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: var(--transition); }
+    .faq-chevron svg { width: 14px; height: 14px; stroke: var(--blue); }
+    .faq-item.open .faq-chevron { background: var(--blue); transform: rotate(180deg); }
+    .faq-item.open .faq-chevron svg { stroke: white; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s; padding: 0 22px; font-size: .88rem; color: var(--gray); line-height: 1.8; }
+    .faq-a.open { max-height: 200px; padding-bottom: 18px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand p { font-size: .88rem; line-height: 1.8; margin-top: 14px; max-width: 280px; }
+    .footer-logo { color: white; display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+    .footer-col h4 { color: white; font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: .88rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: .95rem; transition: var(--transition); cursor: pointer; }
+    .social-icon:hover { background: var(--green); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; font-size: .82rem; flex-wrap: wrap; gap: 12px; }
+
+    /* ── WA FLOAT ── */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.45); cursor: pointer; transition: var(--transition); animation: pop .6s 1s ease both; }
+    .wa-float:hover { transform: scale(1.12); }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+    @keyframes pop { from{opacity:0;transform:scale(0)} to{opacity:1;transform:scale(1)} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) { .contact-inner { grid-template-columns: 1fr; } .info-side { position: static; } }
+    @media (max-width: 768px) {
+      nav { display: none; } .hamburger { display: flex; }
+      .quick-inner { grid-template-columns: 1fr; transform: translateY(-20px); }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+      .budget-grid { grid-template-columns: 1fr; }
+      .checkbox-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 32px 24px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 480px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/261327743094" target="_blank" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.37 0 0 5.373 0 11.998c0 2.117.554 4.1 1.523 5.817L.057 23.998l6.348-1.427A11.948 11.948 0 0011.99 24c6.623 0 12-5.373 12-11.998C23.99 5.373 18.613 0 11.99 0zm0 21.818a9.826 9.826 0 01-5.011-1.37l-.36-.214-3.73.838.869-3.638-.234-.374A9.808 9.808 0 012.18 12c0-5.414 4.404-9.818 9.81-9.818 5.408 0 9.813 4.404 9.813 9.818s-4.405 9.818-9.813 9.818z"/></svg>
+</a>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html"     onclick="closeMobileNav()" data-fr="Accueil"    data-en="Home">Accueil</a>
+  <a href="services.html"  onclick="closeMobileNav()" data-fr="Services"   data-en="Services">Services</a>
+  <a href="portfolio.html" onclick="closeMobileNav()" data-fr="Portfolio"  data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html"   onclick="closeMobileNav()" data-fr="À propos"   data-en="About">À propos</a>
+  <a href="blog.html"      onclick="closeMobileNav()" data-fr="Blog"       data-en="Blog">Blog</a>
+  <a href="contact.html"   onclick="closeMobileNav()" data-fr="Contact"    data-en="Contact">Contact</a>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+      NexaWeb
+    </a>
+    <nav>
+      <a href="index.html"    data-fr="Accueil"   data-en="Home">Accueil</a>
+      <a href="services.html" data-fr="Services"  data-en="Services">Services</a>
+      <a href="portfolio.html"data-fr="Portfolio" data-en="Portfolio">Portfolio</a>
+      <a href="apropos.html"  data-fr="À propos"  data-en="About">À propos</a>
+      <a href="blog.html"     data-fr="Blog"      data-en="Blog">Blog</a>
+      <a href="contact.html" class="active" data-fr="Contact" data-en="Contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="active" onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#form" class="btn-primary" data-fr="Devis gratuit" data-en="Free quote">Devis gratuit</a>
+      <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+  </div>
+  <div class="page-hero-inner">
+    <div class="page-tag">👋 <span data-fr="Parlons de votre projet" data-en="Let's talk about your project">Parlons de votre projet</span></div>
+    <h1 data-fr="Contactez NexaWeb Agency" data-en="Contact NexaWeb Agency">Contactez NexaWeb Agency</h1>
+    <p data-fr="Devis gratuit sous 24h, réponse rapide et accompagnement personnalisé. Choisissez le canal qui vous convient le mieux." data-en="Free quote within 24h, quick response and personalized support. Choose the channel that suits you best.">Devis gratuit sous 24h, réponse rapide et accompagnement personnalisé. Choisissez le canal qui vous convient le mieux.</p>
+  </div>
+</div>
+
+<!-- QUICK CONTACT -->
+<div class="quick-contact">
+  <div class="quick-inner">
+    <a href="https://wa.me/261327743094" target="_blank" class="qcard">
+      <div class="qcard-icon qi-wa">💬</div>
+      <h3>WhatsApp</h3>
+      <p data-fr="Discutez directement avec nous sur WhatsApp pour un retour immédiat." data-en="Chat directly with us on WhatsApp for an immediate response.">Discutez directement avec nous pour un retour immédiat.</p>
+      <span class="qcard-link green">+261 32 77 430 94</span>
+      <span class="qcard-badge badge-green" data-fr="Réponse immédiate" data-en="Immediate response">Réponse immédiate</span>
+    </a>
+    <a href="mailto:agencynexaweb@gmail.com" class="qcard">
+      <div class="qcard-icon qi-email">✉️</div>
+      <h3>Email</h3>
+      <p data-fr="Envoyez-nous un email détaillé avec votre projet et vos attentes." data-en="Send us a detailed email with your project and expectations.">Envoyez-nous un email détaillé avec votre projet et vos attentes.</p>
+      <span class="qcard-link blue">agencynexaweb@gmail.com</span>
+      <span class="qcard-badge badge-blue" data-fr="Réponse sous 24h" data-en="Response within 24h">Réponse sous 24h</span>
+    </a>
+    <a href="tel:+261327743094" class="qcard">
+      <div class="qcard-icon qi-phone">📞</div>
+      <h3 data-fr="Téléphone" data-en="Phone">Téléphone</h3>
+      <p data-fr="Appelez-nous directement pendant nos heures d'ouverture pour en discuter." data-en="Call us directly during our opening hours to discuss your project.">Appelez-nous directement pendant nos heures d'ouverture.</p>
+      <span class="qcard-link orange">+261 32 77 430 94</span>
+      <span class="qcard-badge badge-orange" data-fr="Lun–Sam 8h–18h" data-en="Mon–Sat 8am–6pm">Lun–Sam 8h–18h</span>
+    </a>
+  </div>
+</div>
+
+<!-- MAIN CONTACT -->
+<div class="contact-section" id="form">
+  <div class="contact-inner">
+
+    <!-- FORM -->
+    <div class="form-card">
+      <div class="form-header">
+        <div class="form-tag" data-fr="Formulaire de contact" data-en="Contact form">Formulaire de contact</div>
+        <h2 data-fr="Demander un devis gratuit" data-en="Request a free quote">Demander un devis gratuit</h2>
+        <p data-fr="Remplissez ce formulaire et nous vous répondons sous 24h avec un devis personnalisé et transparent." data-en="Fill out this form and we'll respond within 24h with a personalized and transparent quote.">Remplissez ce formulaire et nous vous répondons sous 24h avec un devis personnalisé et transparent.</p>
+      </div>
+
+      <form id="contactForm">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label data-fr="Prénom" data-en="First name">Prénom <span>*</span></label>
+            <input type="text" name="prenom" class="form-input" placeholder="Votre prénom" required data-fr-ph="Votre prénom" data-en-ph="Your first name" />
+          </div>
+
+          <div class="form-group">
+            <label data-fr="Nom" data-en="Last name">Nom <span>*</span></label>
+            <input type="text" name="nom" class="form-input" placeholder="Votre nom" required data-fr-ph="Votre nom" data-en-ph="Your last name" />
+          </div>
+
+          <div class="form-group">
+            <label data-fr="Email" data-en="Email">Email <span>*</span></label>
+            <input type="email" name="email" class="form-input" placeholder="votre@email.com" required />
+          </div>
+
+          <div class="form-group">
+            <label data-fr="Téléphone / WhatsApp" data-en="Phone / WhatsApp">Téléphone / WhatsApp</label>
+            <input type="tel" name="telephone" class="form-input" placeholder="+261 XX XX XXX XX" data-fr-ph="+261 XX XX XXX XX" data-en-ph="+261 XX XX XXX XX" />
+          </div>
+
+          <div class="form-group">
+            <label data-fr="Entreprise / Organisation" data-en="Company / Organization">Entreprise / Organisation</label>
+            <input type="text" name="entreprise" class="form-input" placeholder="Votre entreprise" data-fr-ph="Votre entreprise" data-en-ph="Your company" />
+          </div>
+
+          <div class="form-group">
+            <label data-fr="Service souhaité" data-en="Desired service">Service souhaité <span>*</span></label>
+            <select name="service" class="form-select" required>
+              <option value="" data-fr="Choisir un service..." data-en="Choose a service...">Choisir un service...</option>
+              <option value="vitrine"     data-fr="Site vitrine professionnel"  data-en="Professional showcase site">Site vitrine professionnel</option>
+              <option value="ecommerce"   data-fr="Boutique en ligne (e-commerce)" data-en="Online store (e-commerce)">Boutique en ligne (e-commerce)</option>
+              <option value="mesure"      data-fr="Site sur mesure"             data-en="Custom website">Site sur mesure</option>
+              <option value="maintenance" data-fr="Maintenance & mises à jour"  data-en="Maintenance & updates">Maintenance & mises à jour</option>
+              <option value="seo"         data-fr="Optimisation SEO"            data-en="SEO optimization">Optimisation SEO</option>
+              <option value="autre"       data-fr="Autre / Pas encore décidé"   data-en="Other / Not yet decided">Autre / Pas encore décidé</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label data-fr="Budget estimé" data-en="Estimated budget">Budget estimé</label>
+            <div class="budget-grid">
+              <div class="budget-option">
+                <input type="radio" name="budget" id="b1" value="< 500k Ar" />
+                <label class="budget-label" for="b1"><span class="budget-dot"></span> <span data-fr="Moins de 500k Ar" data-en="Less than 500k Ar">Moins de 500k Ar</span></label>
+              </div>
+              <div class="budget-option">
+                <input type="radio" name="budget" id="b2" value="500k-1M Ar" />
+                <label class="budget-label" for="b2"><span class="budget-dot"></span> 500k – 1M Ar</label>
+              </div>
+              <div class="budget-option">
+                <input type="radio" name="budget" id="b3" value="1M-3M Ar" />
+                <label class="budget-label" for="b3"><span class="budget-dot"></span> 1M – 3M Ar</label>
+              </div>
+              <div class="budget-option">
+                <input type="radio" name="budget" id="b4" value="> 3M Ar" />
+                <label class="budget-label" for="b4"><span class="budget-dot"></span> <span data-fr="Plus de 3M Ar" data-en="More than 3M Ar">Plus de 3M Ar</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label data-fr="Fonctionnalités souhaitées" data-en="Desired features">Fonctionnalités souhaitées</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item"><input type="checkbox" /> <span data-fr="Formulaire de contact" data-en="Contact form">Formulaire de contact</span></label>
+              <label class="checkbox-item"><input type="checkbox" /> <span data-fr="Galerie photos/vidéos" data-en="Photo/video gallery">Galerie photos/vidéos</span></label>
+              <label class="checkbox-item"><input type="checkbox" /> <span data-fr="Paiement en ligne" data-en="Online payment">Paiement en ligne</span></label>
+              <label class="checkbox-item"><input type="checkbox" /> <span data-fr="Réservation en ligne" data-en="Online booking">Réservation en ligne</span></label>
+              <label class="checkbox-item"><input type="checkbox" /> <span data-fr="Blog / actualités" data-en="Blog / news">Blog / actualités</span></label>
+              <label class="checkbox-item"><input type="checkbox" /> <span data-fr="Multilingue FR/EN" data-en="Multilingual FR/EN">Multilingue FR/EN</span></label>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label data-fr="Décrivez votre projet" data-en="Describe your project">Décrivez votre projet <span>*</span></label>
+            <textarea name="message" class="form-textarea" placeholder="Parlez-nous de votre activité, vos objectifs et tout ce qui pourrait nous aider à mieux comprendre votre projet..." required data-fr-ph="Parlez-nous de votre activité, vos objectifs et tout ce qui pourrait nous aider à mieux comprendre votre projet..." data-en-ph="Tell us about your business, your goals and anything that could help us better understand your project..."></textarea>
+          </div>
+
+          <div class="form-group full">
+            <label data-fr="Délai souhaité" data-en="Desired timeline">Délai souhaité</label>
+            <select name="delai" class="form-select">
+              <option value="" data-fr="Quand souhaitez-vous démarrer ?" data-en="When do you want to start?">Quand souhaitez-vous démarrer ?</option>
+              <option value="urgent" data-fr="Le plus tôt possible (urgent)" data-en="As soon as possible (urgent)">Le plus tôt possible (urgent)</option>
+              <option value="1mois"  data-fr="Dans le mois"                  data-en="Within a month">Dans le mois</option>
+              <option value="3mois"  data-fr="Dans les 3 prochains mois"     data-en="In the next 3 months">Dans les 3 prochains mois</option>
+              <option value="flex"   data-fr="Pas de délai particulier"       data-en="No particular timeline">Pas de délai particulier</option>
+            </select>
+          </div>
+
+        </div>
+        <!-- Anti-spam : invisible pour les humains -->
+<input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off" />
+        <button type="submit" class="form-submit">
+          <span data-fr="Envoyer ma demande" data-en="Send my request">Envoyer ma demande</span> 🚀
+        </button>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">🎉</div>
+        <h3 data-fr="Message envoyé avec succès !" data-en="Message sent successfully!">Message envoyé avec succès !</h3>
+        <p data-fr="Merci pour votre message. Notre équipe vous contactera dans les 24h avec un devis personnalisé. En attendant, n'hésitez pas à nous joindre sur WhatsApp !" data-en="Thank you for your message. Our team will contact you within 24h with a personalized quote. In the meantime, feel free to reach us on WhatsApp!">Merci pour votre message. Notre équipe vous contactera dans les 24h avec un devis personnalisé. En attendant, n'hésitez pas à nous joindre sur WhatsApp !</p>
+      </div>
+    </div>
+
+    <!-- INFO SIDE -->
+    <div class="info-side">
+
+      <!-- Contact details -->
+      <div class="info-card">
+        <h3>📍 <span data-fr="Nos coordonnées" data-en="Our contact details">Nos coordonnées</span></h3>
+        <div class="contact-details">
+          <div class="cd-item">
+            <div class="cd-icon cdi-green">💬</div>
+            <div class="cd-text">
+              <div class="cd-label">WhatsApp</div>
+              <div class="cd-value">+261 32 77 430 94</div>
+              <div class="cd-sub" data-fr="Réponse immédiate" data-en="Immediate response">Réponse immédiate</div>
+            </div>
+          </div>
+          <div class="cd-item">
+            <div class="cd-icon cdi-blue">✉️</div>
+            <div class="cd-text">
+              <div class="cd-label">Email</div>
+              <div class="cd-value">agencynexaweb@gmail.com</div>
+              <div class="cd-sub" data-fr="Réponse sous 24h" data-en="Response within 24h">Réponse sous 24h</div>
+            </div>
+          </div>
+          <div class="cd-item">
+            <div class="cd-icon cdi-orange">📘</div>
+            <div class="cd-text">
+              <div class="cd-label">Facebook</div>
+              <div class="cd-value">NexaWeb Agency</div>
+              <div class="cd-sub" data-fr="Messagerie Facebook disponible" data-en="Facebook messaging available">Messagerie Facebook disponible</div>
+            </div>
+          </div>
+          <div class="cd-item">
+            <div class="cd-icon cdi-blue">📍</div>
+            <div class="cd-text">
+              <div class="cd-label" data-fr="Localisation" data-en="Location">Localisation</div>
+              <div class="cd-value">Antananarivo, Madagascar</div>
+              <div class="cd-sub" data-fr="Service disponible partout à Madagascar" data-en="Service available everywhere in Madagascar">Service disponible partout à Madagascar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guarantee -->
+      <div class="guarantee-card">
+        <span class="gc-icon">⚡</span>
+        <h3 data-fr="Garantie de réponse" data-en="Response guarantee">Garantie de réponse</h3>
+        <div class="gc-time">24h</div>
+        <div class="gc-label" data-fr="Délai de réponse maximum" data-en="Maximum response time">Délai de réponse maximum</div>
+        <p style="margin-top:14px" data-fr="Nous nous engageons à répondre à toute demande dans les 24 heures ouvrées avec un devis détaillé et personnalisé." data-en="We commit to responding to any request within 24 business hours with a detailed and personalized quote.">Nous nous engageons à répondre à toute demande dans les 24 heures ouvrées avec un devis détaillé et personnalisé.</p>
+      </div>
+
+      <!-- Hours -->
+      <div class="info-card">
+        <h3>🕐 <span data-fr="Horaires d'ouverture" data-en="Opening hours">Horaires d'ouverture</span></h3>
+        <div class="hours-list">
+          <div class="hour-item">
+            <span class="hour-day" data-fr="Lundi – Vendredi" data-en="Monday – Friday">Lundi – Vendredi</span>
+            <span class="hour-time">8h00 – 18h00</span>
+            <span class="hour-badge hb-open" data-fr="Ouvert" data-en="Open">Ouvert</span>
+          </div>
+          <div class="hour-item">
+            <span class="hour-day" data-fr="Samedi" data-en="Saturday">Samedi</span>
+            <span class="hour-time">9h00 – 14h00</span>
+            <span class="hour-badge hb-open" data-fr="Ouvert" data-en="Open">Ouvert</span>
+          </div>
+          <div class="hour-item">
+            <span class="hour-day" data-fr="Dimanche" data-en="Sunday">Dimanche</span>
+            <span class="hour-time">—</span>
+            <span class="hour-badge hb-closed" data-fr="Fermé" data-en="Closed">Fermé</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div class="info-card">
+        <h3>🌐 <span data-fr="Retrouvez-nous sur" data-en="Find us on">Retrouvez-nous sur</span></h3>
+        <div class="social-links">
+          <a href="https://www.facebook.com/profile.php?id=61579980088577" class="social-link">
+            <div class="sl-icon sl-fb">📘</div>
+            <div class="sl-text">
+              <div class="sl-name">Facebook</div>
+              <div class="sl-handle">NexaWeb Agency</div>
+            </div>
+            <span class="sl-arrow">→</span>
+          </a>
+          <a href="https://wa.me/261327743094" class="social-link">
+            <div class="sl-icon sl-wa">💬</div>
+            <div class="sl-text">
+              <div class="sl-name">WhatsApp</div>
+              <div class="sl-handle">+261 32 77 430 94</div>
+            </div>
+            <span class="sl-arrow">→</span>
+          </a>
+          <a href="#form-card" class="social-link">
+            <div class="sl-icon sl-em">✉️</div>
+            <div class="sl-text">
+              <div class="sl-name">Email</div>
+              <div class="sl-handle">agencynexaweb@gmail.com</div>
+            </div>
+            <span class="sl-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FAQ MINI -->
+<section id="faq-mini">
+  <div class="faq-mini-inner">
+    <div class="section-tag" data-fr="Avant de contacter" data-en="Before contacting">Avant de contacter</div>
+    <h2 class="section-title" data-fr="Questions fréquentes" data-en="Frequently asked questions">Questions fréquentes</h2>
+    <p class="section-sub" data-fr="Les réponses aux questions que vous vous posez sûrement avant de nous écrire." data-en="Answers to questions you're probably asking yourself before writing to us.">Les réponses aux questions que vous vous posez sûrement avant de nous écrire.</p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-fr="Le devis est-il vraiment gratuit ?" data-en="Is the quote really free?">Le devis est-il vraiment gratuit ?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-a"><span data-fr="Oui, absolument. L'étude de votre projet et l'établissement du devis sont entièrement gratuits et sans engagement de votre part. Vous pouvez accepter ou refuser sans aucune obligation." data-en="Yes, absolutely. The study of your project and the establishment of the quote are entirely free and without any commitment on your part. You can accept or refuse without any obligation.">Oui, absolument. L'étude de votre projet et l'établissement du devis sont entièrement gratuits et sans engagement de votre part.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-fr="Combien de temps faut-il pour créer un site web ?" data-en="How long does it take to create a website?">Combien de temps faut-il pour créer un site web ?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-a"><span data-fr="Un site vitrine est généralement livré en 7 à 14 jours. Un e-commerce prend 3 à 4 semaines et un site sur mesure entre 4 et 8 semaines selon la complexité. Nous vous donnons toujours un délai précis dans le devis." data-en="A showcase site is typically delivered in 7 to 14 days. An e-commerce store takes 3 to 4 weeks and a custom site between 4 and 8 weeks depending on complexity. We always provide a precise timeline in the quote.">Un site vitrine est généralement livré en 7 à 14 jours. Un e-commerce prend 3 à 4 semaines et un site sur mesure entre 4 et 8 semaines selon la complexité.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-fr="Quels sont vos modes de paiement ?" data-en="What are your payment methods?">Quels sont vos modes de paiement ?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-a"><span data-fr="Nous acceptons le Mobile Money (MVola, Orange Money, Airtel Money), le virement bancaire et les espèces. Nous demandons un acompte de 50% au démarrage et le solde à la livraison." data-en="We accept Mobile Money (MVola, Orange Money, Airtel Money), bank transfer and cash. We require a 50% deposit at the start and the balance upon delivery.">Nous acceptons le Mobile Money (MVola, Orange Money, Airtel Money), le virement bancaire et les espèces. Acompte de 50% au démarrage, solde à la livraison.</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span data-fr="Intervenez-vous sur toute Madagascar ?" data-en="Do you work throughout Madagascar?">Intervenez-vous sur toute Madagascar ?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-a"><span data-fr="Oui ! Nous travaillons à distance avec des clients partout à Madagascar et même à l'international. Nos échanges se font par WhatsApp, email et appels vidéo selon votre préférence." data-en="Yes! We work remotely with clients throughout Madagascar and even internationally. Our exchanges are done via WhatsApp, email and video calls according to your preference.">Oui ! Nous travaillons à distance avec des clients partout à Madagascar et même à l'international via WhatsApp, email et appels vidéo.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+          NexaWeb Agency
+        </div>
+        <p data-fr="Votre partenaire pour une présence en ligne professionnelle à Madagascar." data-en="Your partner for a professional online presence in Madagascar.">Votre partenaire pour une présence en ligne professionnelle à Madagascar.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61579980088577" class="social-icon">📘</a>
+          <a href="https://wa.me/261327743094" class="social-icon">💬</a>
+          <a href="#form-card" class="social-icon" title="Email">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Services" data-en="Services">Services</h4>
+        <ul>
+          <li><a href="services.html" data-fr="Site vitrine" data-en="Showcase site">Site vitrine</a></li>
+          <li><a href="services.html" data-fr="E-commerce"   data-en="E-commerce">E-commerce</a></li>
+          <li><a href="services.html" data-fr="Sur mesure"   data-en="Custom site">Sur mesure</a></li>
+          <li><a href="services.html" data-fr="Maintenance"  data-en="Maintenance">Maintenance</a></li>
+          <li><a href="services.html" data-fr="SEO"          data-en="SEO">SEO</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Navigation" data-en="Navigation">Navigation</h4>
+        <ul>
+          <li><a href="index.html"    data-fr="Accueil"   data-en="Home">Accueil</a></li>
+          <li><a href="services.html" data-fr="Services" data-en="Services">Services</a></li>
+          <li><a href="portfolio.html" data-fr="Portfolio" data-en="Portfolio">Portfolio</a></li>
+          <li><a href="apropos.html" data-fr="À propos" data-en="About">À propos</a></li>
+          <li><a href="blog.html" data-fr="Blog" data-en="Blog">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+        <ul>
+          <li><a href="tel:+261327743094">+261 32 77 430 94</a></li>
+          <li><a href="#form-card">agencynexaweb@gmail.com</a></li>
+          <li><a href="https://wa.me/261327743094">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-fr="© 2025 NexaWeb Agency. Tous droits réservés." data-en="© 2025 NexaWeb Agency. All rights reserved.">© 2025 NexaWeb Agency. Tous droits réservés.</span>
+      <span data-fr="Fait avec ❤️ à Madagascar" data-en="Made with ❤️ in Madagascar">Fait avec ❤️ à Madagascar</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── LANG ──
+  function setLang(lang) {
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
+    });
+    document.querySelectorAll('[data-fr-ph]').forEach(el => {
+      el.placeholder = lang === 'fr' ? el.dataset.frPh : el.dataset.enPh;
+    });
+    document.querySelectorAll('.lang-toggle button').forEach((btn, i) => {
+      btn.classList.toggle('active', (i===0&&lang==='fr')||(i===1&&lang==='en'));
+    });
+  }
+
+  // ── HEADER ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── MOBILE NAV ──
+  function openMobileNav()  { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // ── FORM ──
+  function submitForm(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    const btn  = form.querySelector('.form-submit');
+    btn.innerHTML = '<span>Envoi en cours...</span> ⏳';
+    btn.disabled = true;
+    setTimeout(() => {
+      form.style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+    }, 1500);
+  }
+
+  // ── FAQ ──
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const ans  = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').classList.remove('open');
+    });
+    if (!isOpen) { item.classList.add('open'); ans.classList.add('open'); }
+  }
+</script>
+<script src="contact-form.js"></script>
+</body>
+</html>

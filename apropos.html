@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À propos – NexaWeb Agency</title>
+  <meta name="description" content="Découvrez l'histoire, l'équipe et les valeurs de NexaWeb Agency, votre agence web professionnelle à Madagascar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue:        #1A4A8C;
+      --blue-light:  #2D6BC4;
+      --blue-pale:   #E8F0FB;
+      --green:       #2BA84A;
+      --green-light: #E6F7EB;
+      --orange:      #F47C30;
+      --orange-light:#FEF0E7;
+      --white:       #FFFFFF;
+      --off-white:   #F7F9FC;
+      --dark:        #0D1B2A;
+      --gray:        #6B7A8D;
+      --gray-light:  #D1D9E6;
+      --radius:      14px;
+      --shadow:      0 4px 24px rgba(26,74,140,0.10);
+      --shadow-lg:   0 12px 48px rgba(26,74,140,0.16);
+      --transition:  0.3s cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--dark); line-height: 1.7; overflow-x: hidden; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── LANG ── */
+    .lang-toggle { display: flex; gap: 4px; align-items: center; }
+    .lang-toggle button { background: none; border: 1.5px solid var(--gray-light); border-radius: 6px; padding: 3px 10px; font-size: .78rem; font-family: 'DM Sans', sans-serif; cursor: pointer; color: var(--gray); transition: var(--transition); }
+    .lang-toggle button.active { background: var(--blue); border-color: var(--blue); color: var(--white); font-weight: 600; }
+
+    /* ── HEADER ── */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--gray-light); transition: box-shadow var(--transition); }
+    header.scrolled { box-shadow: var(--shadow); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--blue); }
+    .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--blue) 0%, var(--green) 60%, var(--orange) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .logo-icon svg { width: 22px; height: 22px; fill: white; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-size: .92rem; font-weight: 500; color: var(--dark); position: relative; padding-bottom: 2px; transition: color var(--transition); }
+    nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--green); transition: width var(--transition); }
+    nav a:hover { color: var(--blue); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    nav a.active { color: var(--blue); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .9rem; cursor: pointer; border: none; background: var(--blue); color: var(--white); box-shadow: 0 2px 12px rgba(26,74,140,0.25); transition: var(--transition); }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav { display: none; position: fixed; inset: 0; background: white; z-index: 200; flex-direction: column; padding: 80px 32px 40px; gap: 28px; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.4rem; font-weight: 600; font-family: 'Playfair Display', serif; color: var(--dark); }
+    .mobile-close { position: absolute; top: 18px; right: 24px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--dark); }
+
+    /* ── PAGE HERO ── */
+    .page-hero { padding-top: 68px; background: linear-gradient(135deg, #0D1B2A 0%, #1A4A8C 60%, #2BA84A 100%); position: relative; overflow: hidden; min-height: 420px; display: flex; align-items: center; }
+    .hero-bg-shapes { position: absolute; inset: 0; pointer-events: none; }
+    .shape { position: absolute; border-radius: 50%; opacity: 0.1; animation: float 8s ease-in-out infinite; }
+    .shape-1 { width: 400px; height: 400px; background: white; top: -100px; right: -80px; }
+    .shape-2 { width: 200px; height: 200px; background: var(--orange); bottom: -60px; left: 8%; animation-delay: 3s; }
+    .shape-3 { width: 120px; height: 120px; background: var(--green); top: 40%; right: 25%; animation-delay: 5s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; padding: 80px 24px; position: relative; z-index: 1; }
+    .page-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.25); padding: 6px 16px; border-radius: 100px; font-size: .82rem; font-weight: 600; margin-bottom: 20px; backdrop-filter: blur(8px); }
+    .page-hero h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); color: white; margin-bottom: 16px; max-width: 600px; }
+    .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.82); max-width: 520px; line-height: 1.8; }
+
+    /* ── SECTION BASE ── */
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+    .section-tag::before { content:''; display:block; width:24px; height:2px; background:var(--blue); border-radius:2px; }
+    .section-title { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; color: var(--dark); margin-bottom: 16px; }
+    .section-sub { font-size: 1rem; color: var(--gray); max-width: 560px; line-height: 1.8; margin-bottom: 56px; }
+
+    /* ── STORY SECTION ── */
+    #story { padding: 96px 24px; background: var(--white); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+    .story-visual { position: relative; }
+    .story-main-card {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 50%, var(--green) 100%);
+      border-radius: 20px; padding: 48px 40px; color: white; position: relative; overflow: hidden;
+    }
+    .story-main-card::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; background:rgba(255,255,255,0.07); border-radius:50%; }
+    .story-main-card::after  { content:''; position:absolute; bottom:-40px; left:-40px; width:140px; height:140px; background:rgba(255,255,255,0.05); border-radius:50%; }
+    .story-year { font-size: 5rem; font-family: 'Playfair Display', serif; font-weight: 700; opacity: .15; position: absolute; top: 16px; right: 24px; line-height: 1; }
+    .story-main-card h3 { font-size: 1.4rem; margin-bottom: 12px; position: relative; z-index: 1; }
+    .story-main-card p  { font-size: .9rem; opacity: .85; line-height: 1.8; position: relative; z-index: 1; }
+
+    .story-float {
+      position: absolute; background: white; border-radius: 14px;
+      box-shadow: var(--shadow-lg); padding: 14px 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sf-1 { bottom: -20px; left: -24px; }
+    .sf-2 { top: -20px; right: -24px; }
+    .sf-icon { font-size: 1.4rem; }
+    .sf-text { font-size: .82rem; font-weight: 700; color: var(--dark); }
+    .sf-sub  { font-size: .72rem; color: var(--gray); }
+
+    .story-content {}
+    .story-content p { font-size: .97rem; color: var(--gray); line-height: 1.9; margin-bottom: 20px; }
+    .story-content p strong { color: var(--dark); font-weight: 600; }
+
+    .story-milestones { display: flex; flex-direction: column; gap: 0; margin-top: 36px; }
+    .milestone { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px dashed var(--gray-light); }
+    .milestone:last-child { border-bottom: none; }
+    .milestone-year { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--blue); min-width: 52px; flex-shrink: 0; margin-top: 2px; }
+    .milestone-text { font-size: .9rem; color: var(--gray); line-height: 1.6; }
+    .milestone-text strong { color: var(--dark); font-weight: 600; display: block; margin-bottom: 2px; }
+
+    /* ── VALUES ── */
+    #values { padding: 96px 24px; background: var(--off-white); }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .value-card {
+      background: var(--white); border-radius: var(--radius); padding: 36px 28px;
+      border: 1.5px solid var(--gray-light); transition: var(--transition);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .value-card::before { content:''; position:absolute; inset:0; opacity:0; transition: opacity var(--transition); }
+    .value-card.vc-blue::before   { background: linear-gradient(135deg, var(--blue-pale), white); }
+    .value-card.vc-green::before  { background: linear-gradient(135deg, var(--green-light), white); }
+    .value-card.vc-orange::before { background: linear-gradient(135deg, var(--orange-light), white); }
+    .value-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+    .value-card:hover::before { opacity: 1; }
+    .value-icon { width: 72px; height: 72px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px; position: relative; z-index: 1; }
+    .vi-blue   { background: var(--blue-pale); }
+    .vi-green  { background: var(--green-light); }
+    .vi-orange { background: var(--orange-light); }
+    .value-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; position: relative; z-index: 1; }
+    .value-card p  { font-size: .88rem; color: var(--gray); line-height: 1.75; position: relative; z-index: 1; }
+
+    /* ── TEAM ── */
+    #team { padding: 96px 24px; background: var(--white); }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+    .team-card {
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: var(--transition);
+      background: var(--white);
+    }
+    .team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .team-avatar {
+      height: 200px; position: relative; display: flex; align-items: center; justify-content: center;
+    }
+   
+    .ta-bg { position: absolute; inset: 0; }
+    .ta-blue   { background: linear-gradient(135deg, #1A4A8C, #2D6BC4); }
+    .ta-green  { background: linear-gradient(135deg, #2BA84A, #1A7C36); }
+    .ta-orange { background: linear-gradient(135deg, #F47C30, #C45B10); }
+    .ta-teal   { background: linear-gradient(135deg, #0D8C8C, #2BA84A); }
+
+    .ta-initials {
+      position: relative; z-index: 1;
+      width: 90px; height: 90px; border-radius: 50%;
+      background: rgba(255,255,255,0.18); border: 3px solid rgba(255,255,255,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: white;
+    }
+
+     .ta-initials img {
+    position: relative; z-index: 1;
+      width: 90px; height: 90px; border-radius: 50%;
+      background: rgba(255,255,255,0.18); border: 3px solid rgba(255,255,255,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;  color: white;
+}
+    .ta-badge {
+      position: absolute; bottom: 12px; right: 12px;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 8px;
+      padding: 4px 12px; font-size: .72rem; font-weight: 700; color: white;
+    }
+
+    .team-info { padding: 22px 24px; }
+    .team-info h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; }
+    .team-role { font-size: .82rem; color: var(--blue); font-weight: 600; margin-bottom: 10px; }
+    .team-info p { font-size: .86rem; color: var(--gray); line-height: 1.65; margin-bottom: 14px; }
+    .team-skills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .skill-tag { padding: 3px 10px; border-radius: 6px; background: var(--off-white); color: var(--gray); font-size: .72rem; font-weight: 600; border: 1px solid var(--gray-light); }
+
+    /* ── STATS ── */
+    #stats { padding: 80px 24px; background: linear-gradient(135deg, var(--dark) 0%, #1A2E4A 100%); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1000px; margin: 0 auto; }
+    .stat-block { text-align: center; }
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: white; line-height: 1; margin-bottom: 8px; }
+    .stat-number span { font-size: 1.8rem; color: var(--green); }
+    .stat-label { font-size: .85rem; color: rgba(255,255,255,0.6); font-weight: 500; line-height: 1.4; }
+    .stat-divider { width: 32px; height: 2px; background: linear-gradient(90deg, var(--blue-light), var(--green)); border-radius: 2px; margin: 12px auto 0; }
+
+    /* ── ENGAGEMENTS ── */
+    #engagements { padding: 96px 24px; background: var(--off-white); }
+    .eng-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .eng-list { display: flex; flex-direction: column; gap: 20px; }
+    .eng-item { display: flex; gap: 18px; align-items: flex-start; padding: 20px 22px; background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--gray-light); transition: var(--transition); }
+    .eng-item:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateX(4px); }
+    .eng-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .ei-blue   { background: var(--blue-pale); }
+    .ei-green  { background: var(--green-light); }
+    .ei-orange { background: var(--orange-light); }
+    .ei-purple { background: #F0E8FB; }
+    .eng-item h4 { font-size: .95rem; font-weight: 700; margin-bottom: 4px; }
+    .eng-item p  { font-size: .86rem; color: var(--gray); line-height: 1.65; }
+
+    .eng-visual {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 40%, var(--green) 100%);
+      border-radius: 20px; padding: 48px 40px; color: white; position: relative; overflow: hidden; text-align: center;
+    }
+    .eng-visual::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; background:rgba(255,255,255,0.07); border-radius:50%; }
+    .ev-emoji { font-size: 4rem; margin-bottom: 20px; display: block; }
+    .ev-quote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; line-height: 1.5; margin-bottom: 16px; position: relative; z-index: 1; }
+    .ev-author { font-size: .85rem; opacity: .75; position: relative; z-index: 1; }
+
+    /* ── CTA ── */
+    .cta-section { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 50%, var(--green) 100%); padding: 96px 24px; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content:''; position:absolute; top:-80px; left:-80px; width:300px; height:300px; border-radius:50%; background:rgba(255,255,255,0.05); }
+    .cta-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-inner h2 { color: white; font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 14px; }
+    .cta-inner p  { color: rgba(255,255,255,0.82); margin-bottom: 32px; font-size: .95rem; line-height: 1.8; }
+    .cta-actions  { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: white; color: var(--blue); font-weight: 700; padding: 13px 28px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: .9rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+    .btn-wa { background: #25D366; color: white; font-weight: 700; padding: 13px 28px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: .9rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 64px 24px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand p { font-size: .88rem; line-height: 1.8; margin-top: 14px; max-width: 280px; }
+    .footer-logo { color: white; display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+    .footer-col h4 { color: white; font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: .88rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+    .social-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: .95rem; transition: var(--transition); cursor: pointer; }
+    .social-icon:hover { background: var(--green); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; font-size: .82rem; flex-wrap: wrap; gap: 12px; }
+
+    /* ── WA FLOAT ── */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.45); cursor: pointer; transition: var(--transition); }
+    .wa-float:hover { transform: scale(1.12); }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* ── ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal-right { opacity: 0; transform: translateX(32px);  transition: opacity .6s ease, transform .6s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .story-grid, .eng-grid { grid-template-columns: 1fr; gap: 40px; }
+      .story-visual { order: -1; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .values-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .sf-1, .sf-2 { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/261327743094" target="_blank" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.37 0 0 5.373 0 11.998c0 2.117.554 4.1 1.523 5.817L.057 23.998l6.348-1.427A11.948 11.948 0 0011.99 24c6.623 0 12-5.373 12-11.998C23.99 5.373 18.613 0 11.99 0zm0 21.818a9.826 9.826 0 01-5.011-1.37l-.36-.214-3.73.838.869-3.638-.234-.374A9.808 9.808 0 012.18 12c0-5.414 4.404-9.818 9.81-9.818 5.408 0 9.813 4.404 9.813 9.818s-4.405 9.818-9.813 9.818z"/></svg>
+</a>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobileNav()">✕</button>
+  <a href="index.html"     onclick="closeMobileNav()" data-fr="Accueil"     data-en="Home">Accueil</a>
+  <a href="services.html"  onclick="closeMobileNav()" data-fr="Services"    data-en="Services">Services</a>
+  <a href="portfolio.html" onclick="closeMobileNav()" data-fr="Portfolio"   data-en="Portfolio">Portfolio</a>
+  <a href="apropos.html"   onclick="closeMobileNav()" data-fr="À propos"    data-en="About">À propos</a>
+  <a href="#"              onclick="closeMobileNav()" data-fr="FAQ"         data-en="FAQ">FAQ</a>
+  <a href="contact.html"   onclick="closeMobileNav()" data-fr="Contact"     data-en="Contact">Contact</a>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+      NexaWeb
+    </a>
+    <nav>
+      <a href="index.html"    data-fr="Accueil"    data-en="Home">Accueil</a>
+      <a href="services.html" data-fr="Services"   data-en="Services">Services</a>
+      <a href="portfolio.html"data-fr="Portfolio"  data-en="Portfolio">Portfolio</a>
+      <a href="apropos.html"  class="active" data-fr="À propos" data-en="About">À propos</a>
+      <a href="#"             data-fr="FAQ"        data-en="FAQ">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="active" onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('en')">EN</button>
+      </div>
+      <a href="contact.html" class="btn-primary" data-fr="Devis gratuit" data-en="Free quote">Devis gratuit</a>
+      <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="page-hero-inner">
+    <div class="page-tag">👋 <span data-fr="Notre histoire" data-en="Our story">Notre histoire</span></div>
+    <h1 data-fr="L'agence web qui place votre succès au cœur de tout" data-en="The web agency that puts your success at the heart of everything">L'agence web qui place votre succès au cœur de tout</h1>
+    <p data-fr="Née de la passion pour le digital et de la conviction que chaque entreprise mérite une présence en ligne professionnelle, NexaWeb Agency accompagne les entrepreneurs malgaches vers le succès numérique." data-en="Born from a passion for digital and the conviction that every business deserves a professional online presence, NexaWeb Agency guides Malagasy entrepreneurs toward digital success.">Née de la passion pour le digital et de la conviction que chaque entreprise mérite une présence en ligne professionnelle, NexaWeb Agency accompagne les entrepreneurs malgaches vers le succès numérique.</p>
+  </div>
+</div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="section-inner">
+    <div class="story-grid">
+      <div class="story-visual reveal-left">
+        <div class="story-main-card">
+          <div class="story-year">2021</div>
+          <h3 data-fr="Notre fondation" data-en="Our foundation">Notre fondation</h3>
+          <p data-fr="NexaWeb Agency est née d'une vision simple : rendre le web professionnel accessible à tous les entrepreneurs malgaches, quels que soient leur secteur ou leur budget." data-en="NexaWeb Agency was born from a simple vision: make professional web accessible to all Malagasy entrepreneurs, regardless of their sector or budget.">NexaWeb Agency est née d'une vision simple : rendre le web professionnel accessible à tous les entrepreneurs malgaches, quels que soient leur secteur ou leur budget.</p>
+        </div>
+        <div class="story-float sf-1">
+          <div class="sf-icon">🇲🇬</div>
+          <div>
+            <div class="sf-text" data-fr="Made in Madagascar" data-en="Made in Madagascar">Made in Madagascar</div>
+            <div class="sf-sub"  data-fr="Fier d'être local" data-en="Proud to be local">Fier d'être local</div>
+          </div>
+        </div>
+        <div class="story-float sf-2">
+          <div class="sf-icon">🏆</div>
+          <div>
+            <div class="sf-text" data-fr="50+ projets" data-en="50+ projects">50+ projets</div>
+            <div class="sf-sub"  data-fr="Livrés avec succès" data-en="Successfully delivered">Livrés avec succès</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-content reveal-right">
+        <div class="section-tag" data-fr="Notre histoire" data-en="Our story">Notre histoire</div>
+        <h2 class="section-title" data-fr="De la passion à l'expertise" data-en="From passion to expertise">De la passion à l'expertise</h2>
+        <p data-fr="Tout a commencé avec une observation simple : <strong>trop d'entreprises malgaches n'avaient pas accès à des solutions web professionnelles</strong>, soit par manque d'information, soit par crainte des coûts. NexaWeb Agency a été créée pour changer cette réalité." data-en="It all started with a simple observation: <strong>too many Malagasy businesses didn't have access to professional web solutions</strong>, either from lack of information or fear of costs. NexaWeb Agency was created to change that reality.">Tout a commencé avec une observation simple : <strong>trop d'entreprises malgaches n'avaient pas accès à des solutions web professionnelles</strong>, soit par manque d'information, soit par crainte des coûts. NexaWeb Agency a été créée pour changer cette réalité.</p>
+        <p data-fr="Aujourd'hui, nous sommes fiers d'avoir accompagné plus de <strong>50 entrepreneurs</strong> — boutiquiers, hôteliers, médecins, restaurateurs — dans la construction de leur présence numérique. Chaque projet est traité avec la même passion et le même souci du détail." data-en="Today, we're proud to have supported more than <strong>50 entrepreneurs</strong> — shop owners, hoteliers, doctors, restaurateurs — in building their digital presence. Every project is handled with the same passion and attention to detail.">Aujourd'hui, nous sommes fiers d'avoir accompagné plus de <strong>50 entrepreneurs</strong> dans la construction de leur présence numérique. Chaque projet est traité avec la même passion et le même souci du détail.</p>
+
+        <div class="story-milestones">
+          <div class="milestone">
+            <div class="milestone-year">2021</div>
+            <div class="milestone-text">
+              <strong data-fr="Fondation de NexaWeb Agency" data-en="NexaWeb Agency founded">Fondation de NexaWeb Agency</strong>
+              <span data-fr="Premiers projets locaux, premières réussites." data-en="First local projects, first successes.">Premiers projets locaux, premières réussites.</span>
+            </div>
+          </div>
+          <div class="milestone">
+            <div class="milestone-year">2022</div>
+            <div class="milestone-text">
+              <strong data-fr="20 projets livrés" data-en="20 projects delivered">20 projets livrés</strong>
+              <span data-fr="Expansion des services : e-commerce et SEO ajoutés au catalogue." data-en="Service expansion: e-commerce and SEO added to the catalog.">Expansion des services : e-commerce et SEO ajoutés.</span>
+            </div>
+          </div>
+          <div class="milestone">
+            <div class="milestone-year">2023</div>
+            <div class="milestone-text">
+              <strong data-fr="Site bilingue & nouveaux marchés" data-en="Bilingual site & new markets">Site bilingue & nouveaux marchés</strong>
+              <span data-fr="Ouverture à la clientèle internationale francophone et anglophone." data-en="Opening to international French and English-speaking clients.">Ouverture à la clientèle internationale.</span>
+            </div>
+          </div>
+          <div class="milestone">
+            <div class="milestone-year">2024</div>
+            <div class="milestone-text">
+              <strong data-fr="50+ projets & équipe renforcée" data-en="50+ projects & expanded team">50+ projets & équipe renforcée</strong>
+              <span data-fr="Cap des 50 projets dépassé, recrutement de nouveaux talents." data-en="50 projects milestone exceeded, recruitment of new talent.">Cap des 50 projets dépassé, recrutement de nouveaux talents.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom: 56px;">
+      <div class="section-tag" style="justify-content:center" data-fr="Ce qui nous guide" data-en="What guides us">Ce qui nous guide</div>
+      <h2 class="section-title reveal" data-fr="Nos valeurs fondamentales" data-en="Our core values">Nos valeurs fondamentales</h2>
+      <p class="section-sub reveal" style="margin: 0 auto" data-fr="Ces valeurs ne sont pas des mots sur un mur. Elles guident chacune de nos décisions et chacun de nos projets." data-en="These values aren't just words on a wall. They guide every decision and every project we undertake.">Ces valeurs ne sont pas des mots sur un mur. Elles guident chacune de nos décisions et chacun de nos projets.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card vc-blue reveal">
+        <div class="value-icon vi-blue">🔍</div>
+        <h3 data-fr="Transparence totale" data-en="Total transparency">Transparence totale</h3>
+        <p data-fr="Zéro surprise sur les tarifs, les délais ou les services inclus. Vous savez exactement ce que vous obtenez avant de signer. Notre devis est notre engagement." data-en="Zero surprises on pricing, timelines or included services. You know exactly what you get before signing. Our quote is our commitment.">Zéro surprise sur les tarifs, les délais ou les services inclus. Vous savez exactement ce que vous obtenez avant de signer.</p>
+      </div>
+      <div class="value-card vc-green reveal" style="transition-delay:.1s">
+        <div class="value-icon vi-green">🤝</div>
+        <h3 data-fr="Partenariat durable" data-en="Lasting partnership">Partenariat durable</h3>
+        <p data-fr="Nous ne livrons pas un site et disparaissons. Nous construisons une relation sur le long terme, disponibles pour répondre à vos questions et faire évoluer votre site." data-en="We don't just deliver a site and disappear. We build a long-term relationship, available to answer your questions and evolve your site.">Nous ne livrons pas un site et disparaissons. Nous construisons une relation sur le long terme.</p>
+      </div>
+      <div class="value-card vc-orange reveal" style="transition-delay:.2s">
+        <div class="value-icon vi-orange">⭐</div>
+        <h3 data-fr="Excellence locale" data-en="Local excellence">Excellence locale</h3>
+        <p data-fr="Des standards internationaux avec une connaissance profonde du marché malgache. Nous créons des sites qui parlent à votre audience locale tout en étant compétitifs à l'international." data-en="International standards with a deep knowledge of the Malagasy market. We create sites that speak to your local audience while being internationally competitive.">Des standards internationaux avec une connaissance profonde du marché malgache.</p>
+      </div>
+      <div class="value-card vc-blue reveal" style="transition-delay:.3s">
+        <div class="value-icon vi-blue">💡</div>
+        <h3 data-fr="Innovation continue" data-en="Continuous innovation">Innovation continue</h3>
+        <p data-fr="Le web évolue vite. Nous nous formons constamment pour vous proposer les meilleures technologies et tendances, adaptées à votre contexte et à votre budget." data-en="The web evolves fast. We constantly train to offer you the best technologies and trends, adapted to your context and budget.">Le web évolue vite. Nous nous formons constamment pour vous proposer les meilleures solutions.</p>
+      </div>
+      <div class="value-card vc-green reveal" style="transition-delay:.4s">
+        <div class="value-icon vi-green">🚀</div>
+        <h3 data-fr="Résultats mesurables" data-en="Measurable results">Résultats mesurables</h3>
+        <p data-fr="Un beau site c'est bien, un site qui génère des résultats c'est mieux. Nous mesurons l'impact de notre travail : trafic, contacts, ventes — et nous vous en rendons compte." data-en="A beautiful site is good, a site that generates results is better. We measure the impact of our work: traffic, contacts, sales — and we report back to you.">Un beau site c'est bien, un site qui génère des résultats c'est mieux.</p>
+      </div>
+      <div class="value-card vc-orange reveal" style="transition-delay:.5s">
+        <div class="value-icon vi-orange">❤️</div>
+        <h3 data-fr="Passion du métier" data-en="Passion for the craft">Passion du métier</h3>
+        <p data-fr="Chaque pixel, chaque ligne de code, chaque contenu est pensé avec soin. Nous aimons ce que nous faisons et ça se voit dans la qualité de nos livrables." data-en="Every pixel, every line of code, every piece of content is crafted with care. We love what we do and it shows in the quality of our deliverables.">Chaque pixel, chaque ligne de code est pensé avec soin. Nous aimons ce que nous faisons.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom: 56px;">
+      <div class="section-tag" style="justify-content:center" data-fr="Les visages de NexaWeb" data-en="The faces of NexaWeb">Les visages de NexaWeb</div>
+      <h2 class="section-title reveal" data-fr="Notre équipe passionnée" data-en="Our passionate team">Notre équipe passionnée</h2>
+      <p class="section-sub reveal" style="margin: 0 auto" data-fr="Des experts dévoués qui travaillent chaque jour pour faire de votre projet un succès." data-en="Dedicated experts who work every day to make your project a success.">Des experts dévoués qui travaillent chaque jour pour faire de votre projet un succès.</p>
+    </div>
+    <div class="team-grid">
+
+      <div class="team-card reveal">
+        <div class="team-avatar">
+          <div class="ta-bg ta-blue">
+            
+          </div>
+          <div class="ta-initials"><img src="DG.jpg" alt="ta-initials"></div>
+          <span class="ta-badge" data-fr="Fondateur" data-en="Founder">Fondateur</span>
+        </div>
+        <div class="team-info">
+          <h3>Fenosoa Randriamparany</h3>
+          <div class="team-role" data-fr="Directeur & Développeur principal" data-en="Director & Lead Developer">Directeur & Développeur principal</div>
+          <p data-fr="Passionné de web depuis 2015, Feno a fondé NexaWeb Agency pour rendre le digital accessible à tous les entrepreneurs malgaches." data-en="Passionate about the web since 2015, Feno founded NexaWeb Agency to make digital accessible to all Malagasy entrepreneurs.">Passionné de web depuis 2015, Feno a fondé NexaWeb Agency pour rendre le digital accessible à tous les entrepreneurs malgaches.</p>
+          <div class="team-skills">
+            <span class="skill-tag">WordPress</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">SEO</span>
+            <span class="skill-tag">Strategy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card reveal" style="transition-delay:.1s">
+        <div class="team-avatar">
+          <div class="ta-bg ta-green"></div>
+          <div class="ta-initials">SR</div>
+          <span class="ta-badge" data-fr="Design" data-en="Design">Design</span>
+        </div>
+        <div class="team-info">
+          <h3>Sahondra Rakoto</h3>
+          <div class="team-role" data-fr="Designer UX/UI & Creative Director" data-en="UX/UI Designer & Creative Director">Designer UX/UI & Creative Director</div>
+          <p data-fr="Sahondra transforme vos idées en interfaces élégantes et intuitives. Son sens du détail et de l'esthétique garantit des designs qui marquent les esprits." data-en="Sahondra transforms your ideas into elegant, intuitive interfaces. Her eye for detail and aesthetics guarantees designs that leave lasting impressions.">Sahondra transforme vos idées en interfaces élégantes et intuitives. Son sens du détail garantit des designs qui marquent les esprits.</p>
+          <div class="team-skills">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">UI/UX</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">Branding</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card reveal" style="transition-delay:.2s">
+        <div class="team-avatar">
+          <div class="ta-bg ta-orange"></div>
+          <div class="ta-initials">TR</div>
+          <span class="ta-badge" data-fr="SEO & Marketing" data-en="SEO & Marketing">SEO & Marketing</span>
+        </div>
+        <div class="team-info">
+          <h3>Toky Rasolofo</h3>
+          <div class="team-role" data-fr="Expert SEO & Stratégie digitale" data-en="SEO Expert & Digital Strategy">Expert SEO & Stratégie digitale</div>
+          <p data-fr="Toky maîtrise les secrets de Google. Grâce à ses stratégies SEO, les sites de nos clients grimpent dans les résultats et attirent des visiteurs qualifiés en continu." data-en="Toky knows Google's secrets. Through his SEO strategies, our clients' sites climb the rankings and attract qualified visitors continuously.">Toky maîtrise les secrets de Google. Ses stratégies SEO font grimper nos clients dans les résultats de recherche.</p>
+          <div class="team-skills">
+            <span class="skill-tag">SEO</span>
+            <span class="skill-tag">Analytics</span>
+            <span class="skill-tag">Content</span>
+            <span class="skill-tag">Ads</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-block reveal">
+      <div class="stat-number">50<span>+</span></div>
+      <div class="stat-label" data-fr="Projets livrés avec succès" data-en="Projects successfully delivered">Projets livrés avec succès</div>
+      <div class="stat-divider"></div>
+    </div>
+    <div class="stat-block reveal" style="transition-delay:.1s">
+      <div class="stat-number">98<span>%</span></div>
+      <div class="stat-label" data-fr="Clients satisfaits de notre travail" data-en="Clients satisfied with our work">Clients satisfaits de notre travail</div>
+      <div class="stat-divider"></div>
+    </div>
+    <div class="stat-block reveal" style="transition-delay:.2s">
+      <div class="stat-number">3<span>+</span></div>
+      <div class="stat-label" data-fr="Années d'expérience à Madagascar" data-en="Years of experience in Madagascar">Années d'expérience à Madagascar</div>
+      <div class="stat-divider"></div>
+    </div>
+    <div class="stat-block reveal" style="transition-delay:.3s">
+      <div class="stat-number">24<span>h</span></div>
+      <div class="stat-label" data-fr="Délai de réponse garanti à toute demande" data-en="Guaranteed response time to any request">Délai de réponse garanti</div>
+      <div class="stat-divider"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENTS -->
+<section id="engagements">
+  <div class="section-inner">
+    <div class="eng-grid">
+      <div>
+        <div class="section-tag" data-fr="Nos engagements" data-en="Our commitments">Nos engagements</div>
+        <h2 class="section-title" data-fr="Ce que vous pouvez attendre de nous" data-en="What you can expect from us">Ce que vous pouvez attendre de nous</h2>
+        <p class="section-sub" data-fr="Des promesses concrètes que nous tenons à chaque projet, sans exception." data-en="Concrete promises we keep on every project, without exception.">Des promesses concrètes que nous tenons à chaque projet, sans exception.</p>
+
+        <div class="eng-list">
+          <div class="eng-item reveal">
+            <div class="eng-icon ei-blue">📋</div>
+            <div>
+              <h4 data-fr="Devis détaillé sous 24h" data-en="Detailed quote within 24h">Devis détaillé sous 24h</h4>
+              <p data-fr="Après notre échange initial, vous recevez un devis complet et transparent sans frais cachés." data-en="After our initial exchange, you receive a complete and transparent quote with no hidden fees.">Après notre échange initial, vous recevez un devis complet et transparent sans frais cachés.</p>
+            </div>
+          </div>
+          <div class="eng-item reveal" style="transition-delay:.1s">
+            <div class="eng-icon ei-green">✅</div>
+            <div>
+              <h4 data-fr="Respect des délais garantis" data-en="Guaranteed deadline compliance">Respect des délais garantis</h4>
+              <p data-fr="Le calendrier établi est tenu. Si un imprévu survient, vous êtes informé immédiatement." data-en="The established schedule is followed. If something unexpected occurs, you're informed immediately.">Le calendrier établi est tenu. Si un imprévu survient, vous êtes informé immédiatement.</p>
+            </div>
+          </div>
+          <div class="eng-item reveal" style="transition-delay:.2s">
+            <div class="eng-icon ei-orange">🔄</div>
+            <div>
+              <h4 data-fr="Révisions illimitées avant livraison" data-en="Unlimited revisions before delivery">Révisions illimitées avant livraison</h4>
+              <p data-fr="Votre satisfaction est notre priorité. Nous retravaillons jusqu'à ce que vous soyez pleinement satisfait." data-en="Your satisfaction is our priority. We rework until you're fully satisfied.">Votre satisfaction est notre priorité. Nous retravaillons jusqu'à ce que vous soyez pleinement satisfait.</p>
+            </div>
+          </div>
+          <div class="eng-item reveal" style="transition-delay:.3s">
+            <div class="eng-icon ei-purple">🛡️</div>
+            <div>
+              <h4 data-fr="Support post-livraison inclus" data-en="Post-delivery support included">Support post-livraison inclus</h4>
+              <p data-fr="Après la mise en ligne, nous restons disponibles pour toute question ou ajustement nécessaire." data-en="After launch, we remain available for any questions or necessary adjustments.">Après la mise en ligne, nous restons disponibles pour toute question ou ajustement.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="eng-visual reveal-right">
+        <span class="ev-emoji">💬</span>
+        <div class="ev-quote" data-fr="&laquo; Votre succès en ligne commence ici. Avec NexaWeb Agency, voilà la qualité et la transparence au service de votre visibilité. &raquo;" data-en="&laquo; Your online success starts here. With NexaWeb Agency, quality and transparency serving your visibility. &raquo;">&laquo; Votre succès en ligne commence ici. Avec NexaWeb Agency, voilà la qualité et la transparence au service de votre visibilité. &raquo;</div>
+        <div class="ev-author" data-fr="— L'équipe NexaWeb Agency" data-en="— The NexaWeb Agency team">— L'équipe NexaWeb Agency</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2 data-fr="Prêt à travailler avec nous ?" data-en="Ready to work with us?">Prêt à travailler avec nous ?</h2>
+    <p data-fr="Contactez-nous dès aujourd'hui pour discuter de votre projet. Nous serons ravis de vous accompagner." data-en="Contact us today to discuss your project. We'll be delighted to support you.">Contactez-nous dès aujourd'hui pour discuter de votre projet. Nous serons ravis de vous accompagner.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn-white">✉️ <span data-fr="Envoyer un email" data-en="Send an email">Envoyer un email</span></a>
+      <a href="https://wa.me/261327743094" target="_blank" class="btn-wa">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z"/></svg></div>
+          NexaWeb Agency
+        </div>
+        <p data-fr="Votre partenaire pour une présence en ligne professionnelle à Madagascar." data-en="Your partner for a professional online presence in Madagascar.">Votre partenaire pour une présence en ligne professionnelle à Madagascar.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/profile.php?id=61579980088577" class="social-icon">📘</a>
+          <a href="https://wa.me/261327743094" class="social-icon">💬</a>
+          <a href="contact.html" class="social-icon" title="Email">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Services" data-en="Services">Services</h4>
+        <ul>
+          <li><a href="services.html" data-fr="Site vitrine"  data-en="Showcase site">Site vitrine</a></li>
+          <li><a href="services.html" data-fr="E-commerce"    data-en="E-commerce">E-commerce</a></li>
+          <li><a href="services.html" data-fr="Sur mesure"    data-en="Custom site">Sur mesure</a></li>
+          <li><a href="services.html" data-fr="Maintenance"   data-en="Maintenance">Maintenance</a></li>
+          <li><a href="services.html" data-fr="SEO"           data-en="SEO">SEO</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Navigation" data-en="Navigation">Navigation</h4>
+        <ul>
+          <li><a href="index.html"    data-fr="Accueil"   data-en="Home">Accueil</a></li>
+          <li><a href="services.html" data-fr="Services" data-en="Services">Services</a></li>
+          <li><a href="portfolio.html" data-fr="Portfolio" data-en="Portfolio">Portfolio</a></li>
+          <li><a href="#apropos" data-fr="À propos" data-en="About">À propos</a></li>
+          <li><a href="blog.html" data-fr="Blog" data-en="Blog">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+        <ul>
+          <li><a href="tel:+261327743094">+261 32 77 430 94</a></li>
+          <li><a href="contact.html">agencynexaweb@gmail.com</a></li>
+          <li><a href="https://wa.me/261327743094">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-fr="© 2025 NexaWeb Agency. Tous droits réservés." data-en="© 2025 NexaWeb Agency. All rights reserved.">© 2025 NexaWeb Agency. Tous droits réservés.</span>
+      <span data-fr="Fait avec ❤️ à Madagascar" data-en="Made with ❤️ in Madagascar">Fait avec ❤️ à Madagascar</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── LANG ──
+  function setLang(lang) {
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en;
+    });
+    document.querySelectorAll('.lang-toggle button').forEach((btn, i) => {
+      btn.classList.toggle('active', (i === 0 && lang === 'fr') || (i === 1 && lang === 'en'));
+    });
+  }
+
+  // ── HEADER ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── MOBILE NAV ──
+  function openMobileNav()  { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
